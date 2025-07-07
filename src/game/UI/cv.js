@@ -49,8 +49,22 @@ export default class CV extends InteractiveContainer {
         this.setVisible(false);
 
         this.on("pointerdown", () => {
+            // TRACKER EVENT
+            this.scene.gameManager.sendInteractItem("hideCV", false)
+
             this.activate(false);
         });
+
+        this.scene.dispatcher.add("checkCV", this, () => {
+            // TRACKER EVENT
+            this.scene.gameManager.sendInteractItem("checkCV", false)
+
+            this.activate(true);
+        });
+        this.scene.dispatcher.add("updateCV", this, () => {
+            this.updateInfo();
+        });
+
     }
 
 
@@ -241,7 +255,7 @@ export default class CV extends InteractiveContainer {
         this.add(this.data4Description);
     }
 
-    
+    // TODO: no se usa????
     updateInfo(programming = true) {
         let text = this.translate("educationReviewed");
         this.education.setText(text);

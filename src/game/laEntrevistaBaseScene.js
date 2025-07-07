@@ -67,7 +67,7 @@ export default class LaEntrevistaBaseScene extends BaseScene {
 
             character.once("targetReached", () => {
                 // Se incrementa el contador global de personajes con los que se ha interactuado
-                this.gameManager.increaseInteractedCharacters();
+                this.gameManager.increaseCharactersInteracted();
 
                 // Se elimina el personaje
                 this.interactableObjects.delete(character);

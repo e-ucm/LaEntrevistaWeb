@@ -14,7 +14,6 @@
             ]
         }
     },
-
     "search": {
         "root": {
             "type": "text",
@@ -23,8 +22,10 @@
         },
         "checkEducation": {
             "type": "choice",
-            "choices":[
-                { "next": "checkCV1" }
+            "choices": [
+                {
+                    "next": "checkCV1"
+                }
             ]
         },
         "checkCV1": {
@@ -36,10 +37,18 @@
             ],
             "next": "educationComplete"
         },
-        
         "educationComplete": {
             "type": "text",
             "character": "player",
+            "next": "startLanguagesTopic"
+        },
+        "startLanguagesTopic": {
+            "type": "event",
+            "events": [
+                {
+                    "name": "changeTopic"
+                }
+            ],
             "next": "restartPoint"
         },
         "restartPoint": {
@@ -49,11 +58,19 @@
         },
         "checkLanguages": {
             "type": "choice",
-            "choices":[
-                { "next": "checkCV2" },
-                { "next": "wrongAnswer1" },
-                { "next": "languagesComplete" },
-                { "next": "wrongAnswer1" }
+            "choices": [
+                {
+                    "next": "checkCV2"
+                },
+                {
+                    "next": "wrongAnswer1"
+                },
+                {
+                    "next": "startSkillsTopic"
+                },
+                {
+                    "next": "wrongAnswer1"
+                }
             ]
         },
         "checkCV2": {
@@ -72,9 +89,17 @@
                     "name": "wrongAnswer"
                 }
             ],
+            "next": "startSkillsTopic"
+        },
+        "startSkillsTopic": {
+            "type": "event",
+            "events": [
+                {
+                    "name": "changeTopic"
+                }
+            ],
             "next": "languagesComplete"
         },
-        
         "languagesComplete": {
             "type": "text",
             "character": "player",
@@ -82,11 +107,19 @@
         },
         "checkSkills": {
             "type": "choice",
-            "choices":[
-                { "next": "checkCV3" },
-                { "next": "wrongAnswer2" },
-                { "next": "wrongAnswer2" },
-                { "next": "skillsComplete" }
+            "choices": [
+                {
+                    "next": "checkCV3"
+                },
+                {
+                    "next": "wrongAnswer2"
+                },
+                {
+                    "next": "wrongAnswer2"
+                },
+                {
+                    "next": "startSkills2Topic"
+                }
             ]
         },
         "checkCV3": {
@@ -105,9 +138,17 @@
                     "name": "wrongAnswer"
                 }
             ],
+            "next": "startSkills2Topic"
+        },
+        "startSkills2Topic": {
+            "type": "event",
+            "events": [
+                {
+                    "name": "changeTopic"
+                }
+            ],
             "next": "skillsComplete"
         },
-
         "skillsComplete": {
             "type": "text",
             "character": "player",
@@ -115,11 +156,19 @@
         },
         "checkSkills2": {
             "type": "choice",
-            "choices":[
-                { "next": "checkCV4" },
-                { "next": "wrongAnswer3" },
-                { "next": "skills2Complete" },
-                { "next": "wrongAnswer3" }
+            "choices": [
+                {
+                    "next": "checkCV4"
+                },
+                {
+                    "next": "wrongAnswer3"
+                },
+                {
+                    "next": "startAvailabilityTopic"
+                },
+                {
+                    "next": "wrongAnswer3"
+                }
             ]
         },
         "checkCV4": {
@@ -138,9 +187,17 @@
                     "name": "wrongAnswer"
                 }
             ],
+            "next": "startAvailabilityTopic"
+        },
+        "startAvailabilityTopic": {
+            "type": "event",
+            "events": [
+                {
+                    "name": "changeTopic"
+                }
+            ],
             "next": "skills2Complete"
         },
-        
         "skills2Complete": {
             "type": "text",
             "character": "player",
@@ -148,11 +205,19 @@
         },
         "checkAvailability": {
             "type": "choice",
-            "choices":[
-                { "next": "checkCV5" },
-                { "next": "checkErrors" },
-                { "next": "wrongAnswer4" },
-                { "next": "wrongAnswer4" }
+            "choices": [
+                {
+                    "next": "checkCV5"
+                },
+                {
+                    "next": "checkErrors"
+                },
+                {
+                    "next": "wrongAnswer4"
+                },
+                {
+                    "next": "wrongAnswer4"
+                }
             ]
         },
         "checkCV5": {
@@ -173,9 +238,8 @@
             ],
             "next": "checkErrors"
         },
-
         "checkErrors": {
-            "type": "condition", 
+            "type": "condition",
             "conditions": [
                 {
                     "next": "offersFound",
@@ -187,11 +251,10 @@
                     }
                 },
                 {
-                    "next": "noOffers"
+                    "next": "noOffersFound"
                 }
             ]
         },
-
         "offersFound": {
             "type": "event",
             "events": [
@@ -205,7 +268,15 @@
             "type": "text",
             "character": "player"
         },
-
+        "noOffersFound": {
+            "type": "event",
+            "events": [
+                {
+                    "name": "noOffersFound"
+                }
+            ],
+            "next": "noOffers"
+        },
         "noOffers": {
             "type": "text",
             "character": "player",
@@ -221,10 +292,9 @@
                     "value": 0
                 }
             ],
-            "next": "restartPoint"
+            "next": "startLanguagesTopic"
         }
     },
-
     "selectOffer": {
         "root": {
             "type": "text",
@@ -233,9 +303,11 @@
         },
         "askConfirmation": {
             "type": "choice",
-            "choices":[
-                { "next": "confirm" },
-                {  }
+            "choices": [
+                {
+                    "next": "confirm"
+                },
+                {}
             ]
         },
         "confirm": {

@@ -3,6 +3,10 @@ import Singleton from "../../framework/utils/singleton.js";
 import SceneManager from "../../framework/managers/sceneManager.js";
 import EventDispatcher from "../../framework/managers/eventDispatcher.js";
 
+import { getDifferenceTimeInS } from "../../framework/utils/misc.js";
+import { GameStage } from "../gameStage.js";
+import xApiTracker from "../../lib/xApiTracker.js";
+
 export default class GameManager extends Singleton {
     constructor() {
         super("GameManager");
@@ -15,26 +19,36 @@ export default class GameManager extends Singleton {
 
         this.ui = null;
 
-        this.nInteractedCharacters = 0;
-        this.N_REQUIRED_INTERACTIONS = 8;
+        this.charactersInteracted = new GameStage("charactersInteracted", 8);
 
-        this.nQuestionsCompleted = 0;
-        this.N_REQUIRED_QUESTIONS = 9;
+        this.questionsCompleted = new GameStage("endQuestions", 9);
 
         this.gameCompleted = false;
+        this.nGameStages = 0;
+        this.N_REQUIRED_GAME_STAGES = 4;
+        this.gameTitle = "LaEntrevistaWeb";
+        this.startTime = null;
+
     }
 
     init() {
-        this.startLanguageMenu();
+        // Hay que setearlo antes del menu para poder visualizar las preguntas desde el mismo correctamente
+        this.blackboard.set("position", "dataScience");
 
+        this.startLanguageMenu();
+        // this.startMirrorScene(false);
         // TEST
         // this.startGame();
         // this.startMainMenu();
     }
 
     startGame() {
-        this.nInteractedCharacters = 0;
-        this.nQuestionsCompleted = 0;
+        // TRACKER EVENT
+        this.sendInitializeGame();
+
+        this.nGameStages = 0;
+        this.charactersInteracted.reset();
+        this.questionsCompleted.reset();
 
         this.blackboard.clear();
         this.dispatcher.removeAll();
@@ -43,8 +57,6 @@ export default class GameManager extends Singleton {
             this.ui.shutdown();
             this.sceneManager.restartScene("UI");
         }
-
-        // this.blackboard.set("position", "dataScience");
 
         this.startHouseScene();
 
@@ -66,7 +78,7 @@ export default class GameManager extends Singleton {
             this.sceneManager.runInParalell("UI");
             this.ui = this.sceneManager.getScene("UI");
         }
-        
+
         this.sceneManager.changeScene("MainMenu", null, fadeAnim);
     }
 
@@ -94,19 +106,31 @@ export default class GameManager extends Singleton {
         this.sceneManager.changeScene("Office", null, true, true);
     }
 
-    startMirrorScene(skip = false) {
+    startMirrorScene(fromMenu, skip = false) {
         if (skip) {
-            this.nQuestionsCompleted = 0;
+            this.questionsCompleted.reset();
         }
-        this.sceneManager.changeScene("Mirror", {skip : skip}, true, false);
-        if (this.nQuestionsCompleted >= this.N_REQUIRED_QUESTIONS) {
+        this.sceneManager.changeScene("Mirror", { fromMenu: fromMenu, skip: skip }, true, false);
+        if (this.questionsCompleted.hasCompleted()) {
             this.dispatcher.dispatch("allQuestionsComplete");
-            this.gameCompleted = true;
+
+            // TRACKER EVENT
+            this.questionsCompleted.complete(true, true);
+
+            if (!fromMenu) {
+                // TRACKER EVENT
+                this.gameManager.increaseGameProgress();
+
+                this.gameCompleted = true;
+
+                // TRACKER EVENT
+                this.sendCompleteGame();
+            }
         }
     }
 
-    startQuestionScene(number) {
-        this.sceneManager.changeScene("Question" + number, { number: number }, true, true);
+    startQuestionScene(fromMenu, number) {
+        this.sceneManager.changeScene("Question" + number, { fromMenu: fromMenu, number: number }, true, true);
     }
 
     startCreditsScene(fadeAnim = true) {
@@ -120,10 +144,48 @@ export default class GameManager extends Singleton {
     /**
     * Incrementar el numero de personajes con los que se ha hablado
     */
-    increaseInteractedCharacters() {
-        ++this.nInteractedCharacters;
-        if (this.nInteractedCharacters >= this.N_REQUIRED_INTERACTIONS) {
+    increaseCharactersInteracted() {
+        // TRACKER EVENT
+        this.charactersInteracted.progress();
+
+        if (this.charactersInteracted.hasCompleted()) {
             this.dispatcher.dispatch("allPeopleInteracted");
+
+            // TRACKER EVENT
+            this.charactersInteracted.complete(true, true);
         }
+    }
+
+    async sendInitializeGame() {
+        this.startTime = new Date();
+        await xApiTracker.completableTracker.Initialized(this.gameTitle, JSTracker.COMPLETABLETYPE.GAME);
+        await xApiTracker.sendBatch();
+    }
+
+    async increaseGameProgress() {
+        ++this.nGameStages;
+
+        let progress = this.nGameStages / this.N_REQUIRED_GAME_STAGES;
+        let duration = getDifferenceTimeInS(this.startTime);
+        await xApiTracker.completableTracker.Progressed(this.gameTitle, JSTracker.COMPLETABLETYPE.GAME, progress)
+            .withProgress(progress)
+            .withDuration(duration);
+        await xApiTracker.sendBatch();
+    }
+
+    async sendCompleteGame() {
+        let duration = getDifferenceTimeInS(this.startTime);
+        await xapiTracker.completableTracker.Completed(this.gameTitle, JSTracker.COMPLETABLETYPE.GAME, this.gameCompleted, this.gameCompleted)
+            .withDuration(duration);
+        await xApiTracker.sendBatch();
+    }
+
+    sendInteractItem(id, npc = false, extensions = {}) {
+        let type = JSTracker.GAMEOBJECTTYPE.ITEM;
+        if (npc) {
+            type = JSTracker.GAMEOBJECTTYPE.NPC;
+        }
+        xApiTracker.gameObjectTracker.Interacted(id, type)
+            .apply(statement => statement.addResultExtensions(extensions));
     }
 }

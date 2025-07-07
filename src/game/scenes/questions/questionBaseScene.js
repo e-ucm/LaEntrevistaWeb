@@ -13,13 +13,13 @@ export default class QuestionBaseScene extends LaEntrevistaBaseScene {
         this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "question" + params.number);
 
         this.dispatcher.add("endQuestion", this, () => {
-            this.gameManager.startMirrorScene();
+            this.gameManager.startMirrorScene(params.fromMenu);
         });
     }
 
     onCreate() {
         setTimeout(() => {
-            this.dialogManager.setNode(this.node);    
+            this.dialogManager.setNode(this.node);
         }, 200);
     }
 }

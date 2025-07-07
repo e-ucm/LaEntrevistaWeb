@@ -3,6 +3,7 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import TextArea from "../../framework/UI/textArea.js";
 import TextButton from "../../framework/UI/textButton.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
+import xApiTracker from "../../lib/xApiTracker.js";
 
 export default class MainMenu extends LaEntrevistaBaseScene {
     /**
@@ -86,7 +87,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
 
             anim.on("complete", () => {
                 setTimeout(() => {
-                    this.gameManager.startHouseScene();
+                    this.gameManager.startGame();
                 }, 500);
             });
             // playButton.activate(false);
@@ -109,12 +110,16 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         });
 
         questionsButton.on("pointerdown", () => {
+            // TRACKER EVENT
+            xApiTracker.gameObjectTracker.Interacted("endQuestionsButton", JSTracker.GAMEOBJECTTYPE.ITEM)
+                .withResultExtension("gameCompleted", this.gameManager.gameCompleted);
+
             if (!this.gameManager.gameCompleted) {
                 popup.activate(true);
             }
             else {
                 this.makeInactive();
-                this.gameManager.startMirrorScene(true);
+                this.gameManager.startMirrorScene(true, true);
             }
         });
     }
@@ -161,7 +166,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let warningTitleY = textRect.y - textRect.displayHeight / 2 + this.TEXT_MARGIN * 1.5;
         let warningTitleMaxWidth = textRect.displayWidth - this.TEXT_MARGIN * 2;
         let warningTitleMaxHeight = textRect.displayHeight * 0.15;
-        let warningTitleText = new TextArea(this, textRect.x, warningTitleY, warningTitleMaxWidth, warningTitleMaxHeight, 
+        let warningTitleText = new TextArea(this, textRect.x, warningTitleY, warningTitleMaxWidth, warningTitleMaxHeight,
             this.localizationManager.translate("questionsWarningTitle", namespace), this.TEXT_CONFIG, this.sys.game.debug.enable);
         warningTitleText.setOrigin(0.5, 0);
         warningTitleText.adjustFontSize();
@@ -176,7 +181,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let warningTextY = warningTitleY + warningTitleMaxHeight + this.TEXT_MARGIN / 2;
         let warningTextMaxWidth = textRect.displayWidth - this.TEXT_MARGIN;
         let warningTextMaxHeight = textRect.displayHeight * 0.5 - this.TEXT_MARGIN;
-        let warningText = new TextArea(this, textRect.x, warningTextY, warningTextMaxWidth, warningTextMaxHeight, 
+        let warningText = new TextArea(this, textRect.x, warningTextY, warningTextMaxWidth, warningTextMaxHeight,
             this.localizationManager.translate("questionsWarning", namespace), warningTextConfig, this.sys.game.debug.enable);
         warningText.setOrigin(0.5, 0.5);
         warningText.adjustFontSize();
@@ -191,20 +196,26 @@ export default class MainMenu extends LaEntrevistaBaseScene {
 
         let yesButton = new TextButton(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
         yesButton.createRectButton(this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG, () => {
-            this.gameManager.startMirrorScene(true);
+            // TRACKER EVENT
+            this.sendSelectAccessQuestions(true);
+
+            this.gameManager.startMirrorScene(true, true);
             yesButton.disableInteractive();
         }, "yesButton", 25, 0xe02424, 1, 5);
         yesButton.y += yesButton.displayHeight / 2;
 
         let noButton = new TextButton(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
         noButton.createRectButton(this.localizationManager.translate("no", namespace), this.TEXT_CONFIG, () => {
+            // TRACKER EVENT
+            this.sendSelectAccessQuestions(false);
+
             noButton.disableInteractive();
             popup.activate(false, () => {
                 noButton.setInteractive();
             });
         }, "noButton", 25, 0x36b030, 1, 5);
         noButton.y += noButton.displayHeight / 2;
-        
+
         popup.add(blackBg);
         popup.add(textRect);
         popup.add(warningTitleText);
@@ -217,4 +228,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         return popup;
     }
 
+    sendSelectAccessQuestions(access) {
+        xApiTracker.alternativeTracker.Selected("accessEndQuestions", access, JSTracker.ALTERNATIVETYPE.MENU);
+    }
 }

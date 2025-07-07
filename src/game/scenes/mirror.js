@@ -4,6 +4,8 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import TextButton from "../../framework/UI/textButton.js";
 import TextArea from "../../framework/UI/textArea.js";
 
+import xApiTracker from "../../lib/xApiTracker.js";
+
 export default class Mirror extends LaEntrevistaBaseScene {
     /**
     * Escena del pasillo
@@ -21,7 +23,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
         let node = this.dialogManager.readNodes(this, nodes, namespace, "start");
 
         let white = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0xFFFFFF, 1).setOrigin(0, 0);
-        let playerChar = new Character(this, 845, 750, 1.7, "Alex", this.characterConfig.speed, false, () => { });
+        let playerChar = new Character(this, 845, 750, 1.7, "Alex", this.characterConfig.speed, false);
         let bg = this.add.image(0, 0, "mirror").setOrigin(0, 0);
         let effect = this.add.image(0, 0, "mirrorEffect").setOrigin(0, 0).setAlpha(0.6);
 
@@ -55,6 +57,9 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
             transition.setInteractive();
             transition.on("pointerdown", () => {
+                // TRACKER EVENT
+                xApiTracker.accessibleTracker.Accessed("30minTransition", JSTracker.ACCESSIBLETYPE.CUTSCENE);
+
                 transition.activate(false, () => {
                     this.dialogManager.setNode(node);
                 });
@@ -70,9 +75,12 @@ export default class Mirror extends LaEntrevistaBaseScene {
         let ANIM_TIME = 200;
         let BLUR_STRENGTH = 2;
         let blur = null;
-        let questions = this.createQuestionButtons();
+        let questions = this.createQuestionButtons(params.fromMenu);
         questions.setVisible(false);
         this.dispatcher.add("showQuestions", this, () => {
+            // TRACKER EVENT
+            this.gameManager.questionsCompleted.initialize();
+
             blur = sceneElements.postFX.addBlur();
             this.tweens.add({
                 targets: blur,
@@ -124,7 +132,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
     }
 
 
-    createQuestionButtons() {
+    createQuestionButtons(fromMenu) {
         let textConfig = {
             fontFamily: "lexend-variable",
             fontSize: 70,
@@ -144,10 +152,10 @@ export default class Mirror extends LaEntrevistaBaseScene {
         this.animateArrow(page1Button);
         page1.add(page1Button);
 
-        this.createQuestionButton(page1, 1, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig);
-        this.createQuestionButton(page1, 2, this.CANVAS_WIDTH / 2 + BUTTON_SPACING, TOP, textConfig);
-        this.createQuestionButton(page1, 3, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, BOTTOM, textConfig);
-        this.createQuestionButton(page1, 4, this.CANVAS_WIDTH / 2 + BUTTON_SPACING, BOTTOM, textConfig);
+        this.createQuestionButton(page1, 1, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig, fromMenu);
+        this.createQuestionButton(page1, 2, this.CANVAS_WIDTH / 2 + BUTTON_SPACING, TOP, textConfig, fromMenu);
+        this.createQuestionButton(page1, 3, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, BOTTOM, textConfig, fromMenu);
+        this.createQuestionButton(page1, 4, this.CANVAS_WIDTH / 2 + BUTTON_SPACING, BOTTOM, textConfig, fromMenu);
 
 
         let page2 = this.add.container(0, 0);
@@ -158,11 +166,11 @@ export default class Mirror extends LaEntrevistaBaseScene {
         this.animateArrow(page2Button);
         page2.add(page2Button);
 
-        this.createQuestionButton(page2, 5, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig);
-        this.createQuestionButton(page2, 6, this.CANVAS_WIDTH / 2, TOP, textConfig);
-        this.createQuestionButton(page2, 7, this.CANVAS_WIDTH / 2 + BUTTON_SPACING, TOP, textConfig);
-        this.createQuestionButton(page2, 8, this.CANVAS_WIDTH / 2 - BUTTON_SPACING / 2, BOTTOM, textConfig);
-        this.createQuestionButton(page2, 9, this.CANVAS_WIDTH / 2 + BUTTON_SPACING / 2, BOTTOM, textConfig);
+        this.createQuestionButton(page2, 5, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig, fromMenu);
+        this.createQuestionButton(page2, 6, this.CANVAS_WIDTH / 2, TOP, textConfig, fromMenu);
+        this.createQuestionButton(page2, 7, this.CANVAS_WIDTH / 2 + BUTTON_SPACING, TOP, textConfig, fromMenu);
+        this.createQuestionButton(page2, 8, this.CANVAS_WIDTH / 2 - BUTTON_SPACING / 2, BOTTOM, textConfig, fromMenu);
+        this.createQuestionButton(page2, 9, this.CANVAS_WIDTH / 2 + BUTTON_SPACING / 2, BOTTOM, textConfig, fromMenu);
 
         page2.setVisible(false);
         page1Button.on("pointerdown", () => {
@@ -182,12 +190,15 @@ export default class Mirror extends LaEntrevistaBaseScene {
     }
 
 
-    createQuestionButton(pageObj, index, x, y, style) {
+    createQuestionButton(pageObj, index, x, y, style, fromMenu) {
         let button = new TextButton(this, x, y, 0, 0);
         button.createImgButton(index, style, () => {
             button.disableInteractive();
-            this.gameManager.startQuestionScene(index);
-            this.gameManager.nQuestionsCompleted++;
+            this.gameManager.startQuestionScene(fromMenu, index);
+
+            // TRACKER EVENT
+            this.gameManager.questionsCompleted.progress();
+
             button.image.setTint(0x969696);
             button.textObj.setTint(0x969696);
         }, "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0.5, 0.5, 0.5, 0.5);

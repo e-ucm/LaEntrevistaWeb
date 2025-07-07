@@ -71,14 +71,7 @@ export default class UI extends BaseUI {
 
         this.cv = new CV(this);
         this.cv.setDepth(10);
-
-        this.dispatcher.add("checkCV", this, () => {
-            this.cv.activate(true);
-        });
-        this.dispatcher.add("updateCV", this, () => {
-            this.cv.updateInfo();
-        });
-
+        
         let questionTextConfig = { ...this.textConfig };
         questionTextConfig.align = "center";
         questionTextConfig.strokeThickness = 5;

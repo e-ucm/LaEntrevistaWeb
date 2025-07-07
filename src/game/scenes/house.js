@@ -1,6 +1,9 @@
 import TextArea from "../../framework/UI/textArea.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 
+import { GameStageWithErrors } from "../gameStage.js";
+import xApiTracker from "../../lib/xApiTracker.js";
+
 export default class House extends LaEntrevistaBaseScene {
     /**
     * Escena de la casa
@@ -20,6 +23,8 @@ export default class House extends LaEntrevistaBaseScene {
         this.BGS_X = 801;
         this.BGS_Y = 352;
 
+        this.questionsCV = new GameStageWithErrors("questionsCV", 5, this.blackboard);
+
         this.createBrowser();
         this.createDesktop();
 
@@ -29,6 +34,11 @@ export default class House extends LaEntrevistaBaseScene {
         this.dispatcher.add("wrongAnswer", this, () => {
             let errors = this.blackboard.get("errors");
             this.blackboard.set("errors", errors + 1);
+        });
+
+        this.dispatcher.add("changeHouseTopic", this, () => {
+            // TRACKER EVENT
+            this.questionsCV.progress();
         });
     }
 
@@ -60,8 +70,18 @@ export default class House extends LaEntrevistaBaseScene {
         portalText.setOrigin(0, 0.5);
         portalText.adjustFontSize();
 
+        this.dispatcher.add("noOffersFound", this, () => {
+            // TRACKER EVENT
+            this.questionsCV.progress();
+            this.questionsCV.complete(false, false);
+            this.questionsCV.initialize();
+        });
 
         this.dispatcher.add("offersFound", this, () => {
+            // TRACKER EVENT
+            this.questionsCV.progress();
+            this.questionsCV.complete(true, true);
+
             this.createOffers(portalLogo, portalText, textConfig);
         });
     }
@@ -90,9 +110,11 @@ export default class House extends LaEntrevistaBaseScene {
         dataText.setOrigin(0.5, 0.5);
         dataText.adjustFontSize();
         this.setInteractive(dataIcon);
-
         programmingIcon.on("pointerdown", () => {
             this.gameManager.blackboard.set("position", "programming");
+
+            // TRACKER EVENT
+            this.sendSelectJobPosition("programming")
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
@@ -101,6 +123,9 @@ export default class House extends LaEntrevistaBaseScene {
 
         dataIcon.on("pointerdown", () => {
             this.gameManager.blackboard.set("position", "dataScience");
+
+            // TRACKER EVENT
+            this.sendSelectJobPosition("dataScience")
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
@@ -111,8 +136,15 @@ export default class House extends LaEntrevistaBaseScene {
             programmingIcon.off("pointerdown");
             dataIcon.off("pointerdown");
 
+            // TRACKER EVENT
+            this.gameManager.increaseGameProgress();
+
             this.gameManager.startHallScene();
         });
+    }
+
+    sendSelectJobPosition(jobPosition) {
+        xApiTracker.alternativeTracker.Selected("jobPosition", jobPosition, JSTracker.ALTERNATIVETYPE.MENU);
     }
 
     createDesktop() {
@@ -122,6 +154,12 @@ export default class House extends LaEntrevistaBaseScene {
             this.setInteractive(this.desktop);
             this.desktop.on("pointerdown", () => {
                 if (this.dialogManager.currNode == null) {
+                    // TRACKER EVENT
+                    this.questionsCV.initialize();
+
+                    // TRACKER EVENT
+                    this.gameManager.sendInteractItem("searchIcon");
+
                     this.desktop.setVisible(false);
                     this.desktop.disableInteractive();
 

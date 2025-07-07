@@ -40,12 +40,16 @@ export default class Character extends Phaser.GameObjects.Sprite {
             pointing: getAnimationKey("Pointing")
         }
 
-        this.scene.setInteractive(this);
-        this.on("pointerdown", () => {
-            if (this.callback != null && typeof this.callback == "function") {
+        if (this.callback != null && typeof this.callback == "function") {
+            this.scene.setInteractive(this);
+
+            this.on("pointerdown", () => {
+                // TRACKER EVENT
+                this.scene.gameManager.sendInteractItem(`${this.scene.scene.key}_${this.name}`, true);
+
                 this.callback();
-            }
-        });
+            });
+        }
 
         // Se reproduce la animacion por defecto cuando termina una dialogo
         this.scene.dispatcher.add(DefaultEventNames.endNodes, this, () => {
