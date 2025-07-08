@@ -1,7 +1,7 @@
 import AnimatedContainer from "../../framework/UI/animatedContainer.js";
 import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import TextArea from "../../framework/UI/textArea.js";
-import TextButton from "../../framework/UI/textButton.js";
+import Button from "../../framework/UI/button.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import xApiTracker from "../../lib/xApiTracker.js";
 
@@ -199,7 +199,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let buttonsHeight = textRect.displayHeight - (warningTitleMaxHeight + warningTextMaxHeight + this.TEXT_MARGIN * 4);
         let buttonsWidth = buttonsHeight * 1.6 * 2;
 
-        let yesButton = new TextButton(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
+        let yesButton = new Button(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
         yesButton.createRectButton(this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG, () => {
             // TRACKER EVENT
             this.sendSelectAccessQuestions(true);
@@ -209,7 +209,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         }, "yesButton", 25, 0xe02424, 1, 5);
         yesButton.y += yesButton.displayHeight / 2;
 
-        let noButton = new TextButton(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
+        let noButton = new Button(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
         noButton.createRectButton(this.localizationManager.translate("no", namespace), this.TEXT_CONFIG, () => {
             // TRACKER EVENT
             this.sendSelectAccessQuestions(false);

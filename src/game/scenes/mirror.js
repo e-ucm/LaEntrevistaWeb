@@ -1,7 +1,7 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
-import TextButton from "../../framework/UI/textButton.js";
+import Button from "../../framework/UI/button.js";
 import TextArea from "../../framework/UI/textArea.js";
 
 import xApiTracker from "../../lib/xApiTracker.js";
@@ -191,7 +191,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
 
     createQuestionButton(pageObj, index, x, y, style, fromMenu) {
-        let button = new TextButton(this, x, y, 0, 0);
+        let button = new Button(this, x, y, 0, 0);
         button.createImgButton(index, style, () => {
             button.disableInteractive();
             this.gameManager.startQuestionScene(fromMenu, index);
@@ -201,7 +201,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
             button.image.setTint(0x969696);
             button.textObj.setTint(0x969696);
-        }, "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0.5, 0.5, 0.5, 0.5);
+        }, "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5);
 
         pageObj.add(button);
     }

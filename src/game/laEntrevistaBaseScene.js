@@ -1,7 +1,6 @@
 import BaseScene from "../framework/scenes/baseScene.js"
 import DialogManager from "./managers/dialogManager.js";
 import GameManager from "./managers/gameManager.js";
-import TextArea from "../framework/UI/textArea.js";
 
 export default class LaEntrevistaBaseScene extends BaseScene {
     constructor(name) {

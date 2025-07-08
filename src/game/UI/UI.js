@@ -42,10 +42,10 @@ export default class UI extends BaseUI {
         }
         this.optionBoxConfig = {
             boxSpacing: 10,
-            textHorizontalPadding: 70,
-            textVerticalPadding: 10,
-            textMarginX: 0,
-            textMarginY: 0,
+            textPaddingX: 70,
+            textPaddingY: 10,
+            textOffsetX: 0,
+            textOffsetY: 0,
         }
         this.optionsTextConfig = { ... this.textConfig };
         this.optionsTextConfig.fontSize = 35;

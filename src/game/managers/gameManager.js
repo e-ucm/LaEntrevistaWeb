@@ -42,6 +42,20 @@ export default class GameManager extends Singleton {
         // this.startMainMenu();
     }
 
+    startLanguageMenu() {
+        this.sceneManager.changeScene("LanguageMenu", null, false);
+    }
+
+    startMainMenu(fadeAnim = true) {
+        if (this.ui == null) {
+            this.sceneManager.runInParalell("UI");
+            this.ui = this.sceneManager.getScene("UI");
+        }
+
+        this.sceneManager.changeScene("MainMenu", null, fadeAnim);
+    }
+
+    
     startGame() {
         // TRACKER EVENT
         this.sendInitializeGame();
@@ -73,14 +87,6 @@ export default class GameManager extends Singleton {
         // this.startLanguageMenu();
     }
 
-    startMainMenu(fadeAnim = true) {
-        if (this.ui == null) {
-            this.sceneManager.runInParalell("UI");
-            this.ui = this.sceneManager.getScene("UI");
-        }
-
-        this.sceneManager.changeScene("MainMenu", null, fadeAnim);
-    }
 
     startHouseScene() {
         this.sceneManager.changeScene("House", null, true);
@@ -137,9 +143,6 @@ export default class GameManager extends Singleton {
         this.sceneManager.changeScene("Credits", null, fadeAnim);
     }
 
-    startLanguageMenu() {
-        this.sceneManager.changeScene("LanguageMenu", null, false);
-    }
 
     /**
     * Incrementar el numero de personajes con los que se ha hablado
