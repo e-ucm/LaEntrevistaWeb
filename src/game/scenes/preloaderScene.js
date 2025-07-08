@@ -28,13 +28,13 @@ export default class PreloaderScene extends BasePreloaderScene {
             getSceneDialogPath("office"),
             getSceneDialogPath("mirror"),
             getSceneDialogPath("questions"),
-            getSceneDialogPath("waitingRoom")
+            getSceneDialogPath("waitingRoom"),
+            "credits",
         ];
         let basicNamespaces = [
             "names",
             "CVs",
             "scenes",
-            "creditsTitles",
         ]
 
         let loadAssets = () => {

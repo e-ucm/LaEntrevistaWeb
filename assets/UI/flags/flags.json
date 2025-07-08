@@ -1,95 +1,47 @@
 {
   "frames": {
-    "France": {
+    "es": {
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 256,
-        "h": 171
+        "w": 225,
+        "h": 150
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 256,
-        "h": 171
+        "w": 225,
+        "h": 150
       },
       "sourceSize": {
-        "w": 256,
-        "h": 171
+        "w": 225,
+        "h": 150
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "Portugal": {
+    "fr": {
       "frame": {
-        "x": 256,
+        "x": 225,
         "y": 0,
-        "w": 256,
-        "h": 171
+        "w": 225,
+        "h": 150
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 256,
-        "h": 171
+        "w": 225,
+        "h": 150
       },
       "sourceSize": {
-        "w": 256,
-        "h": 171
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "Spain": {
-      "frame": {
-        "x": 512,
-        "y": 0,
-        "w": 256,
-        "h": 171
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 256,
-        "h": 171
-      },
-      "sourceSize": {
-        "w": 256,
-        "h": 171
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "United_Kingdom": {
-      "frame": {
-        "x": 768,
-        "y": 0,
-        "w": 256,
-        "h": 171
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 256,
-        "h": 171
-      },
-      "sourceSize": {
-        "w": 256,
-        "h": 171
+        "w": 225,
+        "h": 150
       },
       "pivot": {
         "x": 0.5,
@@ -103,9 +55,10 @@
     "image": "flags.png",
     "format": "RGBA8888",
     "size": {
-      "w": 1024,
-      "h": 171
+      "w": 450,
+      "h": 150
     },
-    "scale": 1
+    "scale": 1,
+    "source": "https://hampusborgos.github.io/country-flags/"
   }
 }

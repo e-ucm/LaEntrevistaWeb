@@ -76,49 +76,55 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         }
 
         playButton.on("pointerdown", () => {
-            this.makeInactive();
+            if (!this.gameManager.sceneManager.fading) {
+                this.makeInactive();
 
-            let anim = this.tweens.add({
-                targets: blankScreen,
-                alpha: { from: 1, to: 0 },
-                duration: 200,
-                repeat: 0,
-            });
+                let anim = this.tweens.add({
+                    targets: blankScreen,
+                    alpha: { from: 1, to: 0 },
+                    duration: 200,
+                    repeat: 0,
+                });
 
-            anim.on("complete", () => {
-                setTimeout(() => {
-                    this.gameManager.startGame();
-                }, 500);
-            });
-            // playButton.activate(false);
-            // creditsButton.activate(false);
+                anim.on("complete", () => {
+                    setTimeout(() => {
+                        this.gameManager.startGame();
+                    }, 500);
+                });
+                // playButton.activate(false);
+                // creditsButton.activate(false);
 
-            // startVideo.setVisible(true);
-            // startVideo.play();
+                // startVideo.setVisible(true);
+                // startVideo.play();
+            }
         });
 
         creditsButton.on("pointerdown", () => {
-            this.makeInactive();
+            if (!this.gameManager.sceneManager.fading) {
+                this.makeInactive();
 
-            this.gameManager.startCreditsScene();
+                this.gameManager.startCreditsScene();
 
-            // playButton.activate(false);
-            // creditsButton.activate(false);
+                // playButton.activate(false);
+                // creditsButton.activate(false);
 
-            // creditsVideo.setVisible(true);
-            // creditsVideo.play();
+                // creditsVideo.setVisible(true);
+                // creditsVideo.play();
+            }
         });
 
         questionsButton.on("pointerdown", () => {
             // TRACKER EVENT
             this.gameManager.sendInteractItem("endQuestionsButton", false, { "gameCompleted": this.gameManager.gameCompleted })
 
-            if (!this.gameManager.gameCompleted) {
-                popup.activate(true);
-            }
-            else {
-                this.makeInactive();
-                this.gameManager.startMirrorScene(true, true);
+            if (!this.gameManager.sceneManager.fading) {
+                if (!this.gameManager.gameCompleted) {
+                    popup.activate(true);
+                }
+                else {
+                    this.makeInactive();
+                    this.gameManager.startMirrorScene(true, true);
+                }
             }
         });
     }

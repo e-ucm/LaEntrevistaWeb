@@ -1,0 +1,42 @@
+[
+    {
+        "titleKey": "directors",
+        "namesKeys": [
+            "director1",
+            "director2"
+        ]
+    },
+    {
+        "titleKey": "development",
+        "namesKeys": [
+            "developer"
+        ]
+    },
+    {
+        "titleKey": "idea",
+        "namesKeys": [
+            "idea1",
+            "idea2",
+            "idea3"
+        ]
+    },
+    {
+        "titleKey": "art",
+        "namesKeys": [
+            "artist"
+        ]
+    },
+    {
+        "titleKey": "port",
+        "namesKeys": [
+            "port1",
+            "port2"
+        ]
+    },
+    {
+        "titleKey": "frLocalization",
+        "namesKeys": [
+            "fr1"
+        ]
+    }
+]

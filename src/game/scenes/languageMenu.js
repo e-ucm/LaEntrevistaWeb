@@ -18,12 +18,12 @@ export default class LanguageMenu extends LaEntrevistaBaseScene {
         let img = this.add.image(0, 0, "blankScreen").setOrigin(0, 0);
 
         // Se crea una cuadricula para organizar los botones de idioma
-        let grid = new Grid(this, 340, 60, 923, 590, 2, 2, 20);
+        let grid = new Grid(this, 340, 60, 923, 590, 2, 1, 20);
 
-        grid.addItem(this.createFlagButton("Spain", "es"));
-        grid.addItem(this.createFlagButton("United_Kingdom", "es"));
-        grid.addItem(this.createFlagButton("France", "fr"));
-        grid.addItem(this.createFlagButton("Portugal", "pt"));
+        grid.addItem(this.createFlagButton("es", "es"));
+        grid.addItem(this.createFlagButton("fr", "fr"));
+        // grid.addItem(this.createFlagButton("United_Kingdom", "es"));
+        // grid.addItem(this.createFlagButton("Portugal", "pt"));
     }
 
     /**
