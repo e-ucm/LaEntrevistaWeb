@@ -134,8 +134,6 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
     }
 
     sendInteractDoor(state) {
-        this.gameManager.sendInteractItem("humanResourcesDoor", false, {
-            "state": state
-        });
+        this.gameManager.sendInteractItem("humanResourcesDoor", false, { "state": state });
     }
 }

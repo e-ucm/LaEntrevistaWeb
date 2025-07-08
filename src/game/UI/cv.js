@@ -255,8 +255,7 @@ export default class CV extends InteractiveContainer {
         this.add(this.data4Description);
     }
 
-    // TODO: no se usa????
-    updateInfo(programming = true) {
+    updateInfo() {
         let text = this.translate("educationReviewed");
         this.education.setText(text);
         this.education.adjustFontSize();

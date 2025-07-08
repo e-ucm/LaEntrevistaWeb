@@ -111,8 +111,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
 
         questionsButton.on("pointerdown", () => {
             // TRACKER EVENT
-            xApiTracker.gameObjectTracker.Interacted("endQuestionsButton", JSTracker.GAMEOBJECTTYPE.ITEM)
-                .withResultExtension("gameCompleted", this.gameManager.gameCompleted);
+            this.gameManager.sendInteractItem("endQuestionsButton", false, { "gameCompleted": this.gameManager.gameCompleted })
 
             if (!this.gameManager.gameCompleted) {
                 popup.activate(true);
