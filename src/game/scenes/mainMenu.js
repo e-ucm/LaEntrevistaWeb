@@ -3,7 +3,7 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import TextArea from "../../framework/UI/textArea.js";
 import Button from "../../framework/UI/button.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-import xApiTracker from "../../lib/xApiTracker.js";
+import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class MainMenu extends LaEntrevistaBaseScene {
     /**

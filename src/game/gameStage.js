@@ -1,4 +1,4 @@
-import xApiTracker from "../lib/xApiTracker.js";
+import xApiTracker from "../framework/lib/xApiTracker.js";
 
 export class GameStage {
     /**

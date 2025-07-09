@@ -1,7 +1,7 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 
-import xApiTracker from "../../lib/xApiTracker.js";
+import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class Hall extends LaEntrevistaBaseScene {
     /**

@@ -5,7 +5,7 @@ import EventDispatcher from "../../framework/managers/eventDispatcher.js";
 
 import { getDifferenceTimeInS } from "../../framework/utils/misc.js";
 import { GameStage } from "../gameStage.js";
-import xApiTracker from "../../lib/xApiTracker.js";
+import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class GameManager extends Singleton {
     constructor() {

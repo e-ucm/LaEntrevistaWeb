@@ -4,7 +4,7 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import Button from "../../framework/UI/button.js";
 import TextArea from "../../framework/UI/textArea.js";
 
-import xApiTracker from "../../lib/xApiTracker.js";
+import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class Mirror extends LaEntrevistaBaseScene {
     /**

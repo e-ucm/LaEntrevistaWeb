@@ -1,7 +1,7 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Grid from "../../framework/UI/grid.js";
 
-import xApiTracker from "../../lib/xApiTracker.js";
+import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class LanguageMenu extends LaEntrevistaBaseScene {
     /**

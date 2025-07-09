@@ -2,7 +2,7 @@ import TextArea from "../../framework/UI/textArea.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 
 import { GameStageWithErrors } from "../gameStage.js";
-import xApiTracker from "../../lib/xApiTracker.js";
+import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class House extends LaEntrevistaBaseScene {
     /**
