@@ -73,6 +73,7 @@ export class GameStageWithErrors extends GameStage {
     }
 
     progress(increase = 1, extensions = {}) {
+        extensions[this.errorsKey] = 0;
         if (this.blackboard.has(this.errorsKey)) {
             extensions[this.errorsKey] = this.blackboard.get(this.errorsKey);
         }
@@ -80,6 +81,7 @@ export class GameStageWithErrors extends GameStage {
     }
 
     complete(success, completion, extensions = {}) {
+        extensions[this.errorsKey] = 0;
         if (this.blackboard.has(this.errorsKey)) {
             extensions[this.errorsKey] = this.blackboard.get(this.errorsKey);
         }

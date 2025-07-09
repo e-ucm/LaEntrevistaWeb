@@ -45,9 +45,6 @@ export default class Hall extends LaEntrevistaBaseScene {
             let stairs = this.add.rectangle(1350, 453, 500, 660, 0x000, 0);
             this.setInteractive(stairs);
             stairs.on("pointerdown", () => {
-                // TRACKER EVENT
-                this.gameManager.sendInteractItem("stairs", false);
-
                 stairs.disableInteractive();
 
                 // TRACKER EVENT
