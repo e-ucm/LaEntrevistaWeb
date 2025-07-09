@@ -42,7 +42,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
             strokeThickness: 10
         }
         let TEXT_PADDING = 50;
-        if (!params.skip) {
+        if (params.fromMenu) {
             let transition = new InteractiveContainer(this, 0, 0);
             let transitionBg = this.add.image(0, 0, "30min").setOrigin(0, 0);
 
@@ -114,7 +114,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
             anim.on("complete", () => {
                 setTimeout(() => {
-                    if (!params.skip) {
+                    if (params.fromMenu) {
                         node = this.dialogManager.readNodes(this, nodes, namespace, "end");
                         this.dialogManager.setNode(node);
                     }
@@ -193,14 +193,17 @@ export default class Mirror extends LaEntrevistaBaseScene {
     createQuestionButton(pageObj, index, x, y, style, fromMenu) {
         let button = new Button(this, x, y, 0, 0);
         button.createImgButton(index, style, () => {
-            button.disableInteractive();
-            this.gameManager.startQuestionScene(fromMenu, index);
+            if (!this.gameManager.sceneManager.fading) {
+                button.disableInteractive();
+                this.gameManager.startQuestionScene(fromMenu, index);
 
-            // TRACKER EVENT
-            this.gameManager.questionsCompleted.progress();
+                // TRACKER EVENT
+                this.gameManager.questionsCompleted.progress();
 
-            button.image.setTint(0x969696);
-            button.textObj.setTint(0x969696);
+                button.image.setTint(0x969696);
+                button.textObj.setTint(0x969696);
+            }
+            
         }, "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5);
 
         pageObj.add(button);

@@ -123,7 +123,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
                 }
                 else {
                     this.makeInactive();
-                    this.gameManager.startMirrorScene(true, true);
+                    this.gameManager.startMirrorScene(true);
                 }
             }
         });
@@ -204,7 +204,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
             // TRACKER EVENT
             this.sendSelectAccessQuestions(true);
 
-            this.gameManager.startMirrorScene(true, true);
+            this.gameManager.startMirrorScene(true);
             yesButton.disableInteractive();
         }, "yesButton", 25, 0xe02424, 1, 5);
         yesButton.y += yesButton.displayHeight / 2;

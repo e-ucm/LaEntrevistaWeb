@@ -36,7 +36,7 @@ export default class GameManager extends Singleton {
         this.blackboard.set("position", "dataScience");
 
         this.startLanguageMenu();
-        // this.startMirrorScene(false);
+
         // TEST
         // this.startGame();
         // this.startMainMenu();
@@ -47,16 +47,15 @@ export default class GameManager extends Singleton {
     }
 
     startMainMenu(fadeAnim = true) {
+        this.sceneManager.changeScene("MainMenu", null, fadeAnim);
+    }
+
+    startGame() {
         if (this.ui == null) {
             this.sceneManager.runInParalell("UI");
             this.ui = this.sceneManager.getScene("UI");
         }
 
-        this.sceneManager.changeScene("MainMenu", null, fadeAnim);
-    }
-
-    
-    startGame() {
         // TRACKER EVENT
         this.sendInitializeGame();
 
@@ -81,7 +80,7 @@ export default class GameManager extends Singleton {
         // this.startCafeteriaScene();
         // this.startWaitingRoomScene();
         // this.startOfficeScene();
-        // this.startMirrorScene();
+        // this.startMirrorScene(false);
         // this.startQuestionScene(1);
         // this.startCreditsScene();
         // this.startLanguageMenu();
@@ -112,11 +111,11 @@ export default class GameManager extends Singleton {
         this.sceneManager.changeScene("Office", null, true, true);
     }
 
-    startMirrorScene(fromMenu, skip = false) {
-        if (skip) {
+    startMirrorScene(fromMenu) {
+        if (fromMenu) {
             this.questionsCompleted.reset();
         }
-        this.sceneManager.changeScene("Mirror", { fromMenu: fromMenu, skip: skip }, true, false);
+        this.sceneManager.changeScene("Mirror", { fromMenu: fromMenu}, true, false);
         if (this.questionsCompleted.hasCompleted()) {
             this.dispatcher.dispatch("allQuestionsComplete");
 

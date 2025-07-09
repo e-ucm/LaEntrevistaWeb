@@ -71,6 +71,8 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let womenNode = this.dialogManager.readNodes(this, nodes, namespace, "womenConversation");
         let trioNode = this.dialogManager.readNodes(this, nodes, namespace, "trioConversation");
 
+        let setWomenNode = () => { }
+        
         // Monica
         let monicaConfig = {
             x: 265,
@@ -78,7 +80,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             scale: 0.87
         }
         let monicaChar = new Character(this, monicaConfig.x, monicaConfig.y, monicaConfig.scale, "Monica", this.characterConfig.speed, true, () => {
-            this.dialogManager.setNode(womenNode);
+            setWomenNode();
         });
         monicaChar.setOrigin(0.5, 0.5);
 
@@ -89,9 +91,16 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             scale: 0.9
         }
         let rebecaChar = new Character(this, rebecaConfig.x, rebecaConfig.y, rebecaConfig.scale, "Rebeca", this.characterConfig.speed, false, () => {
-            this.dialogManager.setNode(womenNode);
+            setWomenNode();
         });
         rebecaChar.setOrigin(0.5, 0.5);
+
+        setWomenNode = () => {
+            this.dialogManager.setNode(womenNode);
+            monicaChar.disableInteractive();
+            rebecaChar.disableInteractive();
+        }
+        
 
         // Carlos
         let carlosConfig = {
