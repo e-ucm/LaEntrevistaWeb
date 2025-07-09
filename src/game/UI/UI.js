@@ -122,10 +122,6 @@ export default class UI extends BaseUI {
         }
     }
 
-    replaceRegularExpressions(text, node) {
-        return this.localizationManager.replaceRegularExpressions(text, [node.scene.blackboard, node.scene.gameManager.blackboard]);
-    }
-
     createOptions(node) {
         super.createOptions(node);
 

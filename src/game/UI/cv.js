@@ -70,7 +70,7 @@ export default class CV extends InteractiveContainer {
 
     translate(section) {
         let text = this.scene.localizationManager.translate(section, "CVs")
-        text = this.scene.localizationManager.replaceRegularExpressions(text, [this.scene.gameManager.blackboard]);
+        text = this.scene.localizationManager.replaceRegularExpressions(text);
         return text.toUpperCase();
     }
 

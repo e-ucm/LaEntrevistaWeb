@@ -42,7 +42,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
             strokeThickness: 10
         }
         let TEXT_PADDING = 50;
-        if (params.fromMenu) {
+        if (!params.fromMenu) {
             let transition = new InteractiveContainer(this, 0, 0);
             let transitionBg = this.add.image(0, 0, "30min").setOrigin(0, 0);
 

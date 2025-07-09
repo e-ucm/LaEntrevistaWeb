@@ -2,6 +2,7 @@ import Blackboard from "../../framework/utils/blackboard.js";
 import Singleton from "../../framework/utils/singleton.js";
 import SceneManager from "../../framework/managers/sceneManager.js";
 import EventDispatcher from "../../framework/managers/eventDispatcher.js";
+import LocalizationManager from "../../framework/managers/localizationManager.js";
 
 import { getDifferenceTimeInS } from "../../framework/utils/misc.js";
 import { GameStage } from "../gameStage.js";
@@ -13,14 +14,13 @@ export default class GameManager extends Singleton {
 
         this.sceneManager = SceneManager.getInstance();
         this.dispatcher = EventDispatcher.getInstance();
+        
 
         // Blackboard de variables de todo el juego
         this.blackboard = new Blackboard();
-
         this.ui = null;
 
         this.charactersInteracted = new GameStage("charactersInteracted", 8);
-
         this.questionsCompleted = new GameStage("endQuestions", 9);
 
         this.gameCompleted = false;
@@ -32,9 +32,10 @@ export default class GameManager extends Singleton {
     }
 
     init() {
+        LocalizationManager.getInstance().subscribeBlackboard(this.blackboard);
+        
         // Hay que setearlo antes del menu para poder visualizar las preguntas desde el mismo correctamente
         this.blackboard.set("position", "dataScience");
-
         this.startLanguageMenu();
 
         // TEST
@@ -47,15 +48,15 @@ export default class GameManager extends Singleton {
     }
 
     startMainMenu(fadeAnim = true) {
-        this.sceneManager.changeScene("MainMenu", null, fadeAnim);
-    }
-
-    startGame() {
         if (this.ui == null) {
             this.sceneManager.runInParalell("UI");
             this.ui = this.sceneManager.getScene("UI");
         }
 
+        this.sceneManager.changeScene("MainMenu", null, fadeAnim);
+    }
+
+    startGame() {
         // TRACKER EVENT
         this.sendInitializeGame();
 
@@ -64,6 +65,7 @@ export default class GameManager extends Singleton {
         this.questionsCompleted.reset();
 
         this.blackboard.clear();
+
         this.dispatcher.removeAll();
 
         if (this.ui.dispatcher != null) {
