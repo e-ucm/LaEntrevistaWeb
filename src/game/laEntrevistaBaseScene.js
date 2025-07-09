@@ -34,14 +34,6 @@ export default class LaEntrevistaBaseScene extends BaseScene {
         }
     }
 
-    /**
-    * Se encarga de configurar la escena con los parametros iniciales y
-    * @param {Object} params - parametros que se le pasan a la configuracion inicial 
-    */
-    initialSetup(params) {
-        super.initialSetup(params)
-        this.dialogManager.setCharacters(this.characters);
-    }
 
     /**
     * Maneja la salida de los personajes de la sala.

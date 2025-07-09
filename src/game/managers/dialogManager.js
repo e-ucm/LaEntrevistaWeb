@@ -16,11 +16,7 @@ export default class DialogManager extends Singleton {
     }
 
     init() { }
-
-    setCharacters(characters) {
-        this.characters = characters;
-    }
-
+    
     setNode(node) {
         if (this.currNode == null && node != null) {
             this.currNode = node;
