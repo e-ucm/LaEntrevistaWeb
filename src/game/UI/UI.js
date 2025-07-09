@@ -94,33 +94,10 @@ export default class UI extends BaseUI {
             this.cv.on("pointerdown", fn);
         }
         else {
-            // Si la caja era visible y el personaje anterior es distinto al actual,
-            // se desactiva la caja y se vuelve a activar con el nombre nuevo
-            if (this.textbox.visible && this.textbox.lastCharacter != node.character) {
-                this.textbox.activate(false, () => {
-                    this.textbox.setDialog(node.name, node.character, node.dialogs[node.currDialog]);
-                    this.textbox.activate(true);
-                })
-            }
-            // Si no, si la caja no era visible o el personaje es el mismo, se activa
-            // directamente con el nombre nuevo (si ya estaba activa, no hara la animacion)
-            else {
-                this.textbox.setDialog(node.name, node.character, node.dialogs[node.currDialog]);
-                this.textbox.activate(true);
-            }
+            super.startTextNode(node);
         }
     }
 
-    skipDialog() {
-        // Si no se ha terminado de mostrar todo el dialogo, lo muestra de golpe
-        if (!this.textbox.finished) {
-            this.textbox.forceFinish();
-        }
-        // Si se ha pasado el retardo para poder saltar el dialogo, se pasa al siguiente
-        else if (this.textbox.canSkip) {
-            this.dispatcher.dispatch(DefaultEventNames.nextDialog);
-        }
-    }
 
     createOptions(node) {
         super.createOptions(node);
