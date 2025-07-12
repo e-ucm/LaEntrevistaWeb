@@ -26,13 +26,14 @@ export default class LaEntrevistaBaseScene extends BaseScene {
             scale: 0.4
         };
 
-        this.signTextConfig = {
+        this.SIGN_TEXT_CONFIG = {
             fontFamily: "lexend-variable",
             fontSize: 35,
             fontStyle: "normal",
             color: "#ffffff",
             stroke: "#000000",
-            strokeThickness: 5
+            strokeThickness: 5,
+            align: "center"
         }
     }
 

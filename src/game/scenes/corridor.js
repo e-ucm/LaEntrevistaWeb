@@ -1,6 +1,7 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 import TextArea from "../../framework/UI/textArea.js";
+import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 
 export default class Corridor extends LaEntrevistaBaseScene {
     /**
@@ -16,29 +17,10 @@ export default class Corridor extends LaEntrevistaBaseScene {
 
         let bg = this.add.image(0, 0, "corridor").setOrigin(0, 0);
 
-        let nodes = this.cache.json.get("corridor");
-        let dialogsNamespace = "scenes\\corridor";
+        this.nodes = this.cache.json.get("corridor");
+        this.namespace = "scenes\\corridor";
 
-        let locationNode = this.dialogManager.readNodes(this, nodes, dialogsNamespace, "locationInquiry");
-
-        let textAreaConfig = {
-            x: 575,
-            width: 325,
-            height: 90,
-            originX: 1,
-            originY: 0.5
-        };
-
-        let rectConfig = {
-            x: 393,
-            width: 410,
-            height: 105,
-            originX: 0.5,
-            originY: 0.5
-        }
-
-        let signTextConfig = { ...this.signTextConfig };
-        signTextConfig.align = "right";
+        let locationNode = this.dialogManager.readNodes(this, this.nodes, this.namespace, "locationInquiry");
 
         let signs = [
             {
@@ -52,22 +34,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
         ];
 
         signs.forEach(({ y, id }) => {
-            let textArea = new TextArea(this, textAreaConfig.x, y, textAreaConfig.width, textAreaConfig.height,
-                this.localizationManager.translate(id, "scenes"), signTextConfig, this.sys.game.debug.enable);
-            textArea.setOrigin(textAreaConfig.originX, textAreaConfig.originY);
-            textArea.adjustFontSize();
-
-            let rect = this.add.zone(rectConfig.x, y, rectConfig.width, rectConfig.height);
-            rect.setOrigin(rectConfig.originX, rectConfig.originY);
-            this.setInteractive(rect);
-
-            let signNode = this.dialogManager.readNodes(this, nodes, dialogsNamespace, id);
-            rect.on("pointerdown", () => {
-                // TRACKER EVENT
-                this.trackerManager.sendInteractGameObject(id);
-
-                this.dialogManager.setNode(signNode);
-            });
+            this.createSign(393, y, 410, 105, this.localizationManager.translate(id, "scenes"), 43, 20, id);
         });
 
         // Luis
@@ -117,5 +84,28 @@ export default class Corridor extends LaEntrevistaBaseScene {
                 this.gameManager.startWaitingRoomScene();
             });
         }, 200);
+    }
+
+    createSign(x, y, width, height, text, textLeftMargin, textRightMargin, id) {
+        let container = new InteractiveContainer(this, 0, 0);
+        let rect = this.add.zone(0, 0, width, height).setOrigin(0.5, 0.5);
+        let textArea = new TextArea(this, width / 2 - textRightMargin, 0, width - textLeftMargin - textRightMargin, height,
+            text, this.SIGN_TEXT_CONFIG, this.sys.game.debug.enable).setOrigin(1, 0.5);
+        textArea.adjustFontSize();
+
+        container.add(rect);
+        container.add(textArea);
+        container.calculateRectangleSize();
+
+        container.setPosition(x, y);
+        this.setInteractive(container);
+
+        let node = this.dialogManager.readNodes(this, this.nodes, this.namespace, id);
+        container.on("pointerdown", () => {
+            // TRACKER EVENT
+            this.trackerManager.sendInteractGameObject(id);
+
+            this.dialogManager.setNode(node);
+        });
     }
 }
