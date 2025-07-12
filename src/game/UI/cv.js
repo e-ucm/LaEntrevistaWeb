@@ -50,14 +50,14 @@ export default class CV extends InteractiveContainer {
 
         this.on("pointerdown", () => {
             // TRACKER EVENT
-            this.scene.gameManager.sendInteractItem("hideCV", false)
+            this.scene.trackerManager.sendInteractGameObject("hideCV");
 
             this.activate(false);
         });
 
         this.scene.dispatcher.add("checkCV", this, () => {
             // TRACKER EVENT
-            this.scene.gameManager.sendInteractItem("checkCV", false)
+            this.scene.trackerManager.sendInteractGameObject("checkCV");
 
             this.activate(true);
         });

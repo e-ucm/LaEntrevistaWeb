@@ -1,6 +1,7 @@
 import BaseScene from "../framework/scenes/baseScene.js"
 import DialogManager from "./managers/dialogManager.js";
 import GameManager from "./managers/gameManager.js";
+import TrackerManager from "./managers/trackerManager.js";
 
 export default class LaEntrevistaBaseScene extends BaseScene {
     constructor(name) {
@@ -12,6 +13,7 @@ export default class LaEntrevistaBaseScene extends BaseScene {
 
         this.gameManager = GameManager.getInstance();
         this.dialogManager = DialogManager.getInstance();
+        this.trackerManager = TrackerManager.getInstance();
         this.characters = new Set();
 
         this.interactableObjects = new Set();

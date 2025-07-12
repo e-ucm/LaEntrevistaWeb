@@ -64,7 +64,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
             let signNode = this.dialogManager.readNodes(this, nodes, dialogsNamespace, id);
             rect.on('pointerdown', () => {
                 // TRACKER EVENT
-                this.gameManager.sendInteractItem(id, false);
+                this.trackerManager.sendInteractGameObject(id);
 
                 this.dialogManager.setNode(signNode);
             });

@@ -44,7 +44,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         this.setInteractive(door);
         door.on("pointerdown", () => {
             // TRACKER EVENT
-            this.sendInteractDoor("closed");
+            this.trackerManager.sendInteractHRDoor("closed");
 
             this.dialogManager.setNode(doorNode);
         });
@@ -72,9 +72,9 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
                     doorArrow.setVisible(false);
                 });
                 // TRACKER EVENT
-                this.sendInteractDoor("open");
+                this.trackerManager.sendInteractHRDoor("open");
 
-                this.gameManager.increaseGameProgress();
+                this.gameManager.progressGame();
 
                 this.gameManager.startOfficeScene();
             });
@@ -131,9 +131,5 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
             antonioChar.setScale(antonioChar.scale * 0.68);
             this.leaveRoom([antonioChar], antonioExitPoint);
         })
-    }
-
-    sendInteractDoor(state) {
-        this.gameManager.sendInteractItem("humanResourcesDoor", false, { "state": state });
     }
 }

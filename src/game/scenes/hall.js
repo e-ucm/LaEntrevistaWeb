@@ -1,8 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 
-import xApiTracker from "../../framework/lib/xApiTracker.js";
-
 export default class Hall extends LaEntrevistaBaseScene {
     /**
     * Escena de la recepcion
@@ -48,7 +46,7 @@ export default class Hall extends LaEntrevistaBaseScene {
                 stairs.disableInteractive();
 
                 // TRACKER EVENT
-                this.gameManager.charactersInteracted.initialize();
+                this.gameManager.charactersStage.initialize();
 
                 this.gameManager.startCorridorScene();
             });

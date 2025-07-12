@@ -1,4 +1,5 @@
 import BasePreloaderScene from "../../framework/scenes/basePreloaderScene.js";
+import TrackerManager from "../managers/trackerManager.js";
 import DialogManager from "../managers/dialogManager.js";
 import GameManager from "../managers/gameManager.js";
 
@@ -49,14 +50,20 @@ export default class PreloaderScene extends BasePreloaderScene {
         super.preload(loadAssets, dialogNamespaces, basicNamespaces);
     }
 
-    create() {
-        super.create();
+    async create() {
+        let trackerManager = TrackerManager.create();
+        
+        let gameTitle = "LaEntrevistaWeb";
+        await super.create(gameTitle);
+
+        trackerManager.init(this.seriousGameTracker, gameTitle);
 
         let dialogManager = DialogManager.create();
         dialogManager.init();
 
         let gameManager = GameManager.create();
         gameManager.init();
+
     }
 
     loadPointers() {

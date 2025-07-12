@@ -4,8 +4,6 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import Button from "../../framework/UI/button.js";
 import TextArea from "../../framework/UI/textArea.js";
 
-import xApiTracker from "../../framework/lib/xApiTracker.js";
-
 export default class Mirror extends LaEntrevistaBaseScene {
     /**
     * Escena del pasillo
@@ -58,7 +56,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
             transition.setInteractive();
             transition.on("pointerdown", () => {
                 // TRACKER EVENT
-                xApiTracker.accessibleTracker.Accessed("30minTransition", JSTracker.ACCESSIBLETYPE.CUTSCENE);
+                this.trackerManager.sendAccessCutscene("30minTransition");
 
                 transition.activate(false, () => {
                     this.dialogManager.setNode(node);
@@ -79,7 +77,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
         questions.setVisible(false);
         this.dispatcher.add("showQuestions", this, () => {
             // TRACKER EVENT
-            this.gameManager.questionsCompleted.initialize();
+            this.gameManager.questionsStage.initialize();
 
             blur = sceneElements.postFX.addBlur();
             this.tweens.add({
@@ -189,7 +187,6 @@ export default class Mirror extends LaEntrevistaBaseScene {
         return questions;
     }
 
-
     createQuestionButton(pageObj, index, x, y, style, fromMenu) {
         let button = new Button(this, x, y, 0, 0);
         button.createImgButton(index, style, () => {
@@ -198,12 +195,12 @@ export default class Mirror extends LaEntrevistaBaseScene {
                 this.gameManager.startQuestionScene(fromMenu, index);
 
                 // TRACKER EVENT
-                this.gameManager.questionsCompleted.progress();
+                this.gameManager.questionsStage.progress();
 
                 button.image.setTint(0x969696);
                 button.textObj.setTint(0x969696);
             }
-            
+
         }, "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5);
 
         pageObj.add(button);

@@ -1,8 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Grid from "../../framework/UI/grid.js";
 
-import xApiTracker from "../../framework/lib/xApiTracker.js";
-
 export default class LanguageMenu extends LaEntrevistaBaseScene {
     /**
     * Escena que muestra el menu de selección de idioma
@@ -65,8 +63,9 @@ export default class LanguageMenu extends LaEntrevistaBaseScene {
                 duration: 0,
                 repeat: 0,
             });
+
             // TRACKER EVENT
-            xApiTracker.alternativeTracker.Selected("language", language, JSTracker.ALTERNATIVETYPE.MENU);
+            this.trackerManager.sendSelectLanguage(language);
             
             this.localizationManager.changeLanguage(language);
             this.gameManager.startMainMenu();

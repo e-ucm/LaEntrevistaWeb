@@ -3,7 +3,6 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import TextArea from "../../framework/UI/textArea.js";
 import Button from "../../framework/UI/button.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-import xApiTracker from "../../framework/lib/xApiTracker.js";
 
 export default class MainMenu extends LaEntrevistaBaseScene {
     /**
@@ -115,7 +114,8 @@ export default class MainMenu extends LaEntrevistaBaseScene {
 
         questionsButton.on("pointerdown", () => {
             // TRACKER EVENT
-            this.gameManager.sendInteractItem("endQuestionsButton", false, { "gameCompleted": this.gameManager.gameCompleted })
+            this.trackerManager.sendInteractGameObject("finalQuestionsButton", false,
+                { "gameCompleted": this.gameManager.gameCompleted });
 
             if (!this.gameManager.sceneManager.fading) {
                 if (!this.gameManager.gameCompleted) {
@@ -202,7 +202,8 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let yesButton = new Button(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
         yesButton.createRectButton(this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG, () => {
             // TRACKER EVENT
-            this.sendSelectAccessQuestions(true);
+            this.trackerManager.sendSelectAccessFinalQuestions(true);
+            // this.sendSelectAccessQuestions(true);
 
             this.gameManager.startMirrorScene(true);
             yesButton.disableInteractive();
@@ -212,7 +213,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let noButton = new Button(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
         noButton.createRectButton(this.localizationManager.translate("no", namespace), this.TEXT_CONFIG, () => {
             // TRACKER EVENT
-            this.sendSelectAccessQuestions(false);
+            this.trackerManager.sendSelectAccessFinalQuestions(false);
 
             noButton.disableInteractive();
             popup.activate(false, () => {
@@ -231,9 +232,5 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         blackBg.setInteractive();
 
         return popup;
-    }
-
-    sendSelectAccessQuestions(access) {
-        xApiTracker.alternativeTracker.Selected("accessEndQuestions", access, JSTracker.ALTERNATIVETYPE.MENU);
     }
 }

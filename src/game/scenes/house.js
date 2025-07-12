@@ -1,8 +1,6 @@
 import TextArea from "../../framework/UI/textArea.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-
-import { GameStageWithErrors } from "../gameStage.js";
-import xApiTracker from "../../framework/lib/xApiTracker.js";
+import GameStage from "../gameStage.js";
 
 export default class House extends LaEntrevistaBaseScene {
     /**
@@ -23,7 +21,7 @@ export default class House extends LaEntrevistaBaseScene {
         this.BGS_X = 801;
         this.BGS_Y = 352;
 
-        this.questionsCV = new GameStageWithErrors("questionsCV", 5, this.blackboard);
+        this.cvStage = new GameStage("CVQuestions", 5);
 
         this.createBrowser();
         this.createDesktop();
@@ -38,7 +36,7 @@ export default class House extends LaEntrevistaBaseScene {
 
         this.dispatcher.add("changeHouseTopic", this, () => {
             // TRACKER EVENT
-            this.questionsCV.progress();
+            this.cvStage.progress(this.blackboard.get("errors"));
         });
     }
 
@@ -70,17 +68,20 @@ export default class House extends LaEntrevistaBaseScene {
         portalText.setOrigin(0, 0.5);
         portalText.adjustFontSize();
 
+        let sendCompleteCV = (success) => {
+            this.cvStage.progress(this.blackboard.get("errors"));
+            this.cvStage.complete(success, true);
+        };
+
         this.dispatcher.add("noOffersFound", this, () => {
             // TRACKER EVENT
-            this.questionsCV.progress();
-            this.questionsCV.complete(false, false);
-            this.questionsCV.initialize();
+            sendCompleteCV(false);
+            this.cvStage.initialize();
         });
 
         this.dispatcher.add("offersFound", this, () => {
             // TRACKER EVENT
-            this.questionsCV.progress();
-            this.questionsCV.complete(true, true);
+            sendCompleteCV(true);
 
             this.createOffers(portalLogo, portalText, textConfig);
         });
@@ -114,7 +115,7 @@ export default class House extends LaEntrevistaBaseScene {
             this.gameManager.blackboard.set("position", "programming");
 
             // TRACKER EVENT
-            this.sendSelectJobPosition("programming")
+            this.trackerManager.sendSelectJobPosition("programming");
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
@@ -125,7 +126,7 @@ export default class House extends LaEntrevistaBaseScene {
             this.gameManager.blackboard.set("position", "dataScience");
 
             // TRACKER EVENT
-            this.sendSelectJobPosition("dataScience")
+            this.trackerManager.sendSelectJobPosition("dataScience");
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
@@ -137,7 +138,7 @@ export default class House extends LaEntrevistaBaseScene {
             dataIcon.off("pointerdown");
 
             // TRACKER EVENT
-            this.gameManager.increaseGameProgress();
+            this.gameManager.progressGame();
 
             this.gameManager.startHallScene();
         });
@@ -155,10 +156,10 @@ export default class House extends LaEntrevistaBaseScene {
             this.desktop.on("pointerdown", () => {
                 if (this.dialogManager.currNode == null) {
                     // TRACKER EVENT
-                    this.questionsCV.initialize();
+                    this.cvStage.initialize();
 
                     // TRACKER EVENT
-                    this.gameManager.sendInteractItem("searchIcon");
+                    this.trackerManager.sendInteractGameObject("searchIcon");
 
                     this.desktop.setVisible(false);
                     this.desktop.disableInteractive();

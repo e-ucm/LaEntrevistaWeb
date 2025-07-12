@@ -3,10 +3,8 @@ import Singleton from "../../framework/utils/singleton.js";
 import SceneManager from "../../framework/managers/sceneManager.js";
 import EventDispatcher from "../../framework/managers/eventDispatcher.js";
 import LocalizationManager from "../../framework/managers/localizationManager.js";
-
-import { getDifferenceTimeInS } from "../../framework/utils/misc.js";
-import { GameStage } from "../gameStage.js";
-import xApiTracker from "../../framework/lib/xApiTracker.js";
+import TrackerManager from "./trackerManager.js"
+import GameStage from "../gameStage.js"
 
 export default class GameManager extends Singleton {
     constructor() {
@@ -14,14 +12,14 @@ export default class GameManager extends Singleton {
 
         this.sceneManager = SceneManager.getInstance();
         this.dispatcher = EventDispatcher.getInstance();
-        
+        this.trackerManager = TrackerManager.getInstance();
 
         // Blackboard de variables de todo el juego
         this.blackboard = new Blackboard();
         this.ui = null;
 
-        this.charactersInteracted = new GameStage("charactersInteracted", 8);
-        this.questionsCompleted = new GameStage("endQuestions", 9);
+        this.charactersStage = new GameStage("charactersInteracted", 3);
+        this.questionsStage = new GameStage("finalQuestions", 9);
 
         this.gameCompleted = false;
         this.nGameStages = 0;
@@ -33,7 +31,7 @@ export default class GameManager extends Singleton {
 
     init() {
         LocalizationManager.getInstance().subscribeBlackboard(this.blackboard);
-        
+
         // Hay que setearlo antes del menu para poder visualizar las preguntas desde el mismo correctamente
         this.blackboard.set("position", "dataScience");
         this.startLanguageMenu();
@@ -58,11 +56,9 @@ export default class GameManager extends Singleton {
 
     startGame() {
         // TRACKER EVENT
-        this.sendInitializeGame();
+        this.trackerManager.sendInitializeGame();
 
         this.nGameStages = 0;
-        this.charactersInteracted.reset();
-        this.questionsCompleted.reset();
 
         this.blackboard.clear();
 
@@ -73,7 +69,7 @@ export default class GameManager extends Singleton {
             this.sceneManager.restartScene("UI");
         }
 
-        this.startHouseScene();
+        // this.startHouseScene();
 
         // TEST
         // this.startMainMenu();
@@ -82,7 +78,7 @@ export default class GameManager extends Singleton {
         // this.startCafeteriaScene();
         // this.startWaitingRoomScene();
         // this.startOfficeScene();
-        // this.startMirrorScene(false);
+        this.startMirrorScene(false);
         // this.startQuestionScene(1);
         // this.startCreditsScene();
         // this.startLanguageMenu();
@@ -115,23 +111,22 @@ export default class GameManager extends Singleton {
 
     startMirrorScene(fromMenu) {
         if (fromMenu) {
-            this.questionsCompleted.reset();
+            this.questionsStage.reset();
         }
-        this.sceneManager.changeScene("Mirror", { fromMenu: fromMenu}, true, false);
-        if (this.questionsCompleted.hasCompleted()) {
+
+        this.sceneManager.changeScene("Mirror", { fromMenu: fromMenu }, true, false);
+
+        if (this.questionsStage.hasCompleted()) {
             this.dispatcher.dispatch("allQuestionsComplete");
 
             // TRACKER EVENT
-            this.questionsCompleted.complete(true, true);
+            this.questionsStage.complete(true, true);
 
             if (!fromMenu) {
-                // TRACKER EVENT
-                this.gameManager.increaseGameProgress();
-
                 this.gameCompleted = true;
 
                 // TRACKER EVENT
-                this.sendCompleteGame();
+                this.trackerManager.sendCompleteGame(true);
             }
         }
     }
@@ -150,46 +145,20 @@ export default class GameManager extends Singleton {
     */
     increaseCharactersInteracted() {
         // TRACKER EVENT
-        this.charactersInteracted.progress();
+        this.charactersStage.progress();
 
-        if (this.charactersInteracted.hasCompleted()) {
+        if (this.charactersStage.hasCompleted()) {
             this.dispatcher.dispatch("allPeopleInteracted");
 
             // TRACKER EVENT
-            this.charactersInteracted.complete(true, true);
+            this.charactersStage.complete(true, true);
         }
     }
 
-    async sendInitializeGame() {
-        this.startTime = new Date();
-        await xApiTracker.completableTracker.Initialized(this.gameTitle, JSTracker.COMPLETABLETYPE.GAME);
-        await xApiTracker.sendBatch();
-    }
-
-    async increaseGameProgress() {
+    async progressGame() {
         ++this.nGameStages;
 
         let progress = this.nGameStages / this.N_REQUIRED_GAME_STAGES;
-        let duration = getDifferenceTimeInS(this.startTime);
-        await xApiTracker.completableTracker.Progressed(this.gameTitle, JSTracker.COMPLETABLETYPE.GAME, progress)
-            .withProgress(progress)
-            .withDuration(duration);
-        await xApiTracker.sendBatch();
-    }
-
-    async sendCompleteGame() {
-        let duration = getDifferenceTimeInS(this.startTime);
-        await xapiTracker.completableTracker.Completed(this.gameTitle, JSTracker.COMPLETABLETYPE.GAME, this.gameCompleted, this.gameCompleted)
-            .withDuration(duration);
-        await xApiTracker.sendBatch();
-    }
-
-    sendInteractItem(id, npc = false, extensions = {}) {
-        let type = JSTracker.GAMEOBJECTTYPE.ITEM;
-        if (npc) {
-            type = JSTracker.GAMEOBJECTTYPE.NPC;
-        }
-        xApiTracker.gameObjectTracker.Interacted(id, type)
-            .apply(statement => statement.addResultExtensions(extensions));
+        await this.trackerManager.sendProgressGame(progress);
     }
 }
