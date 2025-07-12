@@ -69,7 +69,7 @@ export default class GameManager extends Singleton {
             this.sceneManager.restartScene("UI");
         }
 
-        // this.startHouseScene();
+        this.startHouseScene();
 
         // TEST
         // this.startMainMenu();
@@ -78,7 +78,7 @@ export default class GameManager extends Singleton {
         // this.startCafeteriaScene();
         // this.startWaitingRoomScene();
         // this.startOfficeScene();
-        this.startMirrorScene(false);
+        // this.startMirrorScene(false);
         // this.startQuestionScene(1);
         // this.startCreditsScene();
         // this.startLanguageMenu();
