@@ -31,7 +31,7 @@ export default class Hall extends LaEntrevistaBaseScene {
         this.dispatcher.add("point", this, () => {
             ivanChar.playAnimation(ivanChar.types.pointing);
             ivanChar.setDialogAnimations(false);
-            ivanChar.once('animationcomplete', () => {
+            ivanChar.once("animationcomplete", () => {
                 ivanChar.playDefaultAnimation();
                 ivanChar.setDialogAnimations(true);
             });

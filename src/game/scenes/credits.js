@@ -139,7 +139,7 @@ export default class Credits extends LaEntrevistaBaseScene {
         let originalScale = button.scale;
         let scaleMultiplier = 1.1;
 
-        button.on('pointerover', () => {
+        button.on("pointerover", () => {
             this.tweens.add({
                 targets: button,
                 scale: originalScale * scaleMultiplier,
@@ -147,7 +147,7 @@ export default class Credits extends LaEntrevistaBaseScene {
                 repeat: 0,
             });
         });
-        button.on('pointerout', () => {
+        button.on("pointerout", () => {
             this.tweens.add({
                 targets: button,
                 scale: originalScale,
@@ -155,7 +155,7 @@ export default class Credits extends LaEntrevistaBaseScene {
                 repeat: 0,
             });
         });
-        button.on('pointerdown', () => {
+        button.on("pointerdown", () => {
             this.tweens.add({
                 targets: button,
                 scale: originalScale,

@@ -131,11 +131,11 @@ export default class PreloaderScene extends BasePreloaderScene {
     loadCharacterAtlas(name) {
         let path = name + "/" + name
 
-        this.load.atlas(name, path + '.png', path + '.json');
+        this.load.atlas(name, path + ".png", path + ".json");
 
         const ANIMATIONS_KEY = "Animations"
         let animationsPath = path + ANIMATIONS_KEY
-        this.load.animation(name + ANIMATIONS_KEY, animationsPath + '.json')
+        this.load.animation(name + ANIMATIONS_KEY, animationsPath + ".json")
     }
 
     loadCharacters() {

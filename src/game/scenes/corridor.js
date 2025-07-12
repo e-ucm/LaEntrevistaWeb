@@ -38,7 +38,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
         }
 
         let signTextConfig = { ...this.signTextConfig };
-        signTextConfig.align = 'right';
+        signTextConfig.align = "right";
 
         let signs = [
             {
@@ -62,7 +62,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
             this.setInteractive(rect);
 
             let signNode = this.dialogManager.readNodes(this, nodes, dialogsNamespace, id);
-            rect.on('pointerdown', () => {
+            rect.on("pointerdown", () => {
                 // TRACKER EVENT
                 this.trackerManager.sendInteractGameObject(id);
 

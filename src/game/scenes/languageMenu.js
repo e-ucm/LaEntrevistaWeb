@@ -35,10 +35,10 @@ export default class LanguageMenu extends LaEntrevistaBaseScene {
     createFlagButton(frame, language, scale = 1) {
         let animTime = 50;
 
-        let button = this.add.image(0, 0, 'flags', frame);
+        let button = this.add.image(0, 0, "flags", frame);
         this.setInteractive(button);
 
-        button.on('pointerover', () => {
+        button.on("pointerover", () => {
             this.tweens.add({
                 targets: button,
                 scale: scale * 1.1,
@@ -47,7 +47,7 @@ export default class LanguageMenu extends LaEntrevistaBaseScene {
             });
         });
 
-        button.on('pointerout', () => {
+        button.on("pointerout", () => {
             this.tweens.add({
                 targets: button,
                 scale: scale,
@@ -56,7 +56,7 @@ export default class LanguageMenu extends LaEntrevistaBaseScene {
             });
         });
 
-        button.on('pointerdown', () => {
+        button.on("pointerdown", () => {
             this.tweens.add({
                 targets: button,
                 scale: scale,
