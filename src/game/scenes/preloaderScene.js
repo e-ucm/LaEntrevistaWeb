@@ -110,9 +110,9 @@ export default class PreloaderScene extends BasePreloaderScene {
         this.load.image("mainMenuBlank", "menus/mainMenuBlank.png");
         this.load.image("credits", "menus/credits.png");
 
-        this.load.video("startGameAnimation", "menus/startGameAnimation.mp4", true);
-        this.load.video("enterCreditsAnimation", "menus/enterCreditsAnimation.mp4", true);
-        this.load.video("exitCreditsAnimation", "menus/exitCreditsAnimation.mp4", true);
+        // this.load.video("startGameAnimation", "menus/startGameAnimation.mp4", true);
+        // this.load.video("enterCreditsAnimation", "menus/enterCreditsAnimation.mp4", true);
+        // this.load.video("exitCreditsAnimation", "menus/exitCreditsAnimation.mp4", true);
 
         this.load.image("hall", "hall.png");
         this.load.image("counter", "counter.png");

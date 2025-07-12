@@ -65,6 +65,7 @@ const CONFIG = {
     disableContextMenu: true,
     render: {
         antialias: true,
+        roundPixels: true,
     },
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH,   // CENTER_BOTH, CENTER_HORIZONTALLY, CENTER_VERTICALLY

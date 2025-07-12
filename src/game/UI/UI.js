@@ -25,7 +25,7 @@ export default class UI extends BaseUI {
         this.nameBoxConfig = {
             img: "",
             textX: 385,
-            textY: 634,
+            textY: 639,
             realWidth: 320,
             realHeight: 60,
         }
