@@ -14,6 +14,7 @@ export default class UI extends BaseUI {
         super.init(params);
 
         this.textboxConfig = {
+            imgAtlas: "uiElements",
             img: "textbox",
             imgX: this.CANVAS_WIDTH * 0.49,
             imgY: this.CANVAS_HEIGHT * 0.83,
@@ -41,6 +42,8 @@ export default class UI extends BaseUI {
             align: "center"
         }
         this.optionBoxConfig = {
+            imgAtlas: "uiElements",
+            img: "optionBox",
             boxSpacing: 10,
             textPaddingX: 70,
             textPaddingY: 10,

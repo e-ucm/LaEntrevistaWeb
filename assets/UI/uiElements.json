@@ -1,0 +1,159 @@
+{
+  "frames": {
+    "optionBox": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 1486,
+        "h": 92
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1486,
+        "h": 92
+      },
+      "sourceSize": {
+        "w": 1486,
+        "h": 92
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "frontArrow": {
+      "frame": {
+        "x": 1498,
+        "y": 4,
+        "w": 216,
+        "h": 182
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 42,
+        "y": 59,
+        "w": 216,
+        "h": 182
+      },
+      "sourceSize": {
+        "w": 300,
+        "h": 300
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "textbox": {
+      "frame": {
+        "x": 4,
+        "y": 104,
+        "w": 1433,
+        "h": 292
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1433,
+        "h": 292
+      },
+      "sourceSize": {
+        "w": 1433,
+        "h": 292
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "sideArrow": {
+      "frame": {
+        "x": 1722,
+        "y": 4,
+        "w": 172,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 64,
+        "y": 28,
+        "w": 172,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 300,
+        "h": 300
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "questionArrow": {
+      "frame": {
+        "x": 1902,
+        "y": 194,
+        "w": 50,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 50,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "questionButton": {
+      "frame": {
+        "x": 1445,
+        "y": 194,
+        "w": 150,
+        "h": 150
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 150,
+        "h": 150
+      },
+      "sourceSize": {
+        "w": 150,
+        "h": 150
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "ui.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1956,
+      "h": 400
+    },
+    "scale": 1
+  }
+}

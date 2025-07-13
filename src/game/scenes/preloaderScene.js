@@ -162,17 +162,7 @@ export default class PreloaderScene extends BasePreloaderScene {
         this.load.atlas("flags", "flags.png", "flags.json");
 
         this.load.setPath("assets/UI");
-
-        this.load.image("textbox", "textbox.png");
-        this.load.image("optionBox", "optionBox.png");
-
+        this.load.atlas("uiElements", "uiElements.png", "uiElements.json");
         this.load.image("cvSheet", "cvSheet.png");
-
-        this.load.image("questionButton", "questionButton.png");
-        this.load.image("questionArrow", "questionArrow.png");
-
-        this.load.image("frontArrow", "frontArrow.png");
-        this.load.image("sideArrow", "sideArrow.png");
-
     }
 }

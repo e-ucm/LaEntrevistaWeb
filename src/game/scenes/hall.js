@@ -52,7 +52,7 @@ export default class Hall extends LaEntrevistaBaseScene {
             });
 
             let arrowScale = 0.6;
-            let arrow = this.add.image(1383, 699, "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
+            let arrow = this.add.image(1383, 699, "uiElements", "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
 
             this.tweens.add({
                 targets: arrow,

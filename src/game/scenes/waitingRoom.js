@@ -19,8 +19,8 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         let namespace = "scenes\\waitingRoom";
 
         let arrowScale = 0.5;
-        let corridorArrow = this.add.image(100, 540, "sideArrow").setOrigin(0.5, 0.5).setScale(arrowScale).setAngle(-90);
-        let doorArrow = this.add.image(1100, 660, "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
+        let corridorArrow = this.add.image(100, 540, "uiElements", "sideArrow").setOrigin(0.5, 0.5).setScale(arrowScale).setAngle(-90);
+        let doorArrow = this.add.image(1100, 660, "uiElements", "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
         doorArrow.setVisible(false);
         this.tweens.add({
             targets: [corridorArrow, doorArrow],

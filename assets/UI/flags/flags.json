@@ -2,8 +2,8 @@
   "frames": {
     "es": {
       "frame": {
-        "x": 0,
-        "y": 0,
+        "x": 4,
+        "y": 4,
         "w": 225,
         "h": 150
       },
@@ -26,8 +26,8 @@
     },
     "fr": {
       "frame": {
-        "x": 225,
-        "y": 0,
+        "x": 237,
+        "y": 4,
         "w": 225,
         "h": 150
       },
@@ -55,10 +55,9 @@
     "image": "flags.png",
     "format": "RGBA8888",
     "size": {
-      "w": 450,
-      "h": 150
+      "w": 466,
+      "h": 158
     },
-    "scale": 1,
-    "source": "https://hampusborgos.github.io/country-flags/"
+    "scale": 1
   }
 }

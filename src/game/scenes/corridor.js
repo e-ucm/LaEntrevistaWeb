@@ -50,8 +50,8 @@ export default class Corridor extends LaEntrevistaBaseScene {
 
         luisChar.once("targetReached", () => {
             let arrowScale = 0.5;
-            let waitingRoomArrow = this.add.image(946, 658, "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
-            let cafeteriaArrow = this.add.image(100, 540, "sideArrow").setOrigin(0.5, 0.5).setScale(arrowScale).setAngle(-90);
+            let waitingRoomArrow = this.add.image(946, 658, "uiElements", "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
+            let cafeteriaArrow = this.add.image(100, 540, "uiElements", "sideArrow").setOrigin(0.5, 0.5).setScale(arrowScale).setAngle(-90);
 
             this.tweens.add({
                 targets: [waitingRoomArrow, cafeteriaArrow],

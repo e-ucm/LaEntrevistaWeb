@@ -147,7 +147,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
         let page1 = this.add.container(0, 0);
 
-        let page1Button = this.add.image(this.CANVAS_WIDTH - 100, this.CANVAS_HEIGHT / 2, "questionArrow").setOrigin(0.5, 0.5).setScale(1.7);
+        let page1Button = this.add.image(this.CANVAS_WIDTH - 100, this.CANVAS_HEIGHT / 2, "uiElements", "questionArrow").setOrigin(0.5, 0.5).setScale(1.7);
         page1.add(page1Button);
 
         this.createQuestionButton(page1, 1, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig, fromMenu);
@@ -158,7 +158,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
         let page2 = this.add.container(0, 0);
 
-        let page2Button = this.add.image(100, this.CANVAS_HEIGHT / 2, "questionArrow").setOrigin(0.5, 0.5).setScale(1.7);
+        let page2Button = this.add.image(100, this.CANVAS_HEIGHT / 2, "uiElements", "questionArrow").setOrigin(0.5, 0.5).setScale(1.7);
         page2Button.setFlipX(true);
         page2.add(page2Button);
 
@@ -188,7 +188,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
     createQuestionButton(pageObj, index, x, y, style, fromMenu) {
         let button = new Button(this, x, y, 0, 0);
-        button.createImgButton(index, style, () => {
+        button.createImgButtonWithAtlas(index, style, () => {
             if (!this.gameManager.sceneManager.fading) {
                 button.disableInteractive();
                 this.gameManager.startQuestionScene(fromMenu, index);
@@ -200,7 +200,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
                 button.textObj.setTint(0x969696);
             }
 
-        }, "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5);
+        }, "uiElements", "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5);
 
         pageObj.add(button);
     }
