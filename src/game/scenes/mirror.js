@@ -4,6 +4,7 @@ import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import Button from "../../framework/UI/button.js";
 import TextArea from "../../framework/UI/textArea.js";
 import AnimatedContainer from "../../framework/UI/animatedContainer.js";
+import { growAnimation } from "../../framework/utils/graphics.js";
 
 export default class Mirror extends LaEntrevistaBaseScene {
     /**
@@ -147,8 +148,6 @@ export default class Mirror extends LaEntrevistaBaseScene {
         let page1 = this.add.container(0, 0);
 
         let page1Button = this.add.image(this.CANVAS_WIDTH - 100, this.CANVAS_HEIGHT / 2, "questionArrow").setOrigin(0.5, 0.5).setScale(1.7);
-        this.setInteractive(page1Button);
-        this.animateArrow(page1Button);
         page1.add(page1Button);
 
         this.createQuestionButton(page1, 1, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig, fromMenu);
@@ -161,8 +160,6 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
         let page2Button = this.add.image(100, this.CANVAS_HEIGHT / 2, "questionArrow").setOrigin(0.5, 0.5).setScale(1.7);
         page2Button.setFlipX(true);
-        this.setInteractive(page2Button);
-        this.animateArrow(page2Button);
         page2.add(page2Button);
 
         this.createQuestionButton(page2, 5, this.CANVAS_WIDTH / 2 - BUTTON_SPACING, TOP, textConfig, fromMenu);
@@ -172,15 +169,16 @@ export default class Mirror extends LaEntrevistaBaseScene {
         this.createQuestionButton(page2, 9, this.CANVAS_WIDTH / 2 + BUTTON_SPACING / 2, BOTTOM, textConfig, fromMenu);
 
         page2.setVisible(false);
-        page1Button.on("pointerdown", () => {
+
+        growAnimation(page1Button, page1Button, () => {
             page1.setVisible(false);
             page2.setVisible(true);
-        });
-        page2Button.on("pointerdown", () => {
+        }, 1.1, true, 50);
+        growAnimation(page2Button, page2Button, () => {
             page2.setVisible(false);
             page1.setVisible(true);
-        });
-
+        }, 1.1, true, 50);
+        
         let questions = this.add.container(0, 0);
         questions.add(page1);
         questions.add(page2);
@@ -207,35 +205,4 @@ export default class Mirror extends LaEntrevistaBaseScene {
         pageObj.add(button);
     }
 
-    animateArrow(button) {
-        let originalScale = button.scale;
-        let scaleMultiplier = 1.1;
-
-        button.on("pointerover", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale * scaleMultiplier,
-                duration: 0,
-                repeat: 0,
-            });
-        });
-        button.on("pointerout", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale,
-                duration: 0,
-                repeat: 0,
-            });
-        });
-        button.on("pointerdown", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale,
-                duration: 20,
-                repeat: 0,
-                yoyo: true
-            });
-        });
-
-    }
 }

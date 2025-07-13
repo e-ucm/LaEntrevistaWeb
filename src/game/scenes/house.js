@@ -1,6 +1,7 @@
 import TextArea from "../../framework/UI/textArea.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import GameStage from "../gameStage.js";
+import { growAnimation } from "../../framework/utils/graphics.js";
 
 export default class House extends LaEntrevistaBaseScene {
     /**
@@ -103,15 +104,14 @@ export default class House extends LaEntrevistaBaseScene {
             this.localizationManager.translate("programming", "scenes").toUpperCase(), textConfig, this.sys.game.debug.enable);
         programmingText.setOrigin(0.5, 0.5);
         programmingText.adjustFontSize();
-        this.setInteractive(programmingIcon);
 
         let dataIcon = this.add.image(1005, ICONS_Y, "data");
         let dataText = new TextArea(this, dataIcon.x, TEXT_Y, dataIcon.displayWidth, dataIcon.displayHeight,
             this.localizationManager.translate("data", "scenes").toUpperCase(), textConfig, this.sys.game.debug.enable);
         dataText.setOrigin(0.5, 0.5);
         dataText.adjustFontSize();
-        this.setInteractive(dataIcon);
-        programmingIcon.on("pointerdown", () => {
+        
+        growAnimation(programmingIcon, programmingIcon, () => {
             this.gameManager.blackboard.set("position", "programming");
 
             // TRACKER EVENT
@@ -119,10 +119,9 @@ export default class House extends LaEntrevistaBaseScene {
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
-        });
-        this.animateIcon(programmingIcon);
+        }, 1.1, true, 50);
 
-        dataIcon.on("pointerdown", () => {
+        growAnimation(dataIcon, dataIcon, () => {
             this.gameManager.blackboard.set("position", "dataScience");
 
             // TRACKER EVENT
@@ -130,8 +129,7 @@ export default class House extends LaEntrevistaBaseScene {
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
-        });
-        this.animateIcon(dataIcon);
+        }, 1.1, true, 50);
 
         this.dispatcher.add("updateCV", this, () => {
             programmingIcon.off("pointerdown");
@@ -170,36 +168,5 @@ export default class House extends LaEntrevistaBaseScene {
             });
         });
 
-    }
-
-    animateIcon(button) {
-        let originalScale = button.scale;
-        let scaleMultiplier = 1.1;
-
-        button.on("pointerover", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale * scaleMultiplier,
-                duration: 0,
-                repeat: 0,
-            });
-        });
-        button.on("pointerout", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale,
-                duration: 0,
-                repeat: 0,
-            });
-        });
-        button.on("pointerdown", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale,
-                duration: 20,
-                repeat: 0,
-                yoyo: true
-            });
-        });
     }
 }

@@ -1,4 +1,5 @@
 import TextArea from "../../framework/UI/textArea.js";
+import { growAnimation } from "../../framework/utils/graphics.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 
 export default class Credits extends LaEntrevistaBaseScene {
@@ -95,18 +96,16 @@ export default class Credits extends LaEntrevistaBaseScene {
         //     this.gameManager.startMainMenu(false);
         // });
 
-        let ARROW_POS = 50;
-        let returnButton = this.add.image(ARROW_POS, ARROW_POS, "questionArrow").setOrigin(0, 0);
+        let ARROW_POS_X = 60;
+        let ARROW_POS_Y = 90;
+        let returnButton = this.add.image(ARROW_POS_X, ARROW_POS_Y, "questionArrow").setOrigin(0.5, 0.5);
         returnButton.setFlipX(true);
-        this.setInteractive(returnButton);
-        this.animateArrow(returnButton);
-
-        returnButton.on("pointerdown", () => {
+        growAnimation(returnButton, returnButton, () => {
             this.gameManager.startMainMenu();
             // returnButton.setVisible(false);
             // video.setVisible(true);
             // video.play();
-        });
+        }, 1.1, true, 50);
     }
 
 
@@ -133,37 +132,5 @@ export default class Credits extends LaEntrevistaBaseScene {
         const width = width1 + widthSlope * (y - y1);
 
         return { x, width };
-    }
-
-    animateArrow(button) {
-        let originalScale = button.scale;
-        let scaleMultiplier = 1.1;
-
-        button.on("pointerover", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale * scaleMultiplier,
-                duration: 0,
-                repeat: 0,
-            });
-        });
-        button.on("pointerout", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale,
-                duration: 0,
-                repeat: 0,
-            });
-        });
-        button.on("pointerdown", () => {
-            this.tweens.add({
-                targets: button,
-                scale: originalScale,
-                duration: 20,
-                repeat: 0,
-                yoyo: true
-            });
-        });
-
     }
 }
