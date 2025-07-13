@@ -3,6 +3,7 @@ import Character from "../character.js";
 import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import Button from "../../framework/UI/button.js";
 import TextArea from "../../framework/UI/textArea.js";
+import AnimatedContainer from "../../framework/UI/animatedContainer.js";
 
 export default class Mirror extends LaEntrevistaBaseScene {
     /**
@@ -25,7 +26,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
         let bg = this.add.image(0, 0, "mirror").setOrigin(0, 0);
         let effect = this.add.image(0, 0, "mirrorEffect").setOrigin(0, 0).setAlpha(0.6);
 
-        let sceneElements = new InteractiveContainer(this, 0, 0);
+        let sceneElements = new AnimatedContainer(this, 0, 0);
         sceneElements.add(white);
         sceneElements.add(playerChar);
         sceneElements.add(bg);
