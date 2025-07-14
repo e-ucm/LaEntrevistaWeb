@@ -177,7 +177,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
             page2.setVisible(false);
             page1.setVisible(true);
         }, 1.1, true, 50);
-        
+
         let questions = this.add.container(0, 0);
         questions.add(page1);
         questions.add(page2);
@@ -186,7 +186,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
     }
 
     createQuestionButton(pageObj, index, x, y, style, fromMenu) {
-        let button = new Button(this, x, y, 0, 0);
+        let button = new Button(this, x, y);
         button.createImgButtonWithAtlas(index, style, () => {
             if (!this.gameManager.sceneManager.fading) {
                 button.disableInteractive();

@@ -194,27 +194,28 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let buttonsHeight = textRect.displayHeight - (warningTitleMaxHeight + warningTextMaxHeight + this.TEXT_MARGIN * 4);
         let buttonsWidth = buttonsHeight * 1.6 * 2;
 
-        let yesButton = new Button(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
-        yesButton.createRectButton(this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG, () => {
-            // TRACKER EVENT
-            this.trackerManager.sendSelectAccessFinalQuestions(true);
-            // this.sendSelectAccessQuestions(true);
+        let yesButton = new Button(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY);
+        yesButton.createRectButton(this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG,
+            buttonsWidth, buttonsHeight, () => {
+                // TRACKER EVENT
+                this.trackerManager.sendSelectAccessFinalQuestions(true);
 
-            this.gameManager.startMirrorScene(true);
-            yesButton.disableInteractive();
-        }, "yesButton", 25, 0xe02424, 1, 5);
+                this.gameManager.startMirrorScene(true);
+                yesButton.disableInteractive();
+            }, "yesButton", 25, 0xe02424, 1, 5);
         yesButton.y += yesButton.displayHeight / 2;
 
-        let noButton = new Button(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY, buttonsWidth, buttonsHeight);
-        noButton.createRectButton(this.localizationManager.translate("no", namespace), this.TEXT_CONFIG, () => {
-            // TRACKER EVENT
-            this.trackerManager.sendSelectAccessFinalQuestions(false);
+        let noButton = new Button(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY);
+        noButton.createRectButton(this.localizationManager.translate("no", namespace), this.TEXT_CONFIG,
+            buttonsWidth, buttonsHeight, () => {
+                // TRACKER EVENT
+                this.trackerManager.sendSelectAccessFinalQuestions(false);
 
-            noButton.disableInteractive();
-            popup.activate(false, () => {
-                noButton.setInteractive();
-            });
-        }, "noButton", 25, 0x36b030, 1, 5);
+                noButton.disableInteractive();
+                popup.activate(false, () => {
+                    noButton.setInteractive();
+                });
+            }, "noButton", 25, 0x36b030, 1, 5);
         noButton.y += noButton.displayHeight / 2;
 
         popup.add(blackBg);
