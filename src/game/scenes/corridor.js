@@ -72,13 +72,13 @@ export default class Corridor extends LaEntrevistaBaseScene {
         setTimeout(() => {
             this.dialogManager.setNode(locationNode);
 
-            let cafeteria = this.add.rectangle(0, 0, 160, this.CANVAS_HEIGHT, 0x000, 0).setOrigin(0, 0);
+            let cafeteria = this.add.zone(0, 0, 160, this.CANVAS_HEIGHT).setOrigin(0, 0);
             this.setInteractive(cafeteria);
             cafeteria.on("pointerdown", () => {
                 this.gameManager.startCafeteriaScene();
             });
 
-            let waitingRoom = this.add.rectangle(955, 475, 240, 470, 0x000, 0);
+            let waitingRoom = this.add.zone(955, 475, 240, 470);
             this.setInteractive(waitingRoom);
             waitingRoom.on("pointerdown", () => {
                 this.gameManager.startWaitingRoomScene();

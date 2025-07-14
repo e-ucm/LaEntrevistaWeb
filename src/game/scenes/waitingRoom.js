@@ -31,7 +31,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         });
 
 
-        let corridor = this.add.rectangle(0, 0, 160, this.CANVAS_HEIGHT, 0x000, 0).setOrigin(0, 0);
+        let corridor = this.add.zone(0, 0, 160, this.CANVAS_HEIGHT).setOrigin(0, 0);
         this.setInteractive(corridor);
         corridor.on("pointerdown", () => {
             this.gameManager.startCorridorScene();
@@ -40,7 +40,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         // Puerta
         let doorNode = this.dialogManager.readNodes(this, nodes, namespace, "door");
 
-        let door = this.add.rectangle(1097, 430, 140, 470, 0x000, 0).setOrigin(0.5, 0.5);
+        let door = this.add.zone(1097, 430, 140, 470).setOrigin(0.5, 0.5);
         this.setInteractive(door);
         door.on("pointerdown", () => {
             // TRACKER EVENT

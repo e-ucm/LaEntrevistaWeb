@@ -190,9 +190,6 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         warningText.adjustFontSize();
         warningText.y += warningText.displayHeight / 2;
 
-        // this.add.rectangle(warningTitleText.x, warningTitleY, warningTitleMaxWidth, warningTitleMaxHeight, 0xfff, 0.5).setOrigin(0.5, 0)
-        // this.add.rectangle(warningText.x, warningTextY, warningText.displayWidth, warningTextMaxHeight, 0x000, 0.5).setOrigin(0.5, 0)
-
         let buttonsY = warningTextY + warningTextMaxHeight + this.TEXT_MARGIN / 2;
         let buttonsHeight = textRect.displayHeight - (warningTitleMaxHeight + warningTextMaxHeight + this.TEXT_MARGIN * 4);
         let buttonsWidth = buttonsHeight * 1.6 * 2;

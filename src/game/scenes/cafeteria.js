@@ -94,13 +94,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             setWomenNode();
         });
         rebecaChar.setOrigin(0.5, 0.5);
-
-        setWomenNode = () => {
-            this.dialogManager.setNode(womenNode);
-            monicaChar.disableInteractive();
-            rebecaChar.disableInteractive();
-        }
-        
+       
 
         // Carlos
         let carlosConfig = {
@@ -113,6 +107,9 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let carlosChar = new Character(this, exitPoint.x, exitPoint.y, carlosConfig.scale, "Carlos", this.characterConfig.speed, false, null);
         carlosChar.setOrigin(0.5, 0.5);
         this.dispatcher.addOnce("trioLeave", this, () => {
+            jesusChar.setInteractive();
+            pedroChar.setInteractive();
+            
             this.leaveRoom([monicaChar, rebecaChar, carlosChar], exitPoint);
         })
 
@@ -140,10 +137,19 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         });
 
 
-        let corridor = this.add.rectangle(this.CANVAS_WIDTH, 0, 160, this.CANVAS_HEIGHT, 0x000, 0).setOrigin(1, 0);
+        let corridor = this.add.zone(this.CANVAS_WIDTH, 0, 160, this.CANVAS_HEIGHT).setOrigin(1, 0);
         this.setInteractive(corridor);
         corridor.on("pointerdown", () => {
             this.gameManager.startCorridorScene();
         });
+
+        
+        setWomenNode = () => {
+            this.dialogManager.setNode(womenNode);
+            jesusChar.disableInteractive();
+            pedroChar.disableInteractive();
+            monicaChar.disableInteractive();
+            rebecaChar.disableInteractive();
+        }
     }
 }

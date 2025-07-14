@@ -2,8 +2,8 @@ import BaseUI from "../../framework/UI/baseUI.js";
 import DialogManager from "../managers/dialogManager.js";
 import TextArea from "../../framework/UI/textArea.js";
 import CV from "../UI/cv.js"
-import DefaultEventNames from "../../framework/utils/eventNames.js";
 import GameManager from "../managers/gameManager.js";
+import AnimatedContainer from "../../framework/UI/animatedContainer.js";
 
 export default class UI extends BaseUI {
     constructor() {
@@ -17,7 +17,8 @@ export default class UI extends BaseUI {
             imgAtlas: "uiElements",
             img: "textbox",
             imgX: this.CANVAS_WIDTH * 0.49,
-            imgY: this.CANVAS_HEIGHT * 0.83,
+            imgY: this.CANVAS_HEIGHT,
+            imgOriginY: 1,
             textX: 180,
             textY: 715,
             realWidth: 1240,
@@ -80,11 +81,15 @@ export default class UI extends BaseUI {
         questionTextConfig.strokeThickness = 5;
         questionTextConfig.stroke = "#000000";
 
-        this.questionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2,
-            this.optionsQuestionTextConfig.wordWrap.width, this.CANVAS_HEIGHT / 2, "", this.optionsQuestionTextConfig).setOrigin(0.5, 0.5);
-        this.questionText.setVisible(false);
-
-        this.bgElements.add(this.questionText);
+        
+        this.darkBg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000, 0.7).setOrigin(0, 0);
+        this.questionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.optionsQuestionTextConfig.wordWrap.width, this.CANVAS_HEIGHT / 2, 
+            "", this.optionsQuestionTextConfig).setOrigin(0.5, 0.5);
+            
+        this.questionBgElements = new AnimatedContainer(this, 0, 0);
+        this.questionBgElements.add(this.darkBg);
+        this.questionBgElements.add(this.questionText);
+        this.questionBgElements.setVisible(false);
     }
 
 
@@ -105,8 +110,6 @@ export default class UI extends BaseUI {
     createOptions(node) {
         super.createOptions(node);
 
-        this.questionText.setVisible(true);
-        // console.log(this.textbox.textObj.text)
         if (this.textbox.textObj.text != "") {
             this.questionText.setText(this.textbox.fullText);
             this.questionText.setFontSize(this.QUESTION_TEXT_DEFAULT_SIZE);
@@ -114,15 +117,11 @@ export default class UI extends BaseUI {
             this.questionText.adjustFontSize();
             this.questionText.y = this.optionBoxes[0].getBounds().y / 2;
         }
-
-        this.bgBlock.fillAlpha = 0.7;
+        this.questionBgElements.activate(true);
     }
 
-    onOptionRemoval() {
-        if (this.optionBoxes.length <= 0) {
-            this.questionText.setVisible(false);
-            this.bgBlock.fillAlpha = 0;
-        }
-        super.onOptionRemoval();
+    removeOptions() {
+        super.removeOptions();
+        this.questionBgElements.activate(false);
     }
 }

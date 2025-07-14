@@ -18,7 +18,7 @@ export default class GameManager extends Singleton {
         this.blackboard = new Blackboard();
         this.ui = null;
 
-        this.charactersStage = new GameStage("charactersInteracted", 3);
+        this.charactersStage = new GameStage("charactersInteracted", 8);
         this.questionsStage = new GameStage("finalQuestions", 9);
 
         this.gameCompleted = false;
@@ -69,8 +69,6 @@ export default class GameManager extends Singleton {
             this.sceneManager.restartScene("UI");
         }
 
-        this.startHouseScene();
-
         // TEST
         // this.startMainMenu();
         // this.startHallScene();
@@ -82,6 +80,8 @@ export default class GameManager extends Singleton {
         // this.startQuestionScene(1);
         // this.startCreditsScene();
         // this.startLanguageMenu();
+
+        this.startHouseScene();
     }
 
 

@@ -40,7 +40,7 @@ export default class Hall extends LaEntrevistaBaseScene {
         this.dispatcher.add("end", this, () => {
             node = this.dialogManager.readNodes(this, this.nodes, namespace, "repeat");
 
-            let stairs = this.add.rectangle(1350, 453, 500, 660, 0x000, 0);
+            let stairs = this.add.zone(1350, 453, 500, 660);
             this.setInteractive(stairs);
             stairs.on("pointerdown", () => {
                 stairs.disableInteractive();
