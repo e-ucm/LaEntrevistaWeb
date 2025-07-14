@@ -47,8 +47,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
             let transitionBg = this.add.image(0, 0, "30min").setOrigin(0, 0);
 
             let transitionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.CANVAS_WIDTH, this.CANVAS_HEIGHT - TEXT_PADDING * 2,
-                this.localizationManager.translate("30min", "scenes"), transitionTextConfig, this.sys.game.debug.enable);
-            transitionText.setOrigin(0.5, 0.5);
+                this.localizationManager.translate("30min", "scenes"), transitionTextConfig).setOrigin(0.5, 0.5);
             transitionText.adjustFontSize();
 
             transition.add(transitionBg);

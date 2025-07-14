@@ -89,8 +89,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
     createSign(x, y, width, height, text, textLeftMargin, textRightMargin, id) {
         let container = new InteractiveContainer(this, 0, 0);
         let rect = this.add.zone(0, 0, width, height).setOrigin(0.5, 0.5);
-        let textArea = new TextArea(this, width / 2 - textRightMargin, 0, width - textLeftMargin - textRightMargin, height,
-            text, this.SIGN_TEXT_CONFIG, this.sys.game.debug.enable).setOrigin(1, 0.5);
+        let textArea = new TextArea(this, width / 2 - textRightMargin, 0, width - textLeftMargin - textRightMargin, height, text, this.SIGN_TEXT_CONFIG).setOrigin(1, 0.5);
         textArea.adjustFontSize();
 
         container.add(rect);

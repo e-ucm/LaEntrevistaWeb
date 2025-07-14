@@ -132,8 +132,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
     createGameButton(x, y, width, height, rotation, text) {
         let button = new InteractiveContainer(this, 0, 0);
         let rect = this.add.rectangle(0, 0, width, height, 0xFFFFFF, 1).setOrigin(0.5, 0.5);
-        let textObj = new TextArea(this, rect.x, rect.y, rect.displayWidth - this.TEXT_MARGIN * 2, rect.displayHeight - this.TEXT_MARGIN * 2, text,
-            this.TEXT_CONFIG, this.sys.game.debug.enable);
+        let textObj = new TextArea(this, rect.x, rect.y, rect.displayWidth - this.TEXT_MARGIN * 2, rect.displayHeight - this.TEXT_MARGIN * 2, text, this.TEXT_CONFIG);
         textObj.setOrigin(0.5, 0.5);
         textObj.adjustFontSize();
 
@@ -172,7 +171,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let warningTitleMaxWidth = textRect.displayWidth - this.TEXT_MARGIN * 2;
         let warningTitleMaxHeight = textRect.displayHeight * 0.15;
         let warningTitleText = new TextArea(this, textRect.x, warningTitleY, warningTitleMaxWidth, warningTitleMaxHeight,
-            this.localizationManager.translate("questionsWarningTitle", namespace), this.TEXT_CONFIG, this.sys.game.debug.enable);
+            this.localizationManager.translate("questionsWarningTitle", namespace), this.TEXT_CONFIG);
         warningTitleText.setOrigin(0.5, 0);
         warningTitleText.adjustFontSize();
 
@@ -187,8 +186,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let warningTextMaxWidth = textRect.displayWidth - this.TEXT_MARGIN;
         let warningTextMaxHeight = textRect.displayHeight * 0.5 - this.TEXT_MARGIN;
         let warningText = new TextArea(this, textRect.x, warningTextY, warningTextMaxWidth, warningTextMaxHeight,
-            this.localizationManager.translate("questionsWarning", namespace), warningTextConfig, this.sys.game.debug.enable);
-        warningText.setOrigin(0.5, 0.5);
+            this.localizationManager.translate("questionsWarning", namespace), warningTextConfig).setOrigin(0.5, 0.5);
         warningText.adjustFontSize();
         warningText.y += warningText.displayHeight / 2;
 

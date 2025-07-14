@@ -64,8 +64,7 @@ export default class House extends LaEntrevistaBaseScene {
                 useAdvancedWrap: true
             }
         }
-        let portalText = new TextArea(this, 800, portalLogo.y, maxWidth, portalLogo.displayHeight,
-            this.localizationManager.translate("platform", "scenes"), textConfig, this.sys.game.debug.enable);
+        let portalText = new TextArea(this, 800, portalLogo.y, maxWidth, portalLogo.displayHeight, this.localizationManager.translate("platform", "scenes"), textConfig);
         portalText.setOrigin(0, 0.5);
         portalText.adjustFontSize();
 
@@ -101,14 +100,13 @@ export default class House extends LaEntrevistaBaseScene {
 
         let programmingIcon = this.add.image(600, ICONS_Y, "programming");
         let programmingText = new TextArea(this, programmingIcon.x, TEXT_Y, programmingIcon.displayWidth, programmingIcon.displayHeight,
-            this.localizationManager.translate("programming", "scenes").toUpperCase(), textConfig, this.sys.game.debug.enable);
+            this.localizationManager.translate("programming", "scenes").toUpperCase(), textConfig);
         programmingText.setOrigin(0.5, 0.5);
         programmingText.adjustFontSize();
 
         let dataIcon = this.add.image(1005, ICONS_Y, "data");
-        let dataText = new TextArea(this, dataIcon.x, TEXT_Y, dataIcon.displayWidth, dataIcon.displayHeight,
-            this.localizationManager.translate("data", "scenes").toUpperCase(), textConfig, this.sys.game.debug.enable);
-        dataText.setOrigin(0.5, 0.5);
+        let dataText = new TextArea(this, dataIcon.x, TEXT_Y, dataIcon.displayWidth, dataIcon.displayHeight, this.localizationManager.translate("data", "scenes").toUpperCase(),
+            textConfig).setOrigin(0.5, 0.5);
         dataText.adjustFontSize();
         
         growAnimation(programmingIcon, programmingIcon, () => {

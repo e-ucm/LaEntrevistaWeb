@@ -111,9 +111,7 @@ export default class Credits extends LaEntrevistaBaseScene {
 
     createText(y, text, style) {
         let pos = this.calculatePosition(y);
-        let txt = new TextArea(this, pos.x + this.TEXT_MARGIN, y, pos.width - (this.TEXT_MARGIN * 2), style.fontSize * 2, text,
-            style, this.sys.game.debug.enable);
-        txt.setOrigin(0, 0);
+        let txt = new TextArea(this, pos.x + this.TEXT_MARGIN, y, pos.width - (this.TEXT_MARGIN * 2), style.fontSize * 2, text, style).setOrigin(0, 0);
         txt.adjustFontSize();
         return txt;
     }
