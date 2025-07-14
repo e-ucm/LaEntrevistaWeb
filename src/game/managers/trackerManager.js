@@ -15,31 +15,31 @@ class Completable {
     }
 
     initialize() {
-        this.seriousGameTracker.Completable(this.id, this.type)
-            .Initialized()
-            .Send();
+        this.seriousGameTracker.completable(this.id, this.type)
+            .initialized()
+            .send();
     }
 
     progress(completedSteps, totalSteps, extensions = {}) {
         let progress = completedSteps / totalSteps;
 
-        this.seriousGameTracker.Completable(this.id, this.type)
-            .Progressed(progress)
-            .WithScore({
+        this.seriousGameTracker.completable(this.id, this.type)
+            .progressed(progress)
+            .withScore({
                 raw: completedSteps,
                 min: 0,
                 max: totalSteps,
                 scaled: progress
             })
-            .WithResultExtensions(extensions);
+            .withResultExtensions(extensions);
     }
 
     complete(success, completion, completedSteps, totalSteps) {
         let progress = completedSteps / totalSteps;
 
-        this.seriousGameTracker.Completable(this.id, this.type)
-            .Completed(success, completion, completedSteps)
-            .WithScoreScaled(progress);
+        this.seriousGameTracker.completable(this.id, this.type)
+            .completed(success, completion, completedSteps)
+            .withScoreScaled(progress);
     }
 }
 
