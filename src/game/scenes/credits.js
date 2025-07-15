@@ -1,6 +1,6 @@
+import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import TextArea from "../../framework/UI/textArea.js";
 import { growAnimation } from "../../framework/utils/graphics.js";
-import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 
 export default class Credits extends LaEntrevistaBaseScene {
     /**
@@ -100,18 +100,19 @@ export default class Credits extends LaEntrevistaBaseScene {
         let ARROW_POS_Y = 90;
         let returnButton = this.add.image(ARROW_POS_X, ARROW_POS_Y, "uiElements", "questionArrow").setOrigin(0.5, 0.5);
         returnButton.setFlipX(true);
+        growAnimation(returnButton, returnButton, () => {}, true, 1.1, true, 50);
         growAnimation(returnButton, returnButton, () => {
             this.gameManager.startMainMenu();
             // returnButton.setVisible(false);
             // video.setVisible(true);
             // video.play();
-        }, 1.1, true, 50);
+        }, true, 1.1, true, 50);
     }
 
 
     createText(y, text, style) {
         let pos = this.calculatePosition(y);
-        let txt = new TextArea(this, pos.x + this.TEXT_MARGIN, y, pos.width - (this.TEXT_MARGIN * 2), style.fontSize * 2, text, style).setOrigin(0, 0);
+        let txt = new TextArea(this, pos.x + this.TEXT_MARGIN, y, pos.width, style.fontSize * 2, text, style, 0, 0, this.TEXT_MARGIN);
         txt.adjustFontSize();
         return txt;
     }

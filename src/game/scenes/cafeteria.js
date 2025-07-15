@@ -26,6 +26,12 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             yoyo: true
         });
 
+        let corridor = this.add.zone(this.CANVAS_WIDTH, 0, 160, this.CANVAS_HEIGHT).setOrigin(1, 0);
+        this.setInteractive(corridor);
+        corridor.on("pointerdown", () => {
+            this.gameManager.startCorridorScene();
+        });
+
 
         let nodes = this.cache.json.get("cafeteria");
         let namespace = "scenes\\cafeteria";
@@ -68,10 +74,14 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             this.leaveRoom([jesusChar, pedroChar], exitPoint);
         })
 
+        
         let womenNode = this.dialogManager.readNodes(this, nodes, namespace, "womenConversation");
         let trioNode = this.dialogManager.readNodes(this, nodes, namespace, "trioConversation");
 
-        let setWomenNode = () => { }
+        let setWomenNode = () => {
+            this.dialogManager.setNode(womenNode);
+            this.disableAllInteraction();
+        }
         
         // Monica
         let monicaConfig = {
@@ -95,7 +105,6 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         });
         rebecaChar.setOrigin(0.5, 0.5);
        
-
         // Carlos
         let carlosConfig = {
             target: {
@@ -107,11 +116,10 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let carlosChar = new Character(this, exitPoint.x, exitPoint.y, carlosConfig.scale, "Carlos", this.characterConfig.speed, false, null);
         carlosChar.setOrigin(0.5, 0.5);
         this.dispatcher.addOnce("trioLeave", this, () => {
-            jesusChar.setInteractive();
-            pedroChar.setInteractive();
-            
+            this.enableAllInteraction();
             this.leaveRoom([monicaChar, rebecaChar, carlosChar], exitPoint);
         })
+        
 
         // Gestionar el fin de la conversacion entre Monica y Rebeca y la llegada de Carlos, 
         // para comenzar la conversacion entre los tres
@@ -135,21 +143,5 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         this.dispatcher.addOnce("womenConversationEnded", this, () => {
             continueConversation();
         });
-
-
-        let corridor = this.add.zone(this.CANVAS_WIDTH, 0, 160, this.CANVAS_HEIGHT).setOrigin(1, 0);
-        this.setInteractive(corridor);
-        corridor.on("pointerdown", () => {
-            this.gameManager.startCorridorScene();
-        });
-
-        
-        setWomenNode = () => {
-            this.dialogManager.setNode(womenNode);
-            jesusChar.disableInteractive();
-            pedroChar.disableInteractive();
-            monicaChar.disableInteractive();
-            rebecaChar.disableInteractive();
-        }
     }
 }

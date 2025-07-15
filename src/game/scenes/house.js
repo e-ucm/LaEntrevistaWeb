@@ -1,5 +1,5 @@
-import TextArea from "../../framework/UI/textArea.js";
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
+import TextArea from "../../framework/UI/textArea.js";
 import GameStage from "../gameStage.js";
 import { growAnimation } from "../../framework/utils/graphics.js";
 
@@ -64,8 +64,7 @@ export default class House extends LaEntrevistaBaseScene {
                 useAdvancedWrap: true
             }
         }
-        let portalText = new TextArea(this, 800, portalLogo.y, maxWidth, portalLogo.displayHeight, this.localizationManager.translate("platform", "scenes"), textConfig);
-        portalText.setOrigin(0, 0.5);
+        let portalText = new TextArea(this, 800, portalLogo.y, maxWidth, portalLogo.displayHeight, this.localizationManager.translate("platform", "scenes"), textConfig, 0, 0.5);
         portalText.adjustFontSize();
 
         let sendCompleteCV = (success) => {
@@ -101,12 +100,10 @@ export default class House extends LaEntrevistaBaseScene {
         let programmingIcon = this.add.image(600, ICONS_Y, "programming");
         let programmingText = new TextArea(this, programmingIcon.x, TEXT_Y, programmingIcon.displayWidth, programmingIcon.displayHeight,
             this.localizationManager.translate("programming", "scenes").toUpperCase(), textConfig);
-        programmingText.setOrigin(0.5, 0.5);
         programmingText.adjustFontSize();
 
         let dataIcon = this.add.image(1005, ICONS_Y, "data");
-        let dataText = new TextArea(this, dataIcon.x, TEXT_Y, dataIcon.displayWidth, dataIcon.displayHeight, this.localizationManager.translate("data", "scenes").toUpperCase(),
-            textConfig).setOrigin(0.5, 0.5);
+        let dataText = new TextArea(this, dataIcon.x, TEXT_Y, dataIcon.displayWidth, dataIcon.displayHeight, this.localizationManager.translate("data", "scenes").toUpperCase(), textConfig);
         dataText.adjustFontSize();
         
         growAnimation(programmingIcon, programmingIcon, () => {
@@ -117,7 +114,7 @@ export default class House extends LaEntrevistaBaseScene {
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
-        }, 1.1, true, 50);
+        }, true, 1.1, true, 50);
 
         growAnimation(dataIcon, dataIcon, () => {
             this.gameManager.blackboard.set("position", "dataScience");
@@ -127,7 +124,7 @@ export default class House extends LaEntrevistaBaseScene {
 
             this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
             this.dialogManager.setNode(this.node);
-        }, 1.1, true, 50);
+        }, true, 1.1, true, 50);
 
         this.dispatcher.add("updateCV", this, () => {
             programmingIcon.off("pointerdown");

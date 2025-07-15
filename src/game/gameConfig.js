@@ -1,27 +1,27 @@
-import BootScene from "./game/scenes/bootScene.js";
-import PreloaderScene from "./game/scenes/preloaderScene.js";
-import UI from "./game/UI/UI.js";
+import BootScene from "./scenes/bootScene.js";
+import PreloaderScene from "./scenes/preloaderScene.js";
+import UI from "./UI/UI.js";
 
-import MainMenu from "./game/scenes/mainMenu.js";
-import House from "./game/scenes/house.js";
-import Credits from "./game/scenes/credits.js"
-import Hall from "./game/scenes/hall.js"
-import Corridor from "./game/scenes/corridor.js";
-import Cafeteria from "./game/scenes/cafeteria.js";
-import WaitingRoom from "./game/scenes/waitingRoom.js";
-import Office from "./game/scenes/office.js";
-import Mirror from "./game/scenes/mirror.js";
+import MainMenu from "./scenes/mainMenu.js";
+import House from "./scenes/house.js";
+import Credits from "./scenes/credits.js"
+import Hall from "./scenes/hall.js"
+import Corridor from "./scenes/corridor.js";
+import Cafeteria from "./scenes/cafeteria.js";
+import WaitingRoom from "./scenes/waitingRoom.js";
+import Office from "./scenes/office.js";
+import Mirror from "./scenes/mirror.js";
 
-import Question1 from "./game/scenes/questions/question1.js";
-import Question2 from "./game/scenes/questions/question2.js";
-import Question3 from "./game/scenes/questions/question3.js";
-import Question4 from "./game/scenes/questions/question4.js";
-import Question5 from "./game/scenes/questions/question5.js";
-import Question6 from "./game/scenes/questions/question6.js";
-import Question7 from "./game/scenes/questions/question7.js";
-import Question8 from "./game/scenes/questions/question8.js";
-import Question9 from "./game/scenes/questions/question9.js";
-import LanguageMenu from "./game/scenes/languageMenu.js";
+import Question1 from "./scenes/questions/question1.js";
+import Question2 from "./scenes/questions/question2.js";
+import Question3 from "./scenes/questions/question3.js";
+import Question4 from "./scenes/questions/question4.js";
+import Question5 from "./scenes/questions/question5.js";
+import Question6 from "./scenes/questions/question6.js";
+import Question7 from "./scenes/questions/question7.js";
+import Question8 from "./scenes/questions/question8.js";
+import Question9 from "./scenes/questions/question9.js";
+import LanguageMenu from "./scenes/languageMenu.js";
 
 const MAX_W = 1600, MAX_H = 900, MIN_W = 320, MIN_H = 240;
 const CONFIG = {
@@ -84,4 +84,5 @@ const CONFIG = {
 }
 
 gameDebug.enable = false;
+gameDebug.enableText = false;
 const GAME = new Phaser.Game(CONFIG);

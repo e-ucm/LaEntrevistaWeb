@@ -1,8 +1,9 @@
+import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import AnimatedContainer from "../../framework/UI/animatedContainer.js";
 import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
 import TextArea from "../../framework/UI/textArea.js";
-import Button from "../../framework/UI/button.js";
-import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
+import RectTextButton from "../../framework/UI/rectTextButton.js";
+import { tintAnimation } from "../../framework/utils/graphics.js";
 
 export default class MainMenu extends LaEntrevistaBaseScene {
     /**
@@ -132,8 +133,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
     createGameButton(x, y, width, height, rotation, text) {
         let button = new InteractiveContainer(this, 0, 0);
         let rect = this.add.rectangle(0, 0, width, height, 0xFFFFFF, 1).setOrigin(0.5, 0.5);
-        let textObj = new TextArea(this, rect.x, rect.y, rect.displayWidth - this.TEXT_MARGIN * 2, rect.displayHeight - this.TEXT_MARGIN * 2, text, this.TEXT_CONFIG);
-        textObj.setOrigin(0.5, 0.5);
+        let textObj = new TextArea(this, rect.x, rect.y, rect.displayWidth, rect.displayHeight, text, this.TEXT_CONFIG, 0.5, 0.5, this.TEXT_MARGIN, this.TEXT_MARGIN);
         textObj.adjustFontSize();
 
         let cross = this.add.rectangle(rect.x, rect.y, width * 0.95, height * 0.02, this.TEXT_CONFIG.color, 1).setOrigin(0.5, 0.5);
@@ -171,8 +171,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let warningTitleMaxWidth = textRect.displayWidth - this.TEXT_MARGIN * 2;
         let warningTitleMaxHeight = textRect.displayHeight * 0.15;
         let warningTitleText = new TextArea(this, textRect.x, warningTitleY, warningTitleMaxWidth, warningTitleMaxHeight,
-            this.localizationManager.translate("questionsWarningTitle", namespace), this.TEXT_CONFIG);
-        warningTitleText.setOrigin(0.5, 0);
+            this.localizationManager.translate("questionsWarningTitle", namespace), this.TEXT_CONFIG, 0.5, 0);
         warningTitleText.adjustFontSize();
 
 
@@ -186,28 +185,26 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         let warningTextMaxWidth = textRect.displayWidth - this.TEXT_MARGIN;
         let warningTextMaxHeight = textRect.displayHeight * 0.5 - this.TEXT_MARGIN;
         let warningText = new TextArea(this, textRect.x, warningTextY, warningTextMaxWidth, warningTextMaxHeight,
-            this.localizationManager.translate("questionsWarning", namespace), warningTextConfig).setOrigin(0.5, 0.5);
+            this.localizationManager.translate("questionsWarning", namespace), warningTextConfig);
         warningText.adjustFontSize();
         warningText.y += warningText.displayHeight / 2;
 
         let buttonsY = warningTextY + warningTextMaxHeight + this.TEXT_MARGIN / 2;
         let buttonsHeight = textRect.displayHeight - (warningTitleMaxHeight + warningTextMaxHeight + this.TEXT_MARGIN * 4);
-        let buttonsWidth = buttonsHeight * 1.6 * 2;
+        let buttonsWidth = buttonsHeight * 3.2;
 
-        let yesButton = new Button(this, textRect.x - buttonsWidth / 2 - this.TEXT_MARGIN / 2, buttonsY);
-        yesButton.createRectButton(this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG,
-            buttonsWidth, buttonsHeight, () => {
+        let yesButton = new RectTextButton(this, textRect.x - textRect.displayWidth / 4, buttonsY, buttonsWidth, buttonsHeight,
+            this.localizationManager.translate("yes", namespace), this.TEXT_CONFIG, () => {
                 // TRACKER EVENT
                 this.trackerManager.sendSelectAccessFinalQuestions(true);
 
                 this.gameManager.startMirrorScene(true);
                 yesButton.disableInteractive();
-            }, "yesButton", 25, 0xe02424, 1, 5);
-        yesButton.y += yesButton.displayHeight / 2;
+            }, "yesButton", 0.5, 0, 25, 0xe02424);
+        tintAnimation(yesButton, yesButton.list, yesButton.onClick, true);
 
-        let noButton = new Button(this, textRect.x + buttonsWidth / 2 + this.TEXT_MARGIN / 2, buttonsY);
-        noButton.createRectButton(this.localizationManager.translate("no", namespace), this.TEXT_CONFIG,
-            buttonsWidth, buttonsHeight, () => {
+        let noButton = new RectTextButton(this, textRect.x + textRect.displayWidth / 4, buttonsY, buttonsWidth, buttonsHeight,
+            this.localizationManager.translate("no", namespace), this.TEXT_CONFIG, () => {
                 // TRACKER EVENT
                 this.trackerManager.sendSelectAccessFinalQuestions(false);
 
@@ -215,8 +212,8 @@ export default class MainMenu extends LaEntrevistaBaseScene {
                 popup.activate(false, () => {
                     noButton.setInteractive();
                 });
-            }, "noButton", 25, 0x36b030, 1, 5);
-        noButton.y += noButton.displayHeight / 2;
+            }, "noButton", 0.5, 0, 25, 0x36b030);
+        tintAnimation(noButton, noButton.list, noButton.onClick, true);
 
         popup.add(blackBg);
         popup.add(textRect);

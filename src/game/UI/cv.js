@@ -90,26 +90,26 @@ export default class CV extends InteractiveContainer {
         let x = this.sheet.x - this.sheet.displayWidth / 2 + PAGE_MARGIN * 1.5;
         let x2 = x + ABOUT_H;
         let y = TOP_Y;
-        this.nameTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("nameTitle"), ABOUT_TITLES_CONFIG).setOrigin(0, 0.5);
+        this.nameTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("nameTitle"), ABOUT_TITLES_CONFIG, 0, 0.5);
         this.nameTitle.adjustFontSize();
 
-        this.name = new TextArea(this.scene, x2, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("name"), ABOUT_TEXT_CONFIG).setOrigin(0, 0.5);
+        this.name = new TextArea(this.scene, x2, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("name"), ABOUT_TEXT_CONFIG, 0, 0.5);
         this.name.adjustFontSize();
 
 
         y += TITLE_SPACING;
-        this.civilStateTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("civilStateTitle"), ABOUT_TITLES_CONFIG).setOrigin(0, 0.5);
+        this.civilStateTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("civilStateTitle"), ABOUT_TITLES_CONFIG, 0, 0.5);
         this.civilStateTitle.adjustFontSize();
 
-        this.civilState = new TextArea(this.scene, x2, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("civilState"), ABOUT_TEXT_CONFIG).setOrigin(0, 0.5);
+        this.civilState = new TextArea(this.scene, x2, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("civilState"), ABOUT_TEXT_CONFIG, 0, 0.5);
         this.civilState.adjustFontSize();
 
 
         y += TITLE_SPACING;
-        this.educationTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("educationTitle"), ABOUT_TITLES_CONFIG).setOrigin(0, 0.5);
+        this.educationTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("educationTitle"), ABOUT_TITLES_CONFIG, 0, 0.5);
         this.educationTitle.adjustFontSize();
 
-        this.education = new TextArea(this.scene, x2, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("education"), ABOUT_TEXT_CONFIG).setOrigin(0, 0.5);
+        this.education = new TextArea(this.scene, x2, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("education"), ABOUT_TEXT_CONFIG, 0, 0.5);
         this.education.adjustFontSize();
 
 
@@ -124,15 +124,15 @@ export default class CV extends InteractiveContainer {
 
         x = this.sheet.x + PAGE_MARGIN;
         y = TOP_Y;
-        this.ageTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("ageTitle"), ABOUT_TITLES_CONFIG).setOrigin(0, 0.5);
+        this.ageTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("ageTitle"), ABOUT_TITLES_CONFIG, 0, 0.5);
         this.ageTitle.adjustFontSize();
 
-        this.age = new TextArea(this.scene, x + ABOUT_H, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("age"), ABOUT_TEXT_CONFIG).setOrigin(0, 0.5);
+        this.age = new TextArea(this.scene, x + ABOUT_H, y + ABOUT_H, ABOUT_W, ABOUT_H, this.translate("age"), ABOUT_TEXT_CONFIG, 0, 0.5);
         this.age.adjustFontSize();
 
 
         y += TITLE_SPACING;
-        this.skillsTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("skillsTitle"), ABOUT_TITLES_CONFIG).setOrigin(0, 0.5);
+        this.skillsTitle = new TextArea(this.scene, x, y, ABOUT_W, ABOUT_H, this.translate("skillsTitle"), ABOUT_TITLES_CONFIG, 0, 0.5);
         this.skillsTitle.adjustFontSize();
 
 
@@ -153,28 +153,24 @@ export default class CV extends InteractiveContainer {
         // let rect = this.scene.add.rectangle(x2, y, maxWidth, ABOUT_H, 0x000, 0.4).setOrigin(0, 0);
         // this.add(rect);
 
-        this.skill1Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG).setOrigin(0, 0);
-        this.skill1 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill1"), ABOUT_TEXT_CONFIG).setOrigin(0, 0);
+        this.skill1Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG, 0, 0);
+        this.skill1 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill1"), ABOUT_TEXT_CONFIG, 0, 0);
 
         y = this.skill1.y + this.skill1.displayHeight + this.BULLET_POINT_SPACING;
-        this.skill2Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG).setOrigin(0, 0);
-        this.skill2 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill2"), ABOUT_TEXT_CONFIG)
-            .setOrigin(0, 0);
+        this.skill2Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG, 0, 0);
+        this.skill2 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill2"), ABOUT_TEXT_CONFIG, 0, 0);
 
         y = this.skill2.y + this.skill2.displayHeight + this.BULLET_POINT_SPACING;
-        this.skill3Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG).setOrigin(0, 0);
-        this.skill3 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill3"), ABOUT_TEXT_CONFIG)
-            .setOrigin(0, 0);
+        this.skill3Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG, 0, 0);
+        this.skill3 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill3"), ABOUT_TEXT_CONFIG, 0, 0);
 
         y = this.skill3.y + this.skill3.displayHeight + this.BULLET_POINT_SPACING;
-        this.skill4Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG).setOrigin(0, 0);
-        this.skill4 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill4"), ABOUT_TEXT_CONFIG)
-            .setOrigin(0, 0);
+        this.skill4Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG, 0, 0);
+        this.skill4 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill4"), ABOUT_TEXT_CONFIG, 0, 0);
 
         y = this.skill4.y + this.skill4.displayHeight + this.BULLET_POINT_SPACING;
-        this.skill5Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG).setOrigin(0, 0);
-        this.skill5 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill5"), ABOUT_TEXT_CONFIG)
-            .setOrigin(0, 0);
+        this.skill5Bullet = this.scene.add.text(bulletX, y, bulletPointText, ABOUT_TEXT_CONFIG, 0, 0);
+        this.skill5 = new TextArea(this.scene, x2, y, maxWidth, ABOUT_H, this.translate("skill5"), ABOUT_TEXT_CONFIG, 0, 0);
 
 
         this.add(this.ageTitle);
@@ -210,38 +206,34 @@ export default class CV extends InteractiveContainer {
         }
 
         let y = 497;
-        this.data1Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data1Title"), this.TITLES_TEXT_CONFIG).setOrigin(0.5, 0.5);
+        this.data1Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data1Title"), this.TITLES_TEXT_CONFIG);
         this.data1Title.adjustFontSize();
 
-        this.data1Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data1Description"), DESCRIPTION_TEXT_CONFIG)
-            .setOrigin(0.5, 0.5);
+        this.data1Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data1Description"), DESCRIPTION_TEXT_CONFIG);
         this.data1Description.adjustFontSize();
 
 
         y = 607;
-        this.data2Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data2Title"), this.TITLES_TEXT_CONFIG).setOrigin(0.5, 0.5);
+        this.data2Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data2Title"), this.TITLES_TEXT_CONFIG);
         this.data2Title.adjustFontSize();
 
-        this.data2Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data2Description"), DESCRIPTION_TEXT_CONFIG)
-            .setOrigin(0.5, 0.5);
+        this.data2Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data2Description"), DESCRIPTION_TEXT_CONFIG);
         this.data2Description.adjustFontSize();
 
 
         y = 718;
-        this.data3Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data3Title"), this.TITLES_TEXT_CONFIG).setOrigin(0.5, 0.5);
+        this.data3Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data3Title"), this.TITLES_TEXT_CONFIG);
         this.data3Title.adjustFontSize();
 
-        this.data3Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data3Description"), DESCRIPTION_TEXT_CONFIG)
-            .setOrigin(0.5, 0.5);
+        this.data3Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data3Description"), DESCRIPTION_TEXT_CONFIG);
         this.data3Description.adjustFontSize();
 
 
         y = 827;
-        this.data4Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data4Title"), this.TITLES_TEXT_CONFIG).setOrigin(0.5, 0.5);
+        this.data4Title = new TextArea(this.scene, DATA_TITLES_X, y, DATA_TITLES_W, DATA_TITLES_H, this.translate("data4Title"), this.TITLES_TEXT_CONFIG)
         this.data4Title.adjustFontSize();
 
-        this.data4Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data4Description"), DESCRIPTION_TEXT_CONFIG)
-            .setOrigin(0.5, 0.5);
+        this.data4Description = new TextArea(this.scene, DATA_DESCRIPTIONS_X, y, DATA_DESCRIPTIONS_W, DATA_DESCRIPTIONS_H, this.translate("data4Description"), DESCRIPTION_TEXT_CONFIG);
         this.data4Description.adjustFontSize();
 
 

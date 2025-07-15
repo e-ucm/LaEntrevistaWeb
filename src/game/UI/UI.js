@@ -27,7 +27,7 @@ export default class UI extends BaseUI {
         this.nameBoxConfig = {
             img: "",
             textX: 385,
-            textY: 639,
+            textY: 642,
             realWidth: 320,
             realHeight: 60,
         }
@@ -84,7 +84,7 @@ export default class UI extends BaseUI {
         
         this.darkBg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000, 0.7).setOrigin(0, 0);
         this.questionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.optionsQuestionTextConfig.wordWrap.width, this.CANVAS_HEIGHT / 2, 
-            "", this.optionsQuestionTextConfig).setOrigin(0.5, 0.5);
+            "", this.optionsQuestionTextConfig, 0.5, 0.5);
             
         this.questionBgElements = new AnimatedContainer(this, 0, 0);
         this.questionBgElements.add(this.darkBg);
@@ -94,6 +94,7 @@ export default class UI extends BaseUI {
 
 
     startTextNode(node) {
+        this.questionBgElements.activate(false);
         if (this.cv.visible) {
             let fn = () => {
                 super.startTextNode(node);
@@ -121,7 +122,9 @@ export default class UI extends BaseUI {
     }
 
     removeOptions() {
+        if (this.optionBoxes.length <= 0) {
+            this.questionBgElements.activate(false);
+        }
         super.removeOptions();
-        this.questionBgElements.activate(false);
     }
 }

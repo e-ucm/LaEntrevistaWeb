@@ -14,7 +14,6 @@ export default class LaEntrevistaBaseScene extends BaseScene {
         this.gameManager = GameManager.getInstance();
         this.dialogManager = DialogManager.getInstance();
         this.trackerManager = TrackerManager.getInstance();
-        this.characters = new Set();
 
         this.interactableObjects = new Set();
 
@@ -49,10 +48,9 @@ export default class LaEntrevistaBaseScene extends BaseScene {
     leaveRoom(characters, exitPoint, depth = 1) {
         let nCharactersExited = 0;
         let nCharacters = characters.length;
+        
         // Desactiva la interaccion con todos los objetos mientras los personajes abandonan la sala
-        this.interactableObjects.forEach(obj => {
-            obj.disableInteractive();
-        });
+        this.disableAllInteraction();
 
         characters.forEach((character) => {
             // El personaje se mueve hacia el punto de salida
@@ -72,14 +70,30 @@ export default class LaEntrevistaBaseScene extends BaseScene {
 
                 // Cuando todos los personajes han salido, se vuelve a activar la interaccion con los objetos
                 if (nCharactersExited >= nCharacters) {
-                    this.interactableObjects.forEach((obj) => {
-                        this.setInteractive(obj);
-                    });
+                    this.enableAllInteraction();
                 }
             });
         });
     };
+    
+    /**
+    * Desactiva la interaccion con todos los objetos interactuables de la escena
+    */
+    disableAllInteraction() {
+        this.interactableObjects.forEach(obj => {
+            obj.disableInteractive();
+        });
+    }
 
+    /**
+    * Activa la interaccion con todos los objetos interactuables de la escena
+    */
+    enableAllInteraction() {
+        this.interactableObjects.forEach(obj => {
+            obj.setInteractive();
+        });
+    }
+    
 
     /**
     * Configura un objeto para que sea interactivo y lo agrega al conjunto de objetos interactuables

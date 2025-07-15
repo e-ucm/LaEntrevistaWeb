@@ -1,10 +1,10 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
-import Button from "../../framework/UI/button.js";
 import TextArea from "../../framework/UI/textArea.js";
 import AnimatedContainer from "../../framework/UI/animatedContainer.js";
-import { growAnimation } from "../../framework/utils/graphics.js";
+import ImageTextButton from "../../framework/UI/imageTextButton.js";
+import { growAnimation, tintAnimation } from "../../framework/utils/graphics.js";
 
 export default class Mirror extends LaEntrevistaBaseScene {
     /**
@@ -46,8 +46,8 @@ export default class Mirror extends LaEntrevistaBaseScene {
             let transition = new InteractiveContainer(this, 0, 0);
             let transitionBg = this.add.image(0, 0, "30min").setOrigin(0, 0);
 
-            let transitionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.CANVAS_WIDTH, this.CANVAS_HEIGHT - TEXT_PADDING * 2,
-                this.localizationManager.translate("30min", "scenes"), transitionTextConfig).setOrigin(0.5, 0.5);
+            let transitionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.CANVAS_WIDTH, this.CANVAS_HEIGHT,
+                this.localizationManager.translate("30min", "scenes"), transitionTextConfig, 0.5, 0.5, TEXT_PADDING, TEXT_PADDING);
             transitionText.adjustFontSize();
 
             transition.add(transitionBg);
@@ -172,11 +172,11 @@ export default class Mirror extends LaEntrevistaBaseScene {
         growAnimation(page1Button, page1Button, () => {
             page1.setVisible(false);
             page2.setVisible(true);
-        }, 1.1, true, 50);
+        }, true, 1.1, true, 50);
         growAnimation(page2Button, page2Button, () => {
             page2.setVisible(false);
             page1.setVisible(true);
-        }, 1.1, true, 50);
+        }, true, 1.1, true, 50);
 
         let questions = this.add.container(0, 0);
         questions.add(page1);
@@ -186,8 +186,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
     }
 
     createQuestionButton(pageObj, index, x, y, style, fromMenu) {
-        let button = new Button(this, x, y);
-        button.createImgButtonWithAtlas(index, style, () => {
+        let button = new ImageTextButton(this, x, y, index, style, () => {
             if (!this.gameManager.sceneManager.fading) {
                 button.disableInteractive();
                 this.gameManager.startQuestionScene(fromMenu, index);
@@ -195,11 +194,10 @@ export default class Mirror extends LaEntrevistaBaseScene {
                 // TRACKER EVENT
                 this.gameManager.questionsStage.progress();
 
-                button.image.setTint(0x969696);
-                button.textObj.setTint(0x969696);
+                Phaser.Actions.SetTint(button.list, 0x969696);
             }
-
-        }, "uiElements", "questionButton", 0.5, 0.5, 1.4, 1.4, 1, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5);
+        }, "uiElements", "questionButton", 0.5, 0.5, 1.4, 1.4);
+        tintAnimation(button, button.list, button.onClick, true);
 
         pageObj.add(button);
     }
