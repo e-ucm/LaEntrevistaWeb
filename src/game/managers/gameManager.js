@@ -72,7 +72,7 @@ export default class GameManager extends Singleton {
         // TEST
         // this.startMainMenu();
         // this.startHallScene();
-        this.startCorridorScene();
+        // this.startCorridorScene();
         // this.startCafeteriaScene();
         // this.startWaitingRoomScene();
         // this.startOfficeScene();
