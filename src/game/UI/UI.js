@@ -4,6 +4,7 @@ import TextArea from "../../framework/UI/textArea.js";
 import CV from "../UI/cv.js"
 import GameManager from "../managers/gameManager.js";
 import AnimatedContainer from "../../framework/UI/animatedContainer.js";
+import DefaultEventNames from "../../framework/utils/eventNames.js";
 
 export default class UI extends BaseUI {
     constructor() {
@@ -90,6 +91,10 @@ export default class UI extends BaseUI {
         this.questionBgElements.add(this.darkBg);
         this.questionBgElements.add(this.questionText);
         this.questionBgElements.setVisible(false);
+
+        this.dispatcher.add(DefaultEventNames.endNodes, this, () => {
+            this.questionBgElements.activate(false);
+        });
     }
 
 

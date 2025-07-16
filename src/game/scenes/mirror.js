@@ -113,7 +113,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
             anim.on("complete", () => {
                 setTimeout(() => {
-                    if (params.fromMenu) {
+                    if (!params.fromMenu) {
                         node = this.dialogManager.readNodes(this, nodes, namespace, "end");
                         this.dialogManager.setNode(node);
                     }
