@@ -1,7 +1,6 @@
-import { moveTowards } from "../framework/utils/misc.js";
 import DefaultEventNames from "../framework/utils/eventNames.js";
 
-export default class Character extends Phaser.GameObjects.Sprite {
+export default class Character extends Phaser.GameObjects.PathFollower {
     /**
     * Personaje del juego
     * @param {Phaser.scene} scene - escena donde se anade el personaje 
@@ -11,20 +10,20 @@ export default class Character extends Phaser.GameObjects.Sprite {
     * @param {number} name - nombre del personaje
     * @param {number} speed - velocidad de movimiento
     * @param {boolean} facingRight - indica si el personaje inicialmente mira hacia la derecha (true) o no (false)
-    * @param {function} callback - funcion a ejecutar al hacer click sobre el personaje
+    * @param {function} onClick - funcion a ejecutar al hacer click sobre el personaje
     */
-    constructor(scene, x, y, scale, name, speed, facingRight, callback) {
-        super(scene, x, y, name)
+    constructor(scene, x, y, scale, name, speed, facingRight, onClick) {
+        super(scene, new Phaser.Curves.Path(x, y), x, y, name)
 
         this.scene = scene;
         this.scene.add.existing(this);
 
+        this.originalScale = scale;
         this.setScale(scale);
         this.name = name;
         this.speed = speed;
-        this.target = null;
         this.facingRight = facingRight;
-        this.callback = callback;
+        this.onClick = onClick;
         this.dialogAnimationEnabled = true;
 
         let getAnimationKey = (type) => {
@@ -40,14 +39,14 @@ export default class Character extends Phaser.GameObjects.Sprite {
             pointing: getAnimationKey("Pointing")
         }
 
-        if (this.callback != null && typeof this.callback == "function") {
+        if (this.onClick != null && typeof this.onClick == "function") {
             this.scene.setInteractive(this);
 
             this.on("pointerdown", () => {
                 // TRACKER EVENT
                 this.scene.trackerManager.sendInteractGameObject(`${this.scene.scene.key}_${this.name}`, true);
 
-                this.callback();
+                this.onClick();
             });
         }
 
@@ -88,31 +87,31 @@ export default class Character extends Phaser.GameObjects.Sprite {
         });
     }
 
-    preUpdate(time, deltaTime) {
-        super.preUpdate(time, deltaTime);
+    // preUpdate(time, deltaTime) {
+    //     super.preUpdate(time, deltaTime);
 
-        if (this.target != null) {
-            let step = this.speed * deltaTime;
+    //     if (this.target != null) {
+    //         let step = this.speed * deltaTime;
 
-            // Calcula la nueva posicion moviendo hacia target con limite step
-            let newPos = moveTowards(this, this.target, step);
+    //         // Calcula la nueva posicion moviendo hacia target con limite step
+    //         let newPos = moveTowards(this, this.target, step);
 
-            this.x = newPos.x;
-            this.y = newPos.y;
+    //         this.x = newPos.x;
+    //         this.y = newPos.y;
 
-            let dist = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
-            // Si esta suficientemente cerca del target, se para el movimiento
-            if (dist < 0.1) {
-                this.x = this.target.x;
-                this.y = this.target.y;
-                this.target = null;
-                this.scene.setInteractive(this);
-                this.playDefaultAnimation();
-                this.setDialogAnimations(true);
-                this.emit("targetReached");
-            }
-        }
-    }
+    //         let dist = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+    //         // Si esta suficientemente cerca del target, se para el movimiento
+    //         if (dist < 0.1) {
+    //             this.x = this.target.x;
+    //             this.y = this.target.y;
+    //             this.target = null;
+    //             this.scene.setInteractive(this);
+    //             this.playDefaultAnimation();
+    //             this.setDialogAnimations(true);
+    //             this.emit("targetReached");
+    //         }
+    //     }
+    // }
 
     /**
     * Reproduce la animacion del tipo dado si existe
@@ -158,22 +157,54 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
     /**
     * Si no se esta moviendo actualmente, inicia el movimiento hacia target
-    * @param {Object} target - punto destino con propiedades {x, y}
+    * @param {Phaser.Math.Vector2} target - punto destino
+    * @param {Number} scaleFactor - factor para disminuir o aumentar la escala durante el movimiento (opcional)
     */
-    moveTowards(target) {
-        if (this.target == null && target.hasOwnProperty("x") && target.hasOwnProperty("y")) {
-            this.disableInteractive();
-            this.playWalkingAnimation();
-            this.setDialogAnimations(false);
-            this.target = target;
+    moveTowards(target, scaleIncrease = 1) {
+        this.path.lineTo(target.x, target.y);
+        let pathLength = this.path.getLength();
+        let duration = pathLength / this.speed;
 
-            if (this.target.x > this.x) {
-                this.setFacingDirection(true);
-            }
-            else if (this.target.x <= this.x) {
-                this.setFacingDirection(false);
-            }
+        if (target.x > this.x) {
+            this.setFacingDirection(true);
         }
+        else if (target.x <= this.x) {
+            this.setFacingDirection(false);
+        }
+
+        this.disableInteractive();
+        this.playWalkingAnimation();
+        this.setDialogAnimations(false);
+
+        this.startFollow({
+            duration: duration,
+            repeat: 0
+        });
+
+        if (scaleIncrease !== 1) {
+            let scaleTween = this.scene.tweens.add({
+                targets: this,
+                scale: this.originalScale * scaleIncrease,
+                duration: duration,
+                repeat: 0,
+            });
+
+            scaleTween.on("complete", () => {
+                this.setScale(this.originalScale);
+            })
+        }
+
+        this.pathTween.on("complete", () => {
+            if (!this.isFollowing()) {
+                this.scene.setInteractive(this);
+                this.playDefaultAnimation();
+                this.setDialogAnimations(true);
+
+                this.path = new Phaser.Curves.Path(this.x, this.y);
+
+                this.emit("targetReached");
+            }
+        })
     }
 
     removeEvents() {

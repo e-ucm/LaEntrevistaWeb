@@ -38,10 +38,8 @@ export default class Corridor extends LaEntrevistaBaseScene {
         });
 
         // Luis
-        let exitPoint = {
-            x: -100,
-            y: 650
-        };
+        let exitPoint = new Phaser.Math.Vector2(-100, 650);
+
         let luisChar = new Character(this, 1200, exitPoint.y, 1.5, "Luis", this.characterConfig.speed, false, null);
         luisChar.setOrigin(0.5, 0.5);
         this.dispatcher.addOnce("leaveRoom", this, () => {

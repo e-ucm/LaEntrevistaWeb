@@ -42,20 +42,21 @@ export default class LaEntrevistaBaseScene extends BaseScene {
     * Desactiva la interracion con los objetos mientras los personajes se mueven hacia la salida,
     * y la vuelve a activar una vez que todos hayan salido
     * @param {Array} characters - array con los personajes que deben salir
-    * @param {Object} exitPoint - punto destino con propiedades {x, y}
-    * @param {Number} depth - profundidad que se asigna los personajes al salir
+    * @param {Phaser.Math.Vector2} exitPoint - punto destino
+    * @param {Number} scaleFactor - factor para disminuir o aumentar la escala de los personajes el movimiento (opcional)
+    * @param {Number} depth - profundidad que se asigna los personajes al salir (opcional)
     */
-    leaveRoom(characters, exitPoint, depth = 1) {
+    leaveRoom(characters, exitPoint, scaleFactor = 1, depth = 1) {
         let nCharactersExited = 0;
         let nCharacters = characters.length;
-        
+
         // Desactiva la interaccion con todos los objetos mientras los personajes abandonan la sala
         this.disableAllInteraction();
 
         characters.forEach((character) => {
             // El personaje se mueve hacia el punto de salida
             character.setDepth(depth);
-            character.moveTowards(exitPoint);
+            character.moveTowards(exitPoint, scaleFactor);
 
             character.once("targetReached", () => {
                 // Se incrementa el contador global de personajes con los que se ha interactuado
@@ -75,7 +76,7 @@ export default class LaEntrevistaBaseScene extends BaseScene {
             });
         });
     };
-    
+
     /**
     * Desactiva la interaccion con todos los objetos interactuables de la escena
     */
@@ -93,7 +94,7 @@ export default class LaEntrevistaBaseScene extends BaseScene {
             obj.setInteractive();
         });
     }
-    
+
 
     /**
     * Configura un objeto para que sea interactivo y lo agrega al conjunto de objetos interactuables

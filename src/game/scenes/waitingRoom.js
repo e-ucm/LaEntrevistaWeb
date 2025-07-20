@@ -82,14 +82,11 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
             doorNode = null;
         });
 
-        let textArea = new TextArea(this, 1227, 280, 95, 60, this.localizationManager.translate("humanResourcesSign", "scenes"),this.SIGN_TEXT_CONFIG);
+        let textArea = new TextArea(this, 1227, 280, 95, 60, this.localizationManager.translate("humanResourcesSign", "scenes"), this.SIGN_TEXT_CONFIG);
         textArea.adjustFontSize();
 
         // Jaime
-        let jaimeExitPoint = {
-            x: -100,
-            y: 530
-        }
+        let jaimeExitPoint = new Phaser.Math.Vector2(-100, 530);
 
         let jaimeNode = this.dialogManager.readNodes(this, nodes, namespace, "JaimeConversation");
         let jaimeConfig = {
@@ -107,10 +104,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         })
 
         // Antonio
-        let antonioExitPoint = {
-            x: -100,
-            y: 542
-        }
+        let antonioExitPoint = new Phaser.Math.Vector2(-100, 542);
 
         let antonioNode = this.dialogManager.readNodes(this, nodes, namespace, "AntonioConversation");
         let antonioConfig = {

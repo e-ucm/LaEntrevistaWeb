@@ -13,7 +13,6 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
     create() {
         super.create();
 
-
         let bg = this.add.image(0, 0, "cafeteria").setOrigin(0, 0);
 
         let arrowScale = 0.5;
@@ -38,10 +37,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
 
         let menNode = this.dialogManager.readNodes(this, nodes, namespace, "menConversation");
 
-        let exitPoint = {
-            x: this.CANVAS_WIDTH + 100,
-            y: this.CANVAS_HEIGHT + 100
-        };
+        let exitPoint = new Phaser.Math.Vector2(this.CANVAS_WIDTH + 100, this.CANVAS_HEIGHT + 100);
 
         // Pedro
         let pedroConfig = {
@@ -71,10 +67,10 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         jesusChar.setOrigin(0.5, 0.5);
 
         this.dispatcher.addOnce("menLeave", this, () => {
-            this.leaveRoom([jesusChar, pedroChar], exitPoint);
+            this.leaveRoom([jesusChar, pedroChar], exitPoint, 1.72);
         })
 
-        
+
         let womenNode = this.dialogManager.readNodes(this, nodes, namespace, "womenConversation");
         let trioNode = this.dialogManager.readNodes(this, nodes, namespace, "trioConversation");
 
@@ -82,7 +78,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             this.dialogManager.setNode(womenNode);
             this.disableAllInteraction();
         }
-        
+
         // Monica
         let monicaConfig = {
             x: 265,
@@ -104,22 +100,19 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             setWomenNode();
         });
         rebecaChar.setOrigin(0.5, 0.5);
-       
+
         // Carlos
         let carlosConfig = {
-            target: {
-                x: 640,
-                y: 610
-            },
+            target: new Phaser.Math.Vector2(640, 610),
             scale: 0.96
         }
         let carlosChar = new Character(this, exitPoint.x, exitPoint.y, carlosConfig.scale, "Carlos", this.characterConfig.speed, false, null);
         carlosChar.setOrigin(0.5, 0.5);
         this.dispatcher.addOnce("trioLeave", this, () => {
             this.enableAllInteraction();
-            this.leaveRoom([monicaChar, rebecaChar, carlosChar], exitPoint);
+            this.leaveRoom([monicaChar, rebecaChar, carlosChar], exitPoint, 1.13);
         })
-        
+
 
         // Gestionar el fin de la conversacion entre Monica y Rebeca y la llegada de Carlos, 
         // para comenzar la conversacion entre los tres
