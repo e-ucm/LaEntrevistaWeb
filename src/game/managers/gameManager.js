@@ -67,7 +67,14 @@ export default class GameManager extends Singleton {
         if (this.ui.dispatcher != null) {
             this.ui.shutdown();
             this.sceneManager.restartScene("UI");
+            this.ui.events.once("create", () => {
+                this.ui.enablePauseMenu(true);
+            });
         }
+        else {
+            this.ui.enablePauseMenu(true);
+        }
+
 
         // TEST
         // this.startMainMenu();
@@ -124,6 +131,7 @@ export default class GameManager extends Singleton {
 
             if (!fromMenu) {
                 this.gameCompleted = true;
+                this.ui.enablePauseMenu(false);
 
                 // TRACKER EVENT
                 this.trackerManager.sendCompleteGame(true);

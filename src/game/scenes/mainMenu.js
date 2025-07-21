@@ -159,7 +159,7 @@ export default class MainMenu extends LaEntrevistaBaseScene {
     }
 
     createPopup(namespace) {
-        let POPUP_SCALE = 0.5;
+        const POPUP_SCALE = 0.5;
 
         let popup = new AnimatedContainer(this, 0, 0);
         let blackBg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000000, 0.5).setOrigin(0, 0);
@@ -199,7 +199,6 @@ export default class MainMenu extends LaEntrevistaBaseScene {
                 this.trackerManager.sendSelectAccessFinalQuestions(true);
 
                 this.gameManager.startMirrorScene(true);
-                yesButton.disableInteractive();
             }, "yesButton", 0.5, 0, 25, 0xe02424);
         tintAnimation(yesButton, yesButton.list, yesButton.onClick, true);
 

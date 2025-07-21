@@ -17,5 +17,10 @@
 
     "30min": "30 minutes plus tard...",
 
-    "humanResourcesSign": "Ressources\nHumaines"
+    "humanResourcesSign": "Ressources\nHumaines",
+
+    "options": "Options",
+    "resume": "Reprendre",
+    "returnToMenu": "Retour au menu",
+    "exit": "Quitter"
 }

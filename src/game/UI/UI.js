@@ -5,6 +5,8 @@ import CV from "../UI/cv.js"
 import GameManager from "../managers/gameManager.js";
 import AnimatedContainer from "../../framework/UI/animatedContainer.js";
 import DefaultEventNames from "../../framework/utils/eventNames.js";
+import RectTextButton from "../../framework/UI/rectTextButton.js";
+import { createRectTexture, tintAnimation } from "../../framework/utils/graphics.js";
 
 export default class UI extends BaseUI {
     constructor() {
@@ -76,17 +78,17 @@ export default class UI extends BaseUI {
 
         this.cv = new CV(this);
         this.cv.setDepth(10);
-        
+
         let questionTextConfig = { ...this.textConfig };
         questionTextConfig.align = "center";
         questionTextConfig.strokeThickness = 5;
         questionTextConfig.stroke = "#000000";
 
-        
+
         this.darkBg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000, 0.7).setOrigin(0, 0);
-        this.questionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.optionsQuestionTextConfig.wordWrap.width, this.CANVAS_HEIGHT / 2, 
+        this.questionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.optionsQuestionTextConfig.wordWrap.width, this.CANVAS_HEIGHT / 2,
             "", this.optionsQuestionTextConfig, 0.5, 0.5);
-            
+
         this.questionBgElements = new AnimatedContainer(this, 0, 0);
         this.questionBgElements.add(this.darkBg);
         this.questionBgElements.add(this.questionText);
@@ -95,8 +97,150 @@ export default class UI extends BaseUI {
         this.dispatcher.add(DefaultEventNames.endNodes, this, () => {
             this.questionBgElements.activate(false);
         });
+
+        this.pauseMenu = this.createPauseMenu("scenes");
+        this.pauseMenu.setVisible(false);
     }
 
+    createPauseMenu(namespace) {
+        const RADIUS_PERCENTAGE = 5;
+
+        let pauseMenu = new AnimatedContainer(this, 0, 0).setDepth(1);
+        let blackBg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000000, 0.5).setOrigin(0, 0);
+
+        let textureId = "pauseMenu";
+        createRectTexture(this, textureId, this.CANVAS_WIDTH * 0.3, this.CANVAS_HEIGHT * 0.6, 0x595757, 0.9, 5, 0x3d3a3a, 1, RADIUS_PERCENTAGE);
+        let textRect = this.add.image(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, textureId);
+
+        const TITLE_TEXT_CONFIG = {
+            fontFamily: "leagueSpartan-variable",
+            fontSize: 100,
+            fontStyle: "normal",
+            color: "#ffffff",
+        };
+
+        const TEXT_MARGIN = 27;
+        const TITLE_MARGIN_Y = TEXT_MARGIN * 1.7;
+
+        let pauseTitleY = textRect.y - textRect.displayHeight / 2 + TITLE_MARGIN_Y;
+        let pauseTitleMaxWidth = textRect.displayWidth - TEXT_MARGIN * 2;
+        let pauseTitleMaxHeight = textRect.displayHeight * 0.15;
+
+        let pauseTitleText = new TextArea(this, textRect.x, pauseTitleY, pauseTitleMaxWidth, pauseTitleMaxHeight,
+            this.localizationManager.translate("options", namespace), TITLE_TEXT_CONFIG, 0.5, 0);
+        pauseTitleText.adjustFontSize();
+
+        const BUTTON_CONFIG = {
+            rectOriginX: 0.5,
+            rectOriginY: 0,
+            fillColor: 0xffffff,
+            fillAlpha: 1,
+            borderThickness: 3,
+            borderColor: 0xa3a3a3,
+            borderAlpha: 1,
+            textOrigin: 0.5,
+            textPadding: 20,
+        }
+
+        const TEXT_CONFIG = { ...TITLE_TEXT_CONFIG };
+        TEXT_CONFIG.color = "#323232";
+
+        let buttonsWidth = textRect.displayWidth - TEXT_MARGIN * 2;
+        let buttonsHeight = (textRect.y + textRect.displayHeight / 2 -
+            (pauseTitleY + pauseTitleMaxHeight + TITLE_MARGIN_Y + TEXT_MARGIN * 2 + TEXT_MARGIN * 1.5)) / 3;
+
+        let makeVisible = (visible, onComplete) => {
+            pauseMenu.activate(visible, () => {
+                let currentScene = this.gameManager.sceneManager.getCurrentScene();
+                if (visible) {
+                    currentScene.scene.pause();
+                }
+                else {
+                    currentScene.scene.resume();
+                }
+                this.gameManager.ui.time.paused = visible;
+                if (onComplete != null && typeof onComplete === "function") {
+                    onComplete();
+                }
+            });
+        }
+
+        let resumeButton = new RectTextButton(this, textRect.x, pauseTitleY + pauseTitleMaxHeight + TITLE_MARGIN_Y, buttonsWidth, buttonsHeight,
+            this.localizationManager.translate("resume", namespace), TEXT_CONFIG, () => {
+                resumeButton.disableInteractive();
+                makeVisible(false, () => {
+                    resumeButton.setInteractive();
+                })
+            }, "pauseButton", BUTTON_CONFIG.rectOriginX, BUTTON_CONFIG.rectOriginY, RADIUS_PERCENTAGE, BUTTON_CONFIG.fillColor, BUTTON_CONFIG.fillAlpha,
+            BUTTON_CONFIG.borderThickness, BUTTON_CONFIG.borderColor, BUTTON_CONFIG.borderAlpha,
+            BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textPadding, BUTTON_CONFIG.textPadding);
+        tintAnimation(resumeButton, resumeButton.list, resumeButton.onClick, true);
+
+        let menuButton = new RectTextButton(this, textRect.x, resumeButton.y + buttonsHeight + TEXT_MARGIN, buttonsWidth, buttonsHeight,
+            this.localizationManager.translate("returnToMenu", namespace), TEXT_CONFIG, () => {
+                // TRACKER EVENT
+                this.trackerManager.sendCompleteGame(false);
+
+                menuButton.disableInteractive();
+                pauseMenu.disable();
+                makeVisible(false, () => {
+                    menuButton.setInteractive();
+                    this.gameManager.startMainMenu();
+                })
+            }, "pauseButton", BUTTON_CONFIG.rectOriginX, BUTTON_CONFIG.rectOriginY, RADIUS_PERCENTAGE, BUTTON_CONFIG.fillColor, BUTTON_CONFIG.fillAlpha,
+            BUTTON_CONFIG.borderThickness, BUTTON_CONFIG.borderColor, BUTTON_CONFIG.borderAlpha,
+            BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textPadding, BUTTON_CONFIG.textPadding);
+        tintAnimation(menuButton, menuButton.list, menuButton.onClick, true);
+
+        let exitButton = new RectTextButton(this, textRect.x, menuButton.y + buttonsHeight + TEXT_MARGIN, buttonsWidth, buttonsHeight,
+            this.localizationManager.translate("exit", namespace), TEXT_CONFIG, () => {
+                // TRACKER EVENT
+                this.trackerManager.sendCompleteGame(false);
+
+                exitButton.disableInteractive();
+                pauseMenu.disable();
+                makeVisible(false, () => {
+                    menuButton.setInteractive();
+                    this.gameManager.startLanguageMenu();
+                })
+            }, "pauseButton", BUTTON_CONFIG.rectOriginX, BUTTON_CONFIG.rectOriginY, RADIUS_PERCENTAGE, BUTTON_CONFIG.fillColor, BUTTON_CONFIG.fillAlpha,
+            BUTTON_CONFIG.borderThickness, BUTTON_CONFIG.borderColor, BUTTON_CONFIG.borderAlpha,
+            BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textPadding, BUTTON_CONFIG.textPadding);
+        tintAnimation(exitButton, exitButton.list, exitButton.onClick, true);
+
+        pauseMenu.add(blackBg);
+        pauseMenu.add(textRect);
+        pauseMenu.add(pauseTitleText);
+        pauseMenu.add(resumeButton);
+        pauseMenu.add(menuButton);
+        pauseMenu.add(exitButton);
+
+        blackBg.setInteractive();
+
+        let keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        pauseMenu.enable = () => {
+            keyEsc.on("down", () => {
+                makeVisible(!pauseMenu.visible);
+            });
+        }
+
+        pauseMenu.disable = () => {
+            makeVisible(false);
+            keyEsc.off("down");
+        }
+
+        return pauseMenu;
+    }
+
+    enablePauseMenu(enabled) {
+        if (enabled) {
+            this.pauseMenu.enable();
+        }
+        else {
+            this.pauseMenu.disable();
+        }
+    };
 
     startTextNode(node) {
         this.questionBgElements.activate(false);
