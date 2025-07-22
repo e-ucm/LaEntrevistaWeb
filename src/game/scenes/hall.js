@@ -18,10 +18,10 @@ export default class Hall extends LaEntrevistaBaseScene {
         this.nodes = this.cache.json.get("hall");
         let namespace = "scenes\\hall";
 
-        let node = this.dialogManager.readNodes(this, this.nodes, namespace, "start");
+        let node = this.localizationManager.readNodes(this, this.nodes, namespace, "start");
 
         let ivanChar = new Character(this, 810, 525, 0.33, "Ivan", this.characterConfig.speed, false, () => {
-            this.dialogManager.setNode(node);
+            this.localizationManager.setNode(node);
         });
         ivanChar.setOrigin(0.5, 0.5);
 
@@ -38,7 +38,7 @@ export default class Hall extends LaEntrevistaBaseScene {
         });
 
         this.dispatcher.add("end", this, () => {
-            node = this.dialogManager.readNodes(this, this.nodes, namespace, "repeat");
+            node = this.localizationManager.readNodes(this, this.nodes, namespace, "repeat");
 
             let stairs = this.add.zone(1350, 453, 500, 660);
             this.setInteractive(stairs);

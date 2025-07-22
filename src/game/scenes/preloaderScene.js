@@ -1,6 +1,5 @@
 import BasePreloaderScene from "../../framework/scenes/basePreloaderScene.js";
 import TrackerManager from "../managers/trackerManager.js";
-import DialogManager from "../managers/dialogManager.js";
 import GameManager from "../managers/gameManager.js";
 
 export default class PreloaderScene extends BasePreloaderScene {
@@ -57,9 +56,6 @@ export default class PreloaderScene extends BasePreloaderScene {
         await super.create(gameTitle);
 
         trackerManager.init(this.seriousGameTracker, gameTitle);
-
-        let dialogManager = DialogManager.create();
-        dialogManager.init();
 
         let gameManager = GameManager.create();
         gameManager.init();

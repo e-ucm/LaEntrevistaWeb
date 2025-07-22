@@ -20,7 +20,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
 
         let nodes = this.cache.json.get("mirror");
         let namespace = "scenes\\mirror";
-        let node = this.dialogManager.readNodes(this, nodes, namespace, "start");
+        let node = this.localizationManager.readNodes(this, nodes, namespace, "start");
 
         let white = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0xFFFFFF, 1).setOrigin(0, 0);
         let playerChar = new Character(this, 845, 750, 1.7, "Alex", this.characterConfig.speed, false);
@@ -60,7 +60,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
                 this.trackerManager.sendAccessCutscene("30minTransition");
 
                 transition.activate(false, () => {
-                    this.dialogManager.setNode(node);
+                    this.localizationManager.setNode(node);
                 });
             });
         }
@@ -114,8 +114,8 @@ export default class Mirror extends LaEntrevistaBaseScene {
             anim.on("complete", () => {
                 setTimeout(() => {
                     if (!params.fromMenu) {
-                        node = this.dialogManager.readNodes(this, nodes, namespace, "end");
-                        this.dialogManager.setNode(node);
+                        node = this.localizationManager.readNodes(this, nodes, namespace, "end");
+                        this.localizationManager.setNode(node);
                     }
                     else {
                         this.gameManager.startCreditsScene();
@@ -172,11 +172,11 @@ export default class Mirror extends LaEntrevistaBaseScene {
         growAnimation(page1Button, page1Button, () => {
             page1.setVisible(false);
             page2.setVisible(true);
-        }, true, 1.1, true, 50);
+        }, true, false, 1.1, true, 50);
         growAnimation(page2Button, page2Button, () => {
             page2.setVisible(false);
             page1.setVisible(true);
-        }, true, 1.1, true, 50);
+        }, true, false, 1.1, true, 50);
 
         let questions = this.add.container(0, 0);
         questions.add(page1);

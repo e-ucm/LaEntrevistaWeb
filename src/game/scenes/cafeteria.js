@@ -35,7 +35,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let nodes = this.cache.json.get("cafeteria");
         let namespace = "scenes\\cafeteria";
 
-        let menNode = this.dialogManager.readNodes(this, nodes, namespace, "menConversation");
+        let menNode = this.localizationManager.readNodes(this, nodes, namespace, "menConversation");
 
         let exitPoint = new Phaser.Math.Vector2(this.CANVAS_WIDTH + 100, this.CANVAS_HEIGHT + 100);
 
@@ -47,7 +47,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         };
 
         let pedroChar = new Character(this, pedroConfig.x, pedroConfig.y, pedroConfig.scale, "Pedro", this.characterConfig.speed, false, () => {
-            this.dialogManager.setNode(menNode);
+            this.localizationManager.setNode(menNode);
         });
         pedroChar.setOrigin(0.5, 0.5);
 
@@ -61,7 +61,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             scale: 0.62
         }
         let jesusChar = new Character(this, jesusConfig.x, jesusConfig.y, jesusConfig.scale, "Jesus", this.characterConfig.speed, true, () => {
-            this.dialogManager.setNode(menNode);
+            this.localizationManager.setNode(menNode);
         });
 
         jesusChar.setOrigin(0.5, 0.5);
@@ -71,11 +71,11 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         })
 
 
-        let womenNode = this.dialogManager.readNodes(this, nodes, namespace, "womenConversation");
-        let trioNode = this.dialogManager.readNodes(this, nodes, namespace, "trioConversation");
+        let womenNode = this.localizationManager.readNodes(this, nodes, namespace, "womenConversation");
+        let trioNode = this.localizationManager.readNodes(this, nodes, namespace, "trioConversation");
 
         let setWomenNode = () => {
-            this.dialogManager.setNode(womenNode);
+            this.localizationManager.setNode(womenNode);
             this.disableAllInteraction();
         }
 
@@ -120,8 +120,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let continueConversation = () => {
             let value = "womenConversationEnded";
             if (manArrive && this.blackboard.has(value) && this.blackboard.get(value)) {
-                this.dialogManager.clearNodes();
-                this.dialogManager.setNode(trioNode);
+                this.localizationManager.setNode(trioNode);
             }
         }
 

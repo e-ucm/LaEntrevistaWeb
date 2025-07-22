@@ -38,7 +38,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         });
 
         // Puerta
-        let doorNode = this.dialogManager.readNodes(this, nodes, namespace, "door");
+        let doorNode = this.localizationManager.readNodes(this, nodes, namespace, "door");
 
         let door = this.add.zone(1097, 430, 140, 470).setOrigin(0.5, 0.5);
         this.setInteractive(door);
@@ -46,7 +46,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
             // TRACKER EVENT
             this.trackerManager.sendInteractHRDoor("closed");
 
-            this.dialogManager.setNode(doorNode);
+            this.localizationManager.setNode(doorNode);
         });
 
 
@@ -88,14 +88,14 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         // Jaime
         let jaimeExitPoint = new Phaser.Math.Vector2(-100, 530);
 
-        let jaimeNode = this.dialogManager.readNodes(this, nodes, namespace, "JaimeConversation");
+        let jaimeNode = this.localizationManager.readNodes(this, nodes, namespace, "JaimeConversation");
         let jaimeConfig = {
             x: 439,
             scale: 0.9
         }
         let jaimeChar = new Character(this, jaimeConfig.x, jaimeExitPoint.y, jaimeConfig.scale, "Jaime",
             this.characterConfig.speed, true, () => {
-                this.dialogManager.setNode(jaimeNode);
+                this.localizationManager.setNode(jaimeNode);
             });
 
         this.dispatcher.addOnce("JaimeLeave", this, () => {
@@ -106,14 +106,14 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
         // Antonio
         let antonioExitPoint = new Phaser.Math.Vector2(-100, 542);
 
-        let antonioNode = this.dialogManager.readNodes(this, nodes, namespace, "AntonioConversation");
+        let antonioNode = this.localizationManager.readNodes(this, nodes, namespace, "AntonioConversation");
         let antonioConfig = {
             x: 706,
             scale: 0.85
         }
         let antonioChar = new Character(this, antonioConfig.x, antonioExitPoint.y, antonioConfig.scale, "Antonio",
             this.characterConfig.speed, false, () => {
-                this.dialogManager.setNode(antonioNode);
+                this.localizationManager.setNode(antonioNode);
             });
 
         this.dispatcher.addOnce("AntonioLeave", this, () => {

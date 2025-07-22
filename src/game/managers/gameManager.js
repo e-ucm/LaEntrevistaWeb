@@ -26,7 +26,6 @@ export default class GameManager extends Singleton {
         this.N_REQUIRED_GAME_STAGES = 4;
         this.gameTitle = "LaEntrevistaWeb";
         this.startTime = null;
-
     }
 
     init() {

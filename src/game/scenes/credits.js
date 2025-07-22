@@ -100,13 +100,12 @@ export default class Credits extends LaEntrevistaBaseScene {
         let ARROW_POS_Y = 90;
         let returnButton = this.add.image(ARROW_POS_X, ARROW_POS_Y, "uiElements", "questionArrow").setOrigin(0.5, 0.5);
         returnButton.setFlipX(true);
-        growAnimation(returnButton, returnButton, () => {}, true, 1.1, true, 50);
         growAnimation(returnButton, returnButton, () => {
             this.gameManager.startMainMenu();
             // returnButton.setVisible(false);
             // video.setVisible(true);
             // video.play();
-        }, true, 1.1, true, 50);
+        }, true, false, 1.1, true, 50);
     }
 
 

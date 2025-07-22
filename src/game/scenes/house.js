@@ -17,7 +17,7 @@ export default class House extends LaEntrevistaBaseScene {
 
         this.namespace = "scenes\\house";
         this.nodes = this.cache.json.get("house");
-        this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "start");
+        this.node = this.localizationManager.readNodes(this, this.nodes, this.namespace, "start");
 
         this.BGS_X = 801;
         this.BGS_Y = 352;
@@ -43,7 +43,7 @@ export default class House extends LaEntrevistaBaseScene {
 
     onCreate() {
         setTimeout(() => {
-            this.dialogManager.setNode(this.node);
+            this.localizationManager.setNode(this.node);
         }, 500);
     }
 
@@ -112,9 +112,9 @@ export default class House extends LaEntrevistaBaseScene {
             // TRACKER EVENT
             this.trackerManager.sendSelectJobPosition("programming");
 
-            this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
-            this.dialogManager.setNode(this.node);
-        }, true, 1.1, true, 50);
+            this.node = this.localizationManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
+            this.localizationManager.setNode(this.node);
+        }, true, false, 1.1, true, 50);
 
         growAnimation(dataIcon, dataIcon, () => {
             this.gameManager.blackboard.set("position", "dataScience");
@@ -122,9 +122,9 @@ export default class House extends LaEntrevistaBaseScene {
             // TRACKER EVENT
             this.trackerManager.sendSelectJobPosition("dataScience");
 
-            this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
-            this.dialogManager.setNode(this.node);
-        }, true, 1.1, true, 50);
+            this.node = this.localizationManager.readNodes(this, this.nodes, this.namespace, "selectOffer");
+            this.localizationManager.setNode(this.node);
+        }, true, false, 1.1, true, 50);
 
         this.dispatcher.add("updateCV", this, () => {
             programmingIcon.off("pointerdown");
@@ -146,20 +146,19 @@ export default class House extends LaEntrevistaBaseScene {
 
         this.dispatcher.add("startSearch", this, () => {
             this.setInteractive(this.desktop);
+            
             this.desktop.on("pointerdown", () => {
-                if (this.dialogManager.currNode == null) {
-                    // TRACKER EVENT
-                    this.cvStage.initialize();
+                // TRACKER EVENT
+                this.cvStage.initialize();
 
-                    // TRACKER EVENT
-                    this.trackerManager.sendInteractGameObject("searchIcon");
+                // TRACKER EVENT
+                this.trackerManager.sendInteractGameObject("searchIcon");
 
+                this.node = this.localizationManager.readNodes(this, this.nodes, this.namespace, "search");
+                this.localizationManager.setNode(this.node, () => {
                     this.desktop.setVisible(false);
                     this.desktop.disableInteractive();
-
-                    this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "search");
-                    this.dialogManager.setNode(this.node);
-                }
+                });
             });
         });
 

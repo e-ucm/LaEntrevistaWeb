@@ -1,5 +1,4 @@
 import BaseUI from "../../framework/UI/baseUI.js";
-import DialogManager from "../managers/dialogManager.js";
 import TextArea from "../../framework/UI/textArea.js";
 import CV from "../UI/cv.js"
 import GameManager from "../managers/gameManager.js";
@@ -73,7 +72,6 @@ export default class UI extends BaseUI {
 
     create(params) {
         super.create(params);
-        this.dialogManager = DialogManager.getInstance();
         this.gameManager = GameManager.getInstance();
 
         this.cv = new CV(this);
@@ -94,7 +92,7 @@ export default class UI extends BaseUI {
         this.questionBgElements.add(this.questionText);
         this.questionBgElements.setVisible(false);
 
-        this.dispatcher.add(DefaultEventNames.endNodes, this, () => {
+        this.dispatcher.add(DefaultEventNames.endDialogNodes, this, () => {
             this.questionBgElements.activate(false);
         });
 
@@ -186,7 +184,8 @@ export default class UI extends BaseUI {
                 makeVisible(false, () => {
                     menuButton.setInteractive();
                     this.gameManager.startMainMenu();
-                })
+                    this.shutdown();
+                });
             }, "pauseButton", BUTTON_CONFIG.rectOriginX, BUTTON_CONFIG.rectOriginY, RADIUS_PERCENTAGE, BUTTON_CONFIG.fillColor, BUTTON_CONFIG.fillAlpha,
             BUTTON_CONFIG.borderThickness, BUTTON_CONFIG.borderColor, BUTTON_CONFIG.borderAlpha,
             BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textPadding, BUTTON_CONFIG.textPadding);
@@ -202,7 +201,8 @@ export default class UI extends BaseUI {
                 makeVisible(false, () => {
                     menuButton.setInteractive();
                     this.gameManager.startLanguageMenu();
-                })
+                    this.shutdown();
+                });
             }, "pauseButton", BUTTON_CONFIG.rectOriginX, BUTTON_CONFIG.rectOriginY, RADIUS_PERCENTAGE, BUTTON_CONFIG.fillColor, BUTTON_CONFIG.fillAlpha,
             BUTTON_CONFIG.borderThickness, BUTTON_CONFIG.borderColor, BUTTON_CONFIG.borderAlpha,
             BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textOrigin, BUTTON_CONFIG.textPadding, BUTTON_CONFIG.textPadding);

@@ -21,13 +21,13 @@ export default class Office extends LaEntrevistaBaseScene {
         this.nodes = this.cache.json.get("office");
         let namespace = "scenes\\office";
 
-        let node = this.dialogManager.readNodes(this, this.nodes, namespace, "");
+        let node = this.localizationManager.readNodes(this, this.nodes, namespace, "");
 
         let andresChar = new Character(this, 540, 710, 1, "Andres", this.characterConfig.speed, false, () => {
             // TRACKER EVENT
             this.officeStage.initialize();
 
-            this.dialogManager.setNode(node);
+            this.localizationManager.setNode(node);
         });
         andresChar.setOrigin(0.5, 0.5);
 
@@ -35,7 +35,7 @@ export default class Office extends LaEntrevistaBaseScene {
             // TRACKER EVENT
             this.officeStage.initialize();
 
-            this.dialogManager.setNode(node);
+            this.localizationManager.setNode(node);
         });
         luisaChar.setOrigin(0.5, 0.5);
 

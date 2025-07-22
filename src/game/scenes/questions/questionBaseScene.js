@@ -10,7 +10,7 @@ export default class QuestionBaseScene extends LaEntrevistaBaseScene {
 
         this.nodes = this.cache.json.get("questions");
         this.namespace = "scenes\\questions";
-        this.node = this.dialogManager.readNodes(this, this.nodes, this.namespace, "question" + params.number);
+        this.node = this.localizationManager.readNodes(this, this.nodes, this.namespace, "question" + params.number);
 
         this.dispatcher.add("endQuestion", this, () => {
             this.gameManager.startMirrorScene(params.fromMenu);
@@ -19,7 +19,7 @@ export default class QuestionBaseScene extends LaEntrevistaBaseScene {
 
     onCreate() {
         setTimeout(() => {
-            this.dialogManager.setNode(this.node);
+            this.localizationManager.setNode(this.node);
         }, 200);
     }
 }

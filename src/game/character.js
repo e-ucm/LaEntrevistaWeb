@@ -51,7 +51,7 @@ export default class Character extends Phaser.GameObjects.PathFollower {
         }
 
         // Se reproduce la animacion por defecto cuando termina una dialogo
-        this.scene.dispatcher.add(DefaultEventNames.endNodes, this, () => {
+        this.scene.dispatcher.add(DefaultEventNames.endDialogNodes, this, () => {
             if (this.dialogAnimationEnabled) {
                 this.playDefaultAnimation();
             }

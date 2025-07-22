@@ -20,7 +20,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
         this.nodes = this.cache.json.get("corridor");
         this.namespace = "scenes\\corridor";
 
-        let locationNode = this.dialogManager.readNodes(this, this.nodes, this.namespace, "locationInquiry");
+        let locationNode = this.localizationManager.readNodes(this, this.nodes, this.namespace, "locationInquiry");
 
         let signs = [
             {
@@ -68,7 +68,7 @@ export default class Corridor extends LaEntrevistaBaseScene {
         })
 
         setTimeout(() => {
-            this.dialogManager.setNode(locationNode);
+            this.localizationManager.setNode(locationNode);
 
             let cafeteria = this.add.zone(0, 0, 160, this.CANVAS_HEIGHT).setOrigin(0, 0);
             this.setInteractive(cafeteria);
@@ -97,12 +97,12 @@ export default class Corridor extends LaEntrevistaBaseScene {
         container.setPosition(x, y);
         this.setInteractive(container);
 
-        let node = this.dialogManager.readNodes(this, this.nodes, this.namespace, id);
+        let node = this.localizationManager.readNodes(this, this.nodes, this.namespace, id);
         container.on("pointerdown", () => {
             // TRACKER EVENT
             this.trackerManager.sendInteractGameObject(id);
 
-            this.dialogManager.setNode(node);
+            this.localizationManager.setNode(node);
         });
     }
 }
