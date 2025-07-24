@@ -155,7 +155,6 @@ export default class UI extends BaseUI {
                 }
                 else {
                     currentScene.scene.resume();
-                    this.questionBgElements.activate(false);
                 }
                 this.gameManager.ui.time.paused = visible;
                 if (onComplete != null && typeof onComplete === "function") {
@@ -184,6 +183,7 @@ export default class UI extends BaseUI {
                 pauseMenu.disable();
                 makeVisible(false, () => {
                     menuButton.setInteractive();
+                    this.questionBgElements.activate(false);
                     this.gameManager.startMainMenu();
                     this.shutdown();
                 });
@@ -200,7 +200,7 @@ export default class UI extends BaseUI {
                 exitButton.disableInteractive();
                 pauseMenu.disable();
                 makeVisible(false, () => {
-                    menuButton.setInteractive();
+                    exitButton.setInteractive();
                     this.gameManager.startLanguageMenu();
                     this.shutdown();
                 });
