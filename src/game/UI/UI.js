@@ -183,6 +183,7 @@ export default class UI extends BaseUI {
                 pauseMenu.disable();
                 makeVisible(false, () => {
                     menuButton.setInteractive();
+                    this.questionBgElements.activate(false);
                     this.gameManager.startMainMenu();
                     this.shutdown();
                 });
