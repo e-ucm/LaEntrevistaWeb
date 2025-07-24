@@ -74,14 +74,15 @@ export default class UI extends BaseUI {
         super.create(params);
         this.gameManager = GameManager.getInstance();
 
+        
         this.cv = new CV(this);
         this.cv.setDepth(10);
+
 
         let questionTextConfig = { ...this.textConfig };
         questionTextConfig.align = "center";
         questionTextConfig.strokeThickness = 5;
         questionTextConfig.stroke = "#000000";
-
 
         this.darkBg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000, 0.7).setOrigin(0, 0);
         this.questionText = new TextArea(this, this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.optionsQuestionTextConfig.wordWrap.width, this.CANVAS_HEIGHT / 2,
@@ -92,12 +93,21 @@ export default class UI extends BaseUI {
         this.questionBgElements.add(this.questionText);
         this.questionBgElements.setVisible(false);
 
+        
+        this.pauseMenu = this.createPauseMenu("scenes");
+        this.pauseMenu.setVisible(false);
+        this.pauseMenu.setDepth(this.cv.depth + 1);
+
+
         this.dispatcher.add(DefaultEventNames.endDialogNodes, this, () => {
             this.questionBgElements.activate(false);
         });
+    }
 
-        this.pauseMenu = this.createPauseMenu("scenes");
-        this.pauseMenu.setVisible(false);
+    shutdown() {
+        super.shutdown();
+        this.questionBgElements.activate(false);
+        this.cv.activate(false);
     }
 
     createPauseMenu(namespace) {
