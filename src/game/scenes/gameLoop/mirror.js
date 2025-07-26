@@ -1,10 +1,10 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
-import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
-import TextArea from "../../framework/UI/textArea.js";
-import AnimatedContainer from "../../framework/UI/animatedContainer.js";
-import ImageTextButton from "../../framework/UI/imageTextButton.js";
-import { growAnimation, tintAnimation } from "../../framework/utils/graphics.js";
+import AnimatedContainer from "../../../framework/UI/animatedContainer.js";
+import InteractiveContainer from "../../../framework/UI/interactiveContainer.js";
+import TextArea from "../../../framework/UI/textArea.js";
+import ImageTextButton from "../../../framework/UI/imageTextButton.js";
+import { growAnimation, tintAnimation } from "../../../framework/utils/graphics.js";
 
 export default class Mirror extends LaEntrevistaBaseScene {
     /**

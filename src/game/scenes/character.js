@@ -1,4 +1,4 @@
-import DefaultEventNames from "../framework/utils/eventNames.js";
+import DefaultEventNames from "../../framework/utils/eventNames.js";
 
 export default class Character extends Phaser.GameObjects.PathFollower {
     /**

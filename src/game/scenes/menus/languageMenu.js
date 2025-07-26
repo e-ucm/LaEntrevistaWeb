@@ -1,6 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-import Grid from "../../framework/UI/grid.js";
-import { growAnimation } from "../../framework/utils/graphics.js";
+import Grid from "../../../framework/UI/grid.js";
+import { growAnimation } from "../../../framework/utils/graphics.js";
 
 export default class LanguageMenu extends LaEntrevistaBaseScene {
     /**

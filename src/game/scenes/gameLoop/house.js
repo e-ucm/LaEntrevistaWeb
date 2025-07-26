@@ -1,7 +1,7 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-import TextArea from "../../framework/UI/textArea.js";
-import GameStage from "../gameStage.js";
-import { growAnimation } from "../../framework/utils/graphics.js";
+import TextArea from "../../../framework/UI/textArea.js";
+import GameStage from "../../gameStage.js";
+import { growAnimation } from "../../../framework/utils/graphics.js";
 
 export default class House extends LaEntrevistaBaseScene {
     /**

@@ -1,6 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
-import TextArea from "../../framework/UI/textArea.js";
+import TextArea from "../../../framework/UI/textArea.js";
 
 export default class waitingRoom extends LaEntrevistaBaseScene {
     /**

@@ -3,8 +3,8 @@ import Singleton from "../../framework/utils/singleton.js";
 import SceneManager from "../../framework/managers/sceneManager.js";
 import EventDispatcher from "../../framework/managers/eventDispatcher.js";
 import LocalizationManager from "../../framework/managers/localizationManager.js";
-import TrackerManager from "./trackerManager.js"
-import GameStage from "../gameStage.js"
+import TrackerManager from "./trackerManager.js";
+import GameStage from "../gameStage.js";
 
 export default class GameManager extends Singleton {
     constructor() {

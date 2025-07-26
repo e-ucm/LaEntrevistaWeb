@@ -1,9 +1,9 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-import AnimatedContainer from "../../framework/UI/animatedContainer.js";
-import InteractiveContainer from "../../framework/UI/interactiveContainer.js";
-import TextArea from "../../framework/UI/textArea.js";
-import RectTextButton from "../../framework/UI/rectTextButton.js";
-import { tintAnimation } from "../../framework/utils/graphics.js";
+import AnimatedContainer from "../../../framework/UI/animatedContainer.js";
+import InteractiveContainer from "../../../framework/UI/interactiveContainer.js";
+import TextArea from "../../../framework/UI/textArea.js";
+import RectTextButton from "../../../framework/UI/rectTextButton.js";
+import { tintAnimation } from "../../../framework/utils/graphics.js";
 
 export default class MainMenu extends LaEntrevistaBaseScene {
     /**

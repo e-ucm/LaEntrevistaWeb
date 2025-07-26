@@ -1,6 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
-import TextArea from "../../framework/UI/textArea.js";
-import { growAnimation } from "../../framework/utils/graphics.js";
+import TextArea from "../../../framework/UI/textArea.js";
+import { growAnimation } from "../../../framework/utils/graphics.js";
 
 export default class Credits extends LaEntrevistaBaseScene {
     /**

@@ -1,6 +1,6 @@
-import BaseScene from "../framework/scenes/baseScene.js"
-import GameManager from "./managers/gameManager.js";
-import TrackerManager from "./managers/trackerManager.js";
+import BaseScene from "../../framework/scenes/baseScene.js"
+import GameManager from "../managers/gameManager.js";
+import TrackerManager from "../managers/trackerManager.js";
 
 export default class LaEntrevistaBaseScene extends BaseScene {
     constructor(name) {

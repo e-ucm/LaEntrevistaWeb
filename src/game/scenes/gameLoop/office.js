@@ -1,6 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
-import GameStage from "../gameStage.js";
+import GameStage from "../../gameStage.js";
 
 export default class Office extends LaEntrevistaBaseScene {
     /**
