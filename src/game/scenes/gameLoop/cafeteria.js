@@ -59,7 +59,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             x: 1032,
             y: 506,
             scale: 0.62
-        }
+        };
         let jesusChar = new Character(this, jesusConfig.x, jesusConfig.y, jesusConfig.scale, "Jesus", this.characterConfig.speed, true, () => {
             this.localizationManager.setNode(menNode);
         });
@@ -68,7 +68,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
 
         this.dispatcher.addOnce("menLeave", this, () => {
             this.leaveRoom([jesusChar, pedroChar], exitPoint, 1.72);
-        })
+        });
 
 
         let womenNode = this.localizationManager.readNodes(this, nodes, namespace, "womenConversation");
@@ -77,14 +77,14 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let setWomenNode = () => {
             this.localizationManager.setNode(womenNode);
             this.disableAllInteraction();
-        }
+        };
 
         // Monica
         let monicaConfig = {
             x: 265,
             y: 640,
             scale: 0.87
-        }
+        };
         let monicaChar = new Character(this, monicaConfig.x, monicaConfig.y, monicaConfig.scale, "Monica", this.characterConfig.speed, true, () => {
             setWomenNode();
         });
@@ -95,7 +95,7 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             x: 440,
             y: 620,
             scale: 0.9
-        }
+        };
         let rebecaChar = new Character(this, rebecaConfig.x, rebecaConfig.y, rebecaConfig.scale, "Rebeca", this.characterConfig.speed, false, () => {
             setWomenNode();
         });
@@ -105,13 +105,13 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
         let carlosConfig = {
             target: new Phaser.Math.Vector2(640, 610),
             scale: 0.96
-        }
+        };
         let carlosChar = new Character(this, exitPoint.x, exitPoint.y, carlosConfig.scale, "Carlos", this.characterConfig.speed, false, null);
         carlosChar.setOrigin(0.5, 0.5);
         this.dispatcher.addOnce("trioLeave", this, () => {
             this.enableAllInteraction();
             this.leaveRoom([monicaChar, rebecaChar, carlosChar], exitPoint, 1.13);
-        })
+        });
 
 
         // Gestionar el fin de la conversacion entre Monica y Rebeca y la llegada de Carlos, 
@@ -122,14 +122,14 @@ export default class Cafeteria extends LaEntrevistaBaseScene {
             if (manArrive && this.blackboard.has(value) && this.blackboard.get(value)) {
                 this.localizationManager.setNode(trioNode);
             }
-        }
+        };
 
         this.dispatcher.addOnce("manArrive", this, () => {
             carlosChar.moveTowards(carlosConfig.target);
             carlosChar.once("targetReached", () => {
                 manArrive = true;
                 continueConversation();
-            })
+            });
         });
 
         this.dispatcher.addOnce("womenConversationEnded", this, () => {

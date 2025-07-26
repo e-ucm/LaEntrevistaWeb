@@ -83,35 +83,9 @@ export default class Character extends Phaser.GameObjects.PathFollower {
         this.playDefaultAnimation();
 
         this.on("destroy", () => {
-            this.scene.dispatcher.removeByObject(this);
+            this.removeEvents();
         });
     }
-
-    // preUpdate(time, deltaTime) {
-    //     super.preUpdate(time, deltaTime);
-
-    //     if (this.target != null) {
-    //         let step = this.speed * deltaTime;
-
-    //         // Calcula la nueva posicion moviendo hacia target con limite step
-    //         let newPos = moveTowards(this, this.target, step);
-
-    //         this.x = newPos.x;
-    //         this.y = newPos.y;
-
-    //         let dist = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
-    //         // Si esta suficientemente cerca del target, se para el movimiento
-    //         if (dist < 0.1) {
-    //             this.x = this.target.x;
-    //             this.y = this.target.y;
-    //             this.target = null;
-    //             this.scene.setInteractive(this);
-    //             this.playDefaultAnimation();
-    //             this.setDialogAnimations(true);
-    //             this.emit("targetReached");
-    //         }
-    //     }
-    // }
 
     /**
     * Reproduce la animacion del tipo dado si existe

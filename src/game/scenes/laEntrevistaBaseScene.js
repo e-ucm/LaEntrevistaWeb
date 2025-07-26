@@ -19,10 +19,6 @@ export default class LaEntrevistaBaseScene extends BaseScene {
             speed: 0.27,
         };
 
-        this.iconConfig = {
-            scale: 0.4
-        };
-
         this.SIGN_TEXT_CONFIG = {
             fontFamily: "lexend-variable",
             fontSize: 35,
