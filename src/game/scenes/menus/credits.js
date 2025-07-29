@@ -37,12 +37,12 @@ export default class Credits extends LaEntrevistaBaseScene {
         let names = this.cache.json.get("creditsNames");
 
         this.TEXT_MARGIN = 40;
-        let TEXT_SPACING = 13;
+        const TEXT_SPACING = 13;
 
-        let START_Y = 70;
-        let LIMIT_Y = 740;
-        // let LIMIT_Y = 600;
-        let MAX_HEIGHT = LIMIT_Y - START_Y - TEXT_SPACING;
+        const START_Y = 70;
+        const LIMIT_Y = 740;
+        // const LIMIT_Y = 600;
+        const MAX_HEIGHT = LIMIT_Y - START_Y - TEXT_SPACING;
 
 
         let y = START_Y;
@@ -96,8 +96,8 @@ export default class Credits extends LaEntrevistaBaseScene {
         //     this.gameManager.startMainMenu(false);
         // });
 
-        let ARROW_POS_X = 60;
-        let ARROW_POS_Y = 90;
+        const ARROW_POS_X = 60;
+        const ARROW_POS_Y = 90;
         let returnButton = this.add.image(ARROW_POS_X, ARROW_POS_Y, "uiElements", "questionArrow").setOrigin(0.5, 0.5);
         returnButton.setFlipX(true);
         growAnimation(returnButton, returnButton, () => {

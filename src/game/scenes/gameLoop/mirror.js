@@ -41,7 +41,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
             stroke: "#000",
             strokeThickness: 10
         }
-        let TEXT_PADDING = 50;
+        const TEXT_PADDING = 50;
         if (!params.fromMenu) {
             let transition = new InteractiveContainer(this, 0, 0);
             let transitionBg = this.add.image(0, 0, "30min").setOrigin(0, 0);
@@ -71,8 +71,8 @@ export default class Mirror extends LaEntrevistaBaseScene {
         }
 
 
-        let ANIM_TIME = 200;
-        let BLUR_STRENGTH = 2;
+        const ANIM_TIME = 200;
+        const BLUR_STRENGTH = 2;
         let blur = null;
         let questions = this.createQuestionButtons(params.fromMenu);
         questions.setVisible(false);
@@ -140,9 +140,9 @@ export default class Mirror extends LaEntrevistaBaseScene {
             stroke: "#000",
             strokeThickness: 10
         }
-        let TOP = 273;
-        let BOTTOM = 626;
-        let BUTTON_SPACING = 335
+        const TOP = 273;
+        const BOTTOM = 626;
+        const BUTTON_SPACING = 335
 
         let page1 = this.add.container(0, 0);
 

@@ -62,7 +62,7 @@ export default class UI extends BaseUI {
         }
 
         this.QUESTION_TEXT_DEFAULT_SIZE = 50;
-        let QUESTION_TEXT_MARGIN = 10;
+        const QUESTION_TEXT_MARGIN = 10;
         this.optionsQuestionTextConfig = { ...this.optionsTextConfig };
         this.optionsQuestionTextConfig.fontSize = this.QUESTION_TEXT_DEFAULT_SIZE;
         this.optionsQuestionTextConfig.wordWrap.width = this.CANVAS_WIDTH - QUESTION_TEXT_MARGIN * 2;
@@ -102,6 +102,10 @@ export default class UI extends BaseUI {
         this.dispatcher.add(DefaultEventNames.endDialogNodes, this, () => {
             this.questionBgElements.activate(false);
         });
+    }
+
+    onCreate() {
+        this.enablePauseMenu(true);
     }
 
     shutdown() {
@@ -166,7 +170,7 @@ export default class UI extends BaseUI {
                 else {
                     currentScene.scene.resume();
                 }
-                this.gameManager.ui.time.paused = visible;
+                this.time.paused = visible;
                 if (onComplete != null && typeof onComplete === "function") {
                     onComplete();
                 }

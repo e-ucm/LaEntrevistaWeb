@@ -75,18 +75,18 @@ export default class CV extends InteractiveContainer {
     }
 
     createAboutSection() {
-        let PAGE_MARGIN = 37;
-        let ABOUT_W = (this.sheet.displayWidth / 2) - PAGE_MARGIN * 2;
-        let ABOUT_H = this.INFO_TEXT_CONFIG.fontSize * 1.5;
+        const PAGE_MARGIN = 37;
+        const ABOUT_W = (this.sheet.displayWidth / 2) - PAGE_MARGIN * 2;
+        const ABOUT_H = this.INFO_TEXT_CONFIG.fontSize * 1.5;
 
-        let ABOUT_TITLES_CONFIG = { ...this.TITLES_TEXT_CONFIG };
+        const ABOUT_TITLES_CONFIG = { ...this.TITLES_TEXT_CONFIG };
         ABOUT_TITLES_CONFIG.align = "left";
 
-        let ABOUT_TEXT_CONFIG = { ...this.INFO_TEXT_CONFIG };
+        const ABOUT_TEXT_CONFIG = { ...this.INFO_TEXT_CONFIG };
         ABOUT_TEXT_CONFIG.fontSize = 20;
 
-        let TOP_Y = 120;
-        let TITLE_SPACING = 90;
+        const TOP_Y = 120;
+        const TITLE_SPACING = 90;
         let x = this.sheet.x - this.sheet.displayWidth / 2 + PAGE_MARGIN * 1.5;
         let x2 = x + ABOUT_H;
         let y = TOP_Y;
@@ -189,17 +189,17 @@ export default class CV extends InteractiveContainer {
     }
 
     createDataSection() {
-        let DATA_TITLES_X = 621;
-        let DATA_TITLES_W = 291;
-        let DATA_TITLES_H = 93;
+        const DATA_TITLES_X = 621;
+        const DATA_TITLES_W = 291;
+        const DATA_TITLES_H = 93;
 
-        let DATA_DESCRIPTIONS_PADDING_X = 10;
-        let DATA_DESCRIPTIONS_PADDING_Y = 10;
-        let DATA_DESCRIPTIONS_X = 964;
-        let DATA_DESCRIPTIONS_W = 394 - DATA_DESCRIPTIONS_PADDING_X * 2;
-        let DATA_DESCRIPTIONS_H = DATA_TITLES_H - DATA_DESCRIPTIONS_PADDING_Y * 2;
+        const DATA_DESCRIPTIONS_PADDING_X = 10;
+        const DATA_DESCRIPTIONS_PADDING_Y = 10;
+        const DATA_DESCRIPTIONS_X = 964;
+        const DATA_DESCRIPTIONS_W = 394 - DATA_DESCRIPTIONS_PADDING_X * 2;
+        const DATA_DESCRIPTIONS_H = DATA_TITLES_H - DATA_DESCRIPTIONS_PADDING_Y * 2;
 
-        let DESCRIPTION_TEXT_CONFIG = { ...this.INFO_TEXT_CONFIG };
+        const DESCRIPTION_TEXT_CONFIG = { ...this.INFO_TEXT_CONFIG };
         DESCRIPTION_TEXT_CONFIG.wordWrap = {
             width: DATA_DESCRIPTIONS_W,
             useAdvancedWrap: true
