@@ -1,6 +1,7 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 import TextArea from "../../../framework/UI/textArea.js";
+import { fadeAnimation } from "../../../framework/utils/graphics.js";
 
 export default class waitingRoom extends LaEntrevistaBaseScene {
     /**
@@ -51,7 +52,7 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
 
 
         this.dispatcher.add("allPeopleInteracted", this, () => {
-            doorArrow.setVisible(true);
+            fadeAnimation(doorArrow, true, 200);
             this.tweens.add({
                 targets: [doorArrow],
                 scale: { from: arrowScale, to: arrowScale * 1.2 },
@@ -61,16 +62,8 @@ export default class waitingRoom extends LaEntrevistaBaseScene {
             });
 
             door.on("pointerdown", () => {
-                let anim = this.tweens.add({
-                    targets: [corridorArrow, doorArrow],
-                    alpha: { from: 1, to: 0 },
-                    duration: 200,
-                    repeat: 0
-                });
-                anim.on("complete", () => {
-                    corridorArrow.setVisible(false);
-                    doorArrow.setVisible(false);
-                });
+                fadeAnimation([corridorArrow, doorArrow], false, 200);
+
                 // TRACKER EVENT
                 this.trackerManager.sendInteractHRDoor("open");
 

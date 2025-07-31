@@ -1,5 +1,6 @@
 import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
+import { fadeAnimation } from "../../../framework/utils/graphics.js";
 
 export default class Hall extends LaEntrevistaBaseScene {
     /**
@@ -53,13 +54,8 @@ export default class Hall extends LaEntrevistaBaseScene {
 
             let arrowScale = 0.6;
             let arrow = this.add.image(1383, 699, "uiElements", "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
-
-            this.tweens.add({
-                targets: arrow,
-                alpha: { from: 0, to: 1 },
-                duration: 200,
-                repeat: 0
-            });
+            arrow.setVisible(false);
+            fadeAnimation([arrow], true, 200);
 
             this.tweens.add({
                 targets: arrow,

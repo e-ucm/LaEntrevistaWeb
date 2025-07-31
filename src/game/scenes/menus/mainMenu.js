@@ -3,7 +3,7 @@ import AnimatedContainer from "../../../framework/UI/animatedContainer.js";
 import InteractiveContainer from "../../../framework/UI/interactiveContainer.js";
 import TextArea from "../../../framework/UI/textArea.js";
 import RectTextButton from "../../../framework/UI/rectTextButton.js";
-import { tintAnimation } from "../../../framework/utils/graphics.js";
+import { fadeAnimation, tintAnimation } from "../../../framework/utils/graphics.js";
 
 export default class MainMenu extends LaEntrevistaBaseScene {
     /**
@@ -78,14 +78,8 @@ export default class MainMenu extends LaEntrevistaBaseScene {
         playButton.on("pointerdown", () => {
             if (!this.gameManager.sceneManager.fading) {
                 this.makeInactive();
-
-                let anim = this.tweens.add({
-                    targets: blankScreen,
-                    alpha: { from: 1, to: 0 },
-                    duration: 200,
-                    repeat: 0,
-                });
-
+                
+                let anim = fadeAnimation(blankScreen, false, 200);
                 anim.on("complete", () => {
                     setTimeout(() => {
                         this.gameManager.startGame();

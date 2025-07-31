@@ -4,7 +4,7 @@ import AnimatedContainer from "../../../framework/UI/animatedContainer.js";
 import InteractiveContainer from "../../../framework/UI/interactiveContainer.js";
 import TextArea from "../../../framework/UI/textArea.js";
 import ImageTextButton from "../../../framework/UI/imageTextButton.js";
-import { growAnimation, tintAnimation } from "../../../framework/utils/graphics.js";
+import { fadeAnimation, growAnimation, tintAnimation } from "../../../framework/utils/graphics.js";
 
 export default class Mirror extends LaEntrevistaBaseScene {
     /**
@@ -88,13 +88,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
                 repeat: 0
             });
 
-            questions.setVisible(true);
-            this.tweens.add({
-                targets: questions,
-                alpha: { from: 0, to: 1 },
-                duration: ANIM_TIME,
-                repeat: 0
-            });
+            fadeAnimation(questions, transitionTextConfig, ANIM_TIME);
         });
 
         this.dispatcher.add("allQuestionsComplete", this, () => {
@@ -104,12 +98,7 @@ export default class Mirror extends LaEntrevistaBaseScene {
                 duration: ANIM_TIME,
                 repeat: 0
             });
-            this.tweens.add({
-                targets: questions,
-                alpha: { from: 1, to: 0 },
-                duration: ANIM_TIME,
-                repeat: 0
-            });
+            fadeAnimation(questions, false, ANIM_TIME);
 
             anim.on("complete", () => {
                 setTimeout(() => {

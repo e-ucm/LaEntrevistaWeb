@@ -2,6 +2,7 @@ import LaEntrevistaBaseScene from "../laEntrevistaBaseScene.js";
 import Character from "../character.js";
 import TextArea from "../../../framework/UI/textArea.js";
 import InteractiveContainer from "../../../framework/UI/interactiveContainer.js";
+import { fadeAnimation } from "../../../framework/utils/graphics.js";
 
 export default class Corridor extends LaEntrevistaBaseScene {
     /**
@@ -51,12 +52,9 @@ export default class Corridor extends LaEntrevistaBaseScene {
             let waitingRoomArrow = this.add.image(946, 658, "uiElements", "frontArrow").setOrigin(0.5, 0.5).setScale(arrowScale);
             let cafeteriaArrow = this.add.image(100, 540, "uiElements", "sideArrow").setOrigin(0.5, 0.5).setScale(arrowScale).setAngle(-90);
 
-            this.tweens.add({
-                targets: [waitingRoomArrow, cafeteriaArrow],
-                alpha: { from: 0, to: 1 },
-                duration: 200,
-                repeat: 0
-            });
+            waitingRoomArrow.setVisible(false);
+            cafeteriaArrow.setVisible(false);
+            fadeAnimation([waitingRoomArrow, cafeteriaArrow], true, 200);
 
             this.tweens.add({
                 targets: [waitingRoomArrow, cafeteriaArrow],
