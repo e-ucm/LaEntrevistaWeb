@@ -31,8 +31,6 @@ export default class GameManager extends Singleton {
     init() {
         LocalizationManager.getInstance().subscribeBlackboard(this.blackboard);
 
-        // Hay que setearlo antes del menu para poder visualizar las preguntas desde el mismo correctamente
-        this.blackboard.set("position", "dataScience");
         this.startLanguageMenu();
 
         // TEST
@@ -41,12 +39,10 @@ export default class GameManager extends Singleton {
     }
 
     startLanguageMenu() {
-        this.resetGame();
         this.sceneManager.changeScene("LanguageMenu", null, false);
     }
 
     startMainMenu(fadeAnim = true) {
-        this.resetGame();
         this.sceneManager.changeScene("MainMenu", null, fadeAnim);
     }
 
@@ -55,12 +51,15 @@ export default class GameManager extends Singleton {
         this.dispatcher.removeAll();
 
         this.sceneManager.clearParallelScenes();
+
+        this.blackboard.set("position", "dataScience");
+
+        this.sceneManager.runInParallel("UI");
+        this.ui = this.sceneManager.getScene("UI");
     }
 
     startGame() {
         this.resetGame();
-        this.sceneManager.runInParallel("UI");
-        this.ui = this.sceneManager.getScene("UI");
 
         // TRACKER EVENT
         this.trackerManager.sendInitializeGame();
@@ -110,6 +109,7 @@ export default class GameManager extends Singleton {
     startMirrorScene(fromMenu) {
         if (fromMenu) {
             this.questionsStage.reset();
+            this.resetGame();
         }
 
         this.sceneManager.changeScene("Mirror", { fromMenu: fromMenu }, true, false);
