@@ -106,7 +106,7 @@ export default class GameManager extends Singleton {
         this.sceneManager.changeScene("Office", null, true, true);
     }
 
-    startMirrorScene(fromMenu) {
+    async startMirrorScene(fromMenu) {
         if (fromMenu) {
             this.questionsStage.reset();
             this.resetGame();
@@ -125,8 +125,8 @@ export default class GameManager extends Singleton {
                 this.ui.enablePauseMenu(false);
 
                 // TRACKER EVENT
-                this.gameManager.progressGame();
-                this.trackerManager.sendCompleteGame(true);
+                await this.progressGame();
+                await this.trackerManager.sendCompleteGame(true);
             }
         }
     }
